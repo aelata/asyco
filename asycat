@@ -1,0 +1,309 @@
+#!/bin/bash
+
+# asycat - generate Markdown with Asymptote/MetaPost code and figures
+VERSION="\
+asycat version 0.8.0
+
+(c) 2025-2026 aelata
+This software is licensed under the MIT No Attribution (MIT-0) License.
+https://opensource.org/license/mit-0
+"
+
+v0=${BASH_VERSINFO[0]} v1=${BASH_VERSINFO[1]}
+(( (5 == v0 && 2 <= v1) || 5 < v0 )) && shopt -u patsub_replacement
+(( 4 <= v0 )) && shopt -s compat32 # macOS uses bash 3.2
+
+# quit - write a message $1 to the standard error and exit with the status $2
+quit() { echo "$1" >&2; exit "${2:-1}"; }
+
+# warn - write a warning message $1 with the heading $2 to the standard error
+warn() { echo "${2-WARNING: }$1" >&2; }
+
+# rep - repeat a string ($1) n ($2) times
+rep() { [[ 0 -lt "${2-1}" ]] && eval 'printf "%.0s${1//%/%%}"' "{1..$2}"; }
+
+# ncat - print files that may not have '\n' at the end of file
+ncat() { # $@: filenames
+  while (( $# )); do
+    [[ -s "$1" ]] || continue # skip if the file is empty or not found
+    while IFS= read -r || [[ -n $REPLY ]]; do echo "$REPLY"; done <"$1"
+    shift
+  done
+}
+
+# array_append_str - append each word in a string to an array
+array_append_str() { # $1: array name (global), $2: string
+  [[ -n "$2" ]] || return # skip if the string is empty
+  while IFS= read -r; do
+    eval "$1"'+=("$REPLY")'
+  done < <(xargs printf "%s\n" <<<"$2") # xargs to handle quote
+}
+
+# array_append_glob - append filenames that match patterns to an array
+#   spaces in patterns must be quoted in advance, such as "'a 1'_*.*"
+array_append_glob() { # $1: array name (global), ${*:2}: glob patterns
+  [[ -n "${*:2}" ]] || return # skip if the pattern is empty
+  while IFS= read -r; do
+    [[ -f $REPLY ]] && eval "$1"'+=("$REPLY")'
+  done < <(eval 'printf "%s\n"' "${*:2}" | sort -uV) # unique and version sort
+}
+
+# html_echo - echo one line ($*) with HTML escaping
+#   assume "shopt -u patsub_replacement" in bash 5.2 or later
+html_echo() {
+  local s
+  s=${*//&/'&amp;'} s=${s//$'\x22'/'&quot;'} s=${s//</'&lt;'} s=${s//>/'&gt;'}
+  echo "$s"
+}
+
+SCRIPT0=${BASH_SOURCE:-$0}
+SCRIPT=$(basename "$SCRIPT0")
+[[ ${!#} != *.mp ]] && CMD=asyco || CMD=mepoco # temporary setting
+
+set_ini_opts() {
+  flg_break=false      # -B
+  flg_number=false     # -N
+  arg_pos=E            # -P {N|S|E|W|F}
+  flg_wrap=false       # -W
+  arg_width="30%"      # --fig-width=WIDTH
+  flg_fixed=false      # --fixed-layout
+  arg_level=3          # --heading=LEVEL
+  arg_id_prefix="fig-" # --id-prefix=PREFIX
+  flg_no_alt=false     # --no-alt
+  flg_no_cd=false      # --no-cd
+}
+
+set_ini_opts
+
+USAGE="\
+$SCRIPT - generate Markdown with Asymptote/MetaPost code and figures
+
+Usage: $SCRIPT [options] [--] file ... > output.md
+
+Options:
+  -h, --help         Show this message and exit
+  -B                 Add a page break after each file for printing
+  -N                 Show line numbers (not compatible with -W)
+  -P {N|S|E|W|F}     Set the figure position; North|South|East|West|Full [$arg_pos]
+  -W                 Wrap code (not compatible with -N)
+  --fig-width=WIDTH  Set the width of figures (for -P E or -P W) [$arg_width]
+  --fixed-layout     Set \"fixed\" to \"table-layout\" (for -P E or -P W)
+  --heading=LEVEL    Set the heading level [$arg_level]
+  --id-prefix=PREFIX Set the id prefix of code chunks (for -P W)  [$arg_id_prefix]
+  --lang-asy-as=LANG Set the syntax highlighting language for *.asy [\"cpp\"]
+  --lang-mp-as=LANG  Set the syntax highlighting language for *.mp [\"metafont\"]
+  --no-alt           Do not set filenames as alternative text
+  --no-cd            Do not change directory for each file
+  --version          Show version information and exit
+  --                 Option-end delimiter
+
+  Other options are passed to 'asyco' or 'mepoco'
+"
+USAGE="${USAGE::${#USAGE}-1}"
+
+parse_args() { # parse script arguments ($@)
+  # Unusual options (valid only as the first argument)
+  [[ $1 == "-h" || $1 == "--help" || $# == 0 ]] &&
+    quit "$USAGE" 0
+  [[ $1 == "--version" ]] && quit "$VERSION" 0 # "-v" is reserved for "asy"
+
+  # determine options and files ("head" and "files") from arguments
+  for (( k = 1; k <= $#; k++ )); do # scan option-end delimiter "--"
+    [[ ${!k} == "--" ]] && break
+  done
+  if (( k <= $# )); then # argument is delimited by "--"
+    head=("${@:1:$k-1}")
+  else # scan existing files backward except the last
+    for (( k = $# - 1; k > 0; k-- )); do
+      [[ -f ${!k} && ${!k} =~ [.](asy|mp)$ ]] || break
+    done
+    head=("${@:1:$k}")
+  fi
+
+  files=()
+  for v in "${@:k+1}"; do
+    if   [[ -f $v ]]; then
+      files+=("$v")
+    elif [[ -d $v ]]; then
+      array_append_glob files "'$v'/*.{asy,mp}"
+    else
+      quit "$SCRIPT: not found: $v"
+    fi
+  done
+  (( ${#files[@]} )) || quit "$SCRIPT: no file specified"
+}
+
+parse_opts() {
+  # Usual options (with asyco / mepoco options)
+  arg_prev=""
+  for v in "${head[@]}"; do
+    if [[ $arg_prev == "" ]]; then
+      case $v in
+      -P | --alt | --fig-width | --heading | --id-prefix | \
+       --lang-asy-as | --lang-mp-as)
+        arg_prev=$v ;;
+      -cd | --cd) arg_prev="-cd" ;;
+      -B) flg_break=true ;;
+      -N) flg_number=true flg_wrap=false ;;
+      -W) flg_wrap=true flg_number=false ;;
+      --alt=*) flg_no_alt=true opts+=("$v") ;;
+      --cd=*) # shoud accept -cd=* ??
+        flg_no_cd=true
+        [[ ${v#--cd=} != "." ]] && opts+=("$v")
+        ;;
+      --fig-width=*) arg_width=${v#*=} ;;
+      --fixed-layout) flg_fixed=true ;;
+      --heading=*) arg_level=${v#*=} ;;
+      --id-prefix=*) arg_id_prefix=${v#*=} ;;
+      --lang-asy-as=*) [[ $CMD != mepoco ]] && AS=${v#*=} ;;
+      --lang-mp-as=*) [[ $CMD == mepoco ]] && AS=${v#*=} ;;
+      --no-alt) flg_no_alt=true ;;
+      --no-cd) flg_no_cd=true ;;
+      *) opts+=("$v")
+      esac
+    else
+      case $arg_prev in
+      -P) arg_pos=$v ;;
+      -cd)
+        flg_no_cd=true
+        [[ $v != "." ]] && opts+=("$arg_prev" "$v")
+        ;;
+      --alt) flg_no_alt=true opts+=("$arg_prev" "$v") ;;
+      --fig-width) arg_width=$v ;;
+      --heading) arg_level=$v ;;
+      --id-prefix) arg_id_prefix=$v ;;
+      --lang-asy-as) [[ $CMD != mepoco ]] && AS=$v ;;
+      --lang-mp-as) [[ $CMD == mepoco ]] && AS=$v ;;
+      esac
+      arg_prev=""
+    fi
+  done
+  [[ $arg_prev == "" ]] || quit "$SCRIPT: missing argument for '$arg_prev'"
+
+  case $arg_pos in
+  [Nn] | [Nn]orth | NORTH | [Tt] | [Tt]op | TOP) arg_pos=N ;;
+  [Ss] | [Ss]outh | SOUTH | [Bb] | [Bb]ottom | BOTTOM) arg_pos=S ;;
+  [Ee] | [Ee]ast | EAST | [Rr] | [Rr]ight | RIGHT) arg_pos=E ;;
+  [Ww] | [Ww]est | WEST | [Ll] | [Ll]eft | LEFT) arg_pos=W ;;
+  [Ff] | [Ff]ull | FULL) arg_pos=F ;;
+  *) quit "$SCRIPT: unknown position: $arg_pos"
+  esac
+  [[ $arg_pos == E || $arg_pos == W ]] && opts=("-A" "N" "${opts[@]}")
+  [[ $flg_number == false ]] && lnum="" || lnum=".line-numbers"
+  (( -6 <= arg_level && arg_level <= 6 )) ||
+    quit "$SCRIPT: unsupported heading level: $arg_level"
+  if [[ $arg_pos == W ]]; then
+    [[ $arg_id_prefix =~ ^[[:alpha:]][[:alnum:]_-]*$ ]] ||
+      quit "$SCRIPT: invalid id prefix: $arg_id_prefix"
+  fi
+  arg_width=$(html_echo "$arg_width")
+}
+
+# put_code_fig - put code, and then put a figure to the south or north of code
+put_code_fig() { # $1: file, $2: code chunk option
+  echo '```'"$AS {cmd=env args=[\"$CMD\"$args] $lnum output=html $2}"
+  ncat "$1"
+  echo '```'
+}
+
+# put_code - put code (figure to east or west)
+put_code() { # $1: file, $2: id
+  echo \
+'```'"$AS {cmd=env args=[\"$CMD\", \"-n\"] $lnum output=none ${2+id=$2}}"
+  ncat "$1"
+  echo '```'
+}
+
+# put_fig - put a figure to the east or west of code
+put_fig() { # $1: id
+  local RCC="$CCHAR \"Run Code Chunk\" (Shift + Enter) here."
+  echo \
+'```'"$AS {cmd=env args=[\"$CMD\"$args] output=html .hide continue${1+=$1}}"
+  echo "$RCC"
+  echo '```'
+}
+
+_asycat() { # $@: files
+  s="" o=${head[*]}
+  [[ -n $ASYCAT_ASY_OPTS ]] && s+="ASYCAT_ASY_OPTS=\"$ASYCAT_ASY_OPTS\" "
+  [[ -n $ASYCAT_MP_OPTS ]] && s+="ASYCAT_MP_OPTS=\"$ASYCAT_MP_OPTS\" "
+  s+="$SCRIPT ${o:+$o }..."
+  echo "<!-- This code was generated by '$s'. -->"
+  echo "<style> .hide { display: none; } </style>"$'\n'
+  for (( k = 1; k <= $#; k++ )) ; do
+    f=${!k} # k-th filename
+    if [[ $(basename "$f") == .* ]]; then
+      warn "$SCRIPT: skip dot file: $f"
+      continue
+    fi
+    opts=()
+    if [[ $f != *.mp ]]; then # asy
+      CMD=asyco AS=cpp CCHAR="//"
+      array_append_str opts "$ASYCAT_ASY_OPTS" # from env. var.
+    else # mp
+      CMD=mepoco AS=metafont CCHAR="%"
+      array_append_str opts "$ASYCAT_MP_OPTS" # from env. var.
+    fi
+    set_ini_opts
+    parse_opts
+    if [[ $k == 1 ]]; then # run only once
+      [[ $flg_wrap != false ]] &&
+        echo '<style> code {white-space: pre-wrap !important;} </style>'$'\n'
+      dsty="break-inside:avoid-page;"
+      [[ $flg_break != false ]] && dsty+="break-after:page;"
+      HEADING=$(rep "#" "${arg_level#-}")
+      if [[ $arg_pos == E || $arg_pos == W ]]; then # horizontal layout
+        tsty="display:table;break-inside:avoid-page;"
+        [[ $flg_fixed != false ]] && tsty+="table-layout:fixed;"
+        TDL="<td style='border:none;vertical-align:top;"
+        TDRC="' class='asycat-td-code'>"$'\n'
+        TDRF="width:$arg_width;' class='asycat-td-fig'>"$'\n'
+      fi
+    fi
+
+    echo "<div class='asycat-block' style='$dsty'>"$'\n'
+    (( 0 < arg_level )) && echo "$HEADING $f"
+    (( arg_level < 0 )) && echo "$HEADING ${f##*/}"
+
+    o=("${opts[@]}")
+    s=$(dirname "$f")
+    [[ $flg_no_cd == false && $s != "." ]] && o+=("--cd=$s")
+    [[ $flg_no_alt == false ]] && s=${f##*/} s=${s%.*} o+=("--alt=$s")
+    (( ${#o[@]} )) && # args is used in put_code_fig and put_fig
+      args=$(printf ', "%s"' "${o[@]}") || args=""
+
+    case $arg_pos in
+    N) put_code_fig "$f" output_first ;;
+    S) put_code_fig "$f" ;;
+    E)
+      echo "<table class='asycat-table' style='$tsty'><tr>"
+      echo "$TDL$TDRC"
+      put_code "$f"
+      echo "</td>$TDL$TDRF"
+      put_fig
+      echo "</td></tr></table>"
+      ;;
+    W)
+      id="$arg_id_prefix$k"
+      echo "<table class='asycat-table' style='$tsty'><tr>"
+      echo "$TDL$TDRF"
+      put_fig "$id"
+      echo "</td>$TDL$TDRC"
+      put_code "$f" "$id"
+      echo "</td></tr></table>"
+      ;;
+    F)
+      put_code_fig "$f" .hide
+      ;;
+    esac
+    echo "</div>"$'\n'
+  done
+}
+
+main() { # $@: arguments to script
+  parse_args "$@" # set files
+  _asycat "${files[@]}"
+  return 0
+}
+
+[[ ${BASH_SOURCE[0]} != "$0" ]] || main "$@" # skip if sourced (return 0)

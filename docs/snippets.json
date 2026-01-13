@@ -1,0 +1,20 @@
+{
+    "asy": {
+        "prefix": "```asy ",
+        "body": [
+            "```asy {cmd=env args=[asyco] output=html}",
+            "$0",
+            "```",
+        ],
+        "description": "Asymptote code chunk"
+    },
+    "mp": {
+        "prefix": "```mp ",
+        "body": [
+            "```mp {cmd=env args=[mepoco] output=html}",
+            "$0",
+            "```",
+        ],
+        "description": "MetaPost code chunk"
+    },
+}

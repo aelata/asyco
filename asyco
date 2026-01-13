@@ -1,0 +1,542 @@
+#!/bin/bash
+
+# asyco - write a graphics output file from 'asy' to the character output
+VERSION="\
+asyco version 0.8.0
+
+(c) 2025-2026 aelata
+This software is licensed under the MIT No Attribution (MIT-0) License.
+https://opensource.org/license/mit-0
+"
+
+v0=${BASH_VERSINFO[0]} v1=${BASH_VERSINFO[1]}
+(( (5 == v0 && 2 <= v1) || 5 < v0 )) && shopt -u patsub_replacement
+(( 4 <= v0 )) && shopt -s compat32 # macOS uses bash 3.2
+
+[[ $OSTYPE =~ ^(msys|cygwin) ]] && flg_windows=true || flg_windows=false
+[[ $flg_windows == true ]] && export PATH="/usr/bin:$PATH" # for "sort"
+
+# quit - write a message $1 to the standard error and exit with the status $2
+quit() { echo "$1" >&2; exit "${2:-1}"; }
+
+# ncat - print files that may not have '\n' at the end of file
+ncat() { # $@: filenames
+  while (( $# )); do
+    [[ -s "$1" ]] || continue # skip if the file is empty or not found
+    while IFS= read -r || [[ -n $REPLY ]]; do echo "$REPLY"; done <"$1"
+    shift
+  done
+}
+
+# array_append_file - append each line in a text file to an array
+array_append_file() { # $1: array name (global), $2: filename
+  [[ -s "$2" ]] || return # skip if the file is empty or not found
+  while IFS= read -r || [[ -n $REPLY ]];
+    do eval "$1"'+=("$REPLY")'
+  done <"$2"
+}
+
+# array_append_str - append each word in a string to an array
+array_append_str() { # $1: array name (global), $2: string
+  [[ -n "$2" ]] || return # skip if the string is empty
+  while IFS= read -r; do
+    eval "$1"'+=("$REPLY")'
+  done < <(xargs printf "%s\n" <<<"$2") # use xargs to handle quote
+}
+
+# array_append_glob - append filenames that match patterns to an array
+#   spaces in patterns must be quoted in advance, such as "'a 1'_*.*"
+array_append_glob() { # $1: array name (global), ${*:2}: glob patterns
+  [[ -n "${*:2}" ]] || return # skip if the pattern is empty
+  while IFS= read -r; do
+    [[ -f $REPLY ]] && eval "$1"'+=("$REPLY")'
+  done < <(eval 'printf "%s\n"' "${*:2}" | sort -uV) # unique and version sort
+}
+
+# html_echo - echo one line ($*) with HTML escaping
+#   assume "shopt -u patsub_replacement" in bash 5.2 or later
+html_echo() {
+  local s
+  s=${*//&/'&amp;'} s=${s//$'\x22'/'&quot;'} s=${s//</'&lt;'} s=${s//>/'&gt;'}
+  echo "$s"
+}
+
+# html_echoln - echo lines ($@) with HTML escaping
+html_echoln() { while (( $# )); do html_echo "$1"; shift; done }
+
+SCRIPT0=${BASH_SOURCE:-$0}
+SCRIPT=$(basename "$SCRIPT0")
+CMDLINE="$SCRIPT ${*:1:$#-1} ..."
+
+# set EXT by script name
+case ${SCRIPT%%.*} in # delete the first "." and anything after it
+asyco) EXT=asy ;;
+mepoco) EXT=mp ;;
+*) quit "$SCRIPT0: unknown script name: $SCRIPT"
+esac
+# override EXT by the extension of the last argument (not for code chunk)
+[[ ${!#} =~ [.](asy|mp)$ ]] && EXT=${BASH_REMATCH[1]}
+
+[[ $EXT != mp ]] && CMD=asy || CMD=mpost
+
+arg_fmt=svg          # -f {svg|png}
+arg_prefix="."       # -o PREFIX
+flg_prefix=false     #   keep output file
+arg_align=C          # -A {L|C|R|N}
+flg_keep=false       # -K
+arg_margin=0         # -M MARGIN
+arg_cd="."           # -cd DIR
+arg_alt=""           # --alt=TEXT
+arg_clip_prefix=""   # --clip-prefix=PREFIX
+arg_cmd=$CMD         # --cmd=PATH
+flg_dothide=false    # --dothide
+flg_no_text=false    # --no-text
+flg_silent=false     # --silent
+flg_remote=false     # --remote # asy
+arg_server=asymptote.ualberta.ca:10007 # --server=ADDR # asy
+# arg_server=${ASYCO_ASY_SERVER:-asymptote.ualberta.ca:10007}
+flg_figwrap=false    # -F # mp
+[[ $EXT != mp ]] && arg_zoom=1x || arg_zoom=1 # --img-zoom=ZOOM
+# [[ $EXT != mp ]] && arg_zoom=${ASYCO_ZOOM:-1x} || arg_zoom=${MEPOCO_ZOOM:-1}
+
+usage() {
+  [[ $EXT != mp ]] && d="directory/" f="" || d="" f="(only valid with -F) "
+  cat <<END >&2
+$SCRIPT - write a graphics output file from '$CMD' to the character output
+
+Usage: $SCRIPT [options] file
+
+Options:
+  -f {svg|png}    Set output format [$arg_fmt]
+  -h, --help      Show this message and exit
+  -n              Do nothing and exit immediately
+  -o PREFIX       Set the output ${d}file prefix and save the output file
+  -A {L|C|R|N}    Set horizontal alignment; Left|Center|Right|No [$arg_align]
+  -K              Keep intermediate files
+  -M MARGIN       Add a margin ${f}[$arg_margin]
+  --alt=TEXT      Set alternative text
+  --cd=DIR        Set the current directory
+  --clip-prefix=PREFIX
+                  Set the ID prefix of clipPath ["$arg_clip_prefix"]
+  --cmd=PATH      Set the path of '$CMD'
+  --dothide       Define the "hide" class
+  --img-zoom=ZOOM Set the display magnification of the output image [$arg_zoom]
+  --no-text       Do not show the text output of '$CMD'
+END
+
+  if [[ $EXT != mp ]]; then # asy
+    cat <<END >&2
+  --remote        Use the Asymptote http server
+  --server=SERVER Set server address [$arg_server]
+  --silent        Suppress '$CMD' warnings
+  --version       Show version information and exit
+
+  Other options are passed to '$CMD'
+  Default options by ASYCO_OPTS ["$ASYCO_OPTS"]
+END
+  else # mp
+    cat <<END >&2
+  --silent        Suppress figure numbers in text output
+  --version       Show version information and exit
+  -F              Add "beginfig(0);" and "endfig;"
+  -U              Use 'upmpost' and 'uplatex' for Unicode labels
+
+  Other options are passed to '$CMD'
+  Default options by MEPOCO_OPTS ["$MEPOCO_OPTS"]
+END
+  fi
+  exit 0
+}
+
+parse_args() { # parse script arguments ($@)
+  [[ $EXT != mp ]] && o=$ASYCO_OPTS || o=$MEPOCO_OPTS
+  args=() && array_append_str args "$o" # from environment variable
+  (( 1 < $# )) && args+=("${@:1:$#-1}") # from command line (except the last)
+
+  # Unusual options (valid only as the first argument)
+  [[ $1 == "-h" || $1 == "--help" || $# == 0 ]] && usage
+  [[ $1 == "--version" ]] && quit "$VERSION" 0 # "-v" is reserved for "asy"
+  [[ $1 == "-n" ]] && exit 0
+    # quit "\"$0\"$(printf " \"%s\"" "${args[@]}") \"${!#}\"" 0
+
+  # Usual options and other (asy / mpost) options
+  opts=()
+  arg_prev=""
+  for v in "${args[@]}"; do
+    if [[ -z $arg_prev ]]; then
+      case $v in
+      -f | -A | -M | --alt | --clip-prefix | --cmd | --img-zoom)
+        arg_prev=$v ;;
+      -cd | --cd) arg_prev="-cd" ;;
+      -o) arg_prev="-o" flg_prefix=true ;;
+      -K) flg_keep=true ;;
+      --cd=*) arg_cd=${v#*=} ;; # should accept -cd=* ??
+      --alt=*) arg_alt=${v#*=} ;;
+      --clip-prefix=*) arg_clip_prefix=${v#*=} ;;
+      --cmd=*) arg_cmd=${v#*=} ;;
+      --img-zoom=*) arg_zoom=${v#*=} ;;
+      --dothide) flg_dothide=true ;;
+      --no-text) flg_no_text=true ;;
+      --silent) flg_silent=true ;;
+      *)
+        if [[ $EXT != mp ]]; then # asy
+          case $v in
+          # -k|-keep|--keep) opts+=("$v") flg_keep=true ;;
+          --remote) flg_remote=true ;;
+          --server) arg_prev=$v ;;
+          --server=*) arg_server=${v#*=} ;;
+          *) opts+=("$v")
+          esac
+        else # mp
+          case $v in
+          -F) flg_figwrap=true ;;
+          -U) arg_cmd="upmpost" ;;
+          *) opts+=("$v")
+          esac
+        fi
+      esac
+    else
+      case $arg_prev in
+      -f) arg_fmt=$v ;;
+      -o) arg_prefix=$v ;;
+      -A) arg_align=$v ;;
+      -M) arg_margin=$v ;;
+      -cd) arg_cd=$v ;;
+      --alt) arg_alt=$v ;;
+      --clip-prefix) arg_clip_prefix=$v ;;
+      --cmd) arg_cmd=$v ;;
+      --img-zoom) arg_zoom=$v ;;
+      --server) arg_server=$v ;;
+      esac
+      arg_prev=""
+    fi
+  done
+  [[ -z $arg_prev ]] || quit "$SCRIPT: missing argument for '$arg_prev'"
+
+  case $arg_fmt in
+  svg | SVG) arg_fmt=svg ;;
+  png | PNG) arg_fmt=png ;;
+  *) quit "$SCRIPT: unsupported format: $arg_fmt"
+  esac
+  case $arg_align in # style="justify-content:$arg_align;" except "no"
+  [Nn] | NO | [Nn]o) arg_align=no ;;
+  [Ll]) arg_align=left ;;
+  [Cc]) arg_align=center ;;
+  [Rr]) arg_align=right ;;
+  esac
+  local re1='^[-+]?([0-9]|[.][0-9])';
+  local re2='^[-+]?([0-9]*)[.]?([0-9]*)[ ]*([[:alpha:]_][[:alnum:]_]*)?$'
+  if [[ $arg_margin =~ $re1 && $arg_margin =~ $re2 ]]; then
+    (( ${BASH_REMATCH[1]:-0} == 0 && ${BASH_REMATCH[2]:-0} == 0 )) &&
+      arg_margin=0
+  else
+    quit "$SCRIPT: invalid margin: $arg_margin"
+  fi
+  if [[ $flg_remote == false ]]; then
+    [[ -d $arg_cmd ]] && CMD=$arg_cmd/$CMD || CMD=$arg_cmd
+  else
+    CMD=curl
+  fi
+  command -v "$CMD" &>/dev/null || quit "$SCRIPT: '$CMD' not found"
+
+  if [[ $arg_cd != "." ]]; then
+    cd "$arg_cd" 2>/dev/null ||
+      quit "$SCRIPT: cannot change to directory: $arg_cd"
+  fi
+
+  if (( 1 < $# )); then
+    f=${*:(-2):1} # the second last argument
+    [[ -f $f && $f =~ [.](asy|mp)$ ]] &&
+      quit "$SCRIPT: unable to handle multiple files"
+  fi
+  arg_file=${!#} # the last argument
+  if [[ ! -f $arg_file ]]; then
+    [[ ${arg_file:0:1} != "/" && ${arg_file:1:1} != ":" ]] && # not full path
+      arg_file=$PWD/$arg_file
+    quit "$SCRIPT: file not found: $arg_file"
+  fi
+  base_prefix=$(basename "$arg_file" ".$EXT")
+  [[ ${base_prefix:0:1} == "." ]] &&
+    quit "$SCRIPT: cannot handle dot file: $arg_file"
+
+  [[ $arg_prefix == "-" ]] && arg_prefix="." flg_prefix=false
+  if [[ $arg_prefix == "." ]]; then
+    arg_prefix=$PWD/$base_prefix
+  else
+    [[ $arg_prefix == */ && ! -d $arg_prefix ]] &&
+      quit "$SCRIPT: directory not found: $arg_prefix"
+    [[ -d $arg_prefix ]] &&
+      arg_prefix=$arg_prefix/$base_prefix
+    [[ $arg_prefix != /* ]] &&
+      arg_prefix=$PWD/$arg_prefix
+  fi
+
+  arg_file_=$arg_prefix.$EXT
+  if [[ $EXT == mp ]]; then
+    [[ $(realpath "$(dirname "$arg_file_")") != $(realpath .) ]] &&
+      quit "$SCRIPT: -o option cannot handle directory: $arg_prefix"
+    arg_file_=$(basename "$arg_file_")
+    # mpost reject an input filename containing spaces
+    arg_file_=${arg_file_// /_}
+    # mpost reject "outputtemplate" with directory
+    arg_prefix=$(basename "$arg_prefix")
+  fi
+  while [[ -f $arg_file_ ]]; do # $arg_file_ must be non-existent file
+    arg_file_=${arg_file_/%.$EXT/_.$EXT}
+  done
+
+  if [[ $arg_cd != "." && $EXT != mp ]]; then
+    cd "$OLDPWD" 2>/dev/null ||
+      quit "$SCRIPT: cannot change to directory: $OLDPWD"
+  fi
+  [[ $(realpath "$(dirname "$arg_prefix")") == $(realpath .) ]] &&
+    arg_prefix=$(basename "$arg_prefix") # remove redundant directories
+
+  arg_align=$(html_echo "$arg_align")
+  arg_alt=$(html_echo "$arg_alt")
+  if [[ $arg_fmt != png ]]; then # svg
+    [[ -z $arg_clip_prefix ||
+        $arg_clip_prefix =~ ^[[:alpha:]_][[:alnum:]_.-]*$ ]] ||
+      quit "$SCRIPT: invalid clip prefix: $arg_clip_prefix"
+  else # png
+    if [[ $arg_zoom =~ ^[+]?([0-9]+[.]?[0-9]*|[.][0-9]+)x$ ]]; then
+      local o
+      o=$(awk \
+        "BEGIN { printf(\"%.6f\", ${BASH_REMATCH[1]} * 4 / 3); }" 2>/dev/null)
+      [[ $o != "" ]] && arg_zoom=$o
+    fi
+    arg_zoom=$(html_echo "$arg_zoom")
+  fi
+}
+
+# put_origin - print origin
+put_origin() {
+  echo "<!-- This code was generated by '$CMDLINE'. -->"
+  [[ $flg_dothide != false ]] &&
+    echo "<style> .hide { display: none; } </style>"
+}
+
+# put_svg - print a svg file while replacing some patterns
+#   It may append aria-label and ID prefix of clipPath
+put_svg() { # $1: filename, $2: alternative text, $3: clip prefix
+  if [[ -z $2 && -z $3 ]]; then
+    ncat "$1"
+  else
+    local re0="^<svg"
+    local q h0 h1 re1 h2 re2
+    [[ $EXT != mp ]] && q="'" || q='"'
+    h0="<clipPath .*" h1="id=$q" re1="$h0$h1([Cc][Ll][Ii][Pp])[0-9]+$q>"
+    h2="clip-path=${q}url" re2="$h2\(#([Cc][Ll][Ii][Pp])[0-9]+\)$q"
+    while IFS= read -r || [[ -n $REPLY ]]; do
+      if [[ -n $2 ]]; then
+        [[ $REPLY =~ $re0 ]] &&
+          REPLY="${REPLY/<svg/<svg role="img" aria-label="$2"}"
+      fi
+      if [[ -n $3 ]]; then
+        [[ $REPLY =~ $re1 ]] &&
+          REPLY="${REPLY//$h1${BASH_REMATCH[1]}/$h1$3${BASH_REMATCH[1]}}"
+        [[ $REPLY =~ $re2 ]] &&
+          REPLY="${REPLY//$h2(#${BASH_REMATCH[1]}/$h2(#$3${BASH_REMATCH[1]}}"
+      fi
+      echo "$REPLY"
+    done <"$1"
+  fi
+}
+
+# put_png - print a PNG file
+put_png() { # $1: filename, $2: alternative text
+  echo "<img alt='$2' style='zoom:$arg_zoom;'" \
+    'src="data:image/png;charset=utf-8;base64,'
+  base64 <"$1" | fold
+  echo '">'
+}
+
+# put_fig - print SVG or PNG files
+put_fig() { # $@: filenames
+  [[ -s $1 ]] || return
+  [[ $arg_align != no ]] &&
+    echo "<div class='asyco-fig'" \
+      "style='break-inside:avoid;display:flex;justify-content:$arg_align;'>"
+  local re=".*[.]([0-9]+)[.]$arg_fmt"'$'
+  for f in "$@"; do
+    [[ -s $f ]] || continue
+    local alt="$arg_alt"
+    [[ $EXT == mp && -n $alt ]] && (( 1 < $# )) && [[ $f =~ $re ]] &&
+      alt="$alt.${BASH_REMATCH[1]}" # add a fig number
+    if   [[ $arg_fmt == svg ]]; then
+      put_svg "$f" "$alt" "$arg_clip_prefix"
+    elif [[ $arg_fmt == png ]]; then
+      put_png "$f" "$alt"
+    fi
+  done
+  [[ $arg_align != no ]] && echo "</div><br>"
+}
+
+# echo_pre_a - echo elements (lines) of global array 'a' in <pre> tag
+echo_pre_a() { # $1: bg color, $2: class name
+  (( ${#a[@]} )) || return
+  local cl bg
+  cl=$(html_echo "${2:-asyco-out}")
+  bg=$(html_echo "${1:+background-color:$1;}")
+  echo "<pre class='$cl' style='white-space:pre-wrap;$bg'>"
+  html_echoln "${a[@]}"
+  echo "</pre>"
+}
+
+# put_txt - print a text file
+put_txt() { # $1: filename, $2: bg color, $3: class name
+  a=() && array_append_file a "$1"
+  echo_pre_a "$2" "$3"
+}
+
+# put_mpost_log - print mpost log file
+put_mpost_log() { # $1: .log file, $2: bg color
+  b=() && array_append_file b "$1"
+  a=() && for s in "${b[@]}"; do [[ $s == ">> "* ]] && a+=("$s"); done
+  (( ${#a[@]} )) && a[${#a[@]}-1]=${a[${#a[@]}-1]% )} # remove last ' )'
+  [[ $flg_silent != false ]] &&
+    for i in "${!a[@]}"; do # remove fig numbers
+      [[ ${a[i]} =~ (\[[0-9].*\])$ ]] && a[i]=${a[i]%"${BASH_REMATCH[1]}"}
+    done
+  echo_pre_a "$2" "asyco-out"
+}
+
+# set_curl_optstr - set option string for curl to global variable 'optstr'
+set_curl_optstr() { # $@: options
+  optstr=""
+  arg_prev=""
+  for v in "$@"; do
+    if [[ -z $arg_prev ]]; then
+      v=${v#-} v=${v#-} # remove the leading '-' and '--'
+      case $v in
+      antialias|render) arg_prev=$v ;; # add options with an argument here
+      *) optstr+="&$v" ;;
+      esac
+    else
+      optstr+="&$arg_prev=$v"
+      arg_prev=""
+    fi
+  done
+  [[ -z $arg_prev ]] || quit "$SCRIPT: missing argument for '$arg_prev'"
+}
+
+_asyco() { # print the Asymptote output to the character output
+  if [[ $arg_margin != 0 ]]; then
+    {
+      ncat "$arg_file"
+      echo "add(bbox($arg_margin, nullpen));"
+    } >"$arg_file_"
+    [[ $flg_keep == false ]] && dels+=("'$arg_file_'")
+  else
+    arg_file_=$arg_file
+  fi
+  prefix=$(basename "$arg_file_" ".$EXT")
+
+  if [[ $flg_keep == false ]]; then
+    [[ $flg_prefix == false ]] && dels+=("'$arg_prefix'.$arg_fmt")
+    dels+=("'$prefix'.{cout,cerr}")
+  fi
+
+  if [[ $flg_remote == false ]]; then # local
+    if [[ $flg_keep == false ]]; then
+      dels+=("'$arg_prefix'_.*" "'$arg_prefix'__.*")
+      dels+=("'$arg_prefix'+[0-9]*-eps-converted-to.pdf") # for multiple views
+      [[ $flg_windows == true ]] && dels+=("texput.{log,aux}")
+    fi
+    [[ $arg_cd != "." ]] && opts+=(-cd "$arg_cd") # may override earlier options
+    opts+=(-noV -f "$arg_fmt" -o "$arg_prefix") # may override earlier options
+    "$CMD" "${opts[@]}" "$arg_file_" \
+      </dev/null 1>"$prefix.cout" 2>"$prefix.cerr"
+    result=$?
+    [[ $result != 0 && $flg_keep == false ]] && dels+=(".log")
+  else # remote
+    set_curl_optstr "${opts[@]}"
+    optstr+="&f=$arg_fmt"
+    "$CMD" --no-progress-meter --data-binary "@$arg_file_" \
+      "$arg_server?${optstr:1}" -o "$arg_prefix.$arg_fmt" \
+      </dev/null 1>"$prefix.cout" 2>"$prefix.cerr"
+    result=$?
+  fi
+
+  put_origin
+  if [[ $flg_remote != false ]]; then # remote
+    HEAD='{"msg": "Asymptote error.", "reason": "'
+    IFS= read -r -d '' <"$arg_prefix.$arg_fmt"
+    if [[ ${REPLY::${#HEAD}} == "$HEAD" ]]; then
+      s=${REPLY:${#HEAD}+1} s=${s::${#s}-2} s=${s//'\n'/$'\v'}
+      IFS=$'\v' read -r -a a <<<"$s"
+      echo_pre_a "${ASYCO_ERR_BG_COL-#FDD}" "asyco-err"
+      return
+    fi
+  fi
+
+  # asy may return zero exit status despite an error
+  if [[ $result != 0 || $flg_silent == false ]]; then
+    [[ $result != 0 && ! -s "$prefix.cerr" ]] &&
+      echo "$SCRIPT: Exit status of '$CMD': $result" >"$prefix.cerr"
+    put_txt "$prefix.cerr" "${ASYCO_ERR_BG_COL-#FDD}" "asyco-err"
+  fi
+  [[ $flg_no_text == false ]] && put_txt "$prefix.cout" "${ASYCO_OUT_BG_COL}"
+  put_fig "$arg_prefix.$arg_fmt"
+}
+
+_mepoco() { # print the MetaPost output to the character output
+  prefix=$(basename "$arg_file_" ".$EXT")
+
+  [[ $flg_keep == false ]] &&
+    dels+=("'$prefix'.{$EXT,log,mpx,cout,cerr}")
+  {
+    cat <<END
+prologues := 3;
+outputtemplate := "$arg_prefix.%c.$arg_fmt";
+outputformat := "$arg_fmt";
+END
+    [[ $(basename "$CMD") == upmpost ]] && cat <<END
+verbatimtex \documentclass[uplatex]{article} \begin{document} etex;
+defaultfont := "uprml-h"; % "upgbm-h" % ignored anyway
+END
+    [[ $flg_figwrap != false ]] && echo "beginfig(0);"
+    ncat "$arg_file" # ncat ensures that file ends with newline
+    [[ $flg_figwrap != false && $arg_margin != 0 ]] && cat <<END
+bboxmargin := $arg_margin;
+draw bbox currentpicture withpen pencircle scaled 0pt;
+END
+    [[ $flg_figwrap != false ]] && echo "endfig;"
+    echo "end;"
+  } >"$arg_file_"
+
+  [[ $(basename "$CMD") == upmpost ]] && opts+=("-tex=uplatex")
+  # the following filename requires an explicit extension .$EXT
+  "$CMD" "${opts[@]}" "$prefix.$EXT" \
+    </dev/null 1>"$prefix.cout" 2>"$prefix.cerr"
+  result=$?
+
+  figs=() && array_append_glob figs "'$arg_prefix'.[0-9]*.$arg_fmt"
+  [[ $flg_keep == false && $flg_prefix == false ]] &&
+    for i in "${figs[@]}"; do dels+=("'$i'"); done
+
+  put_origin
+  if [[ $result != 0 ]]; then
+    [[ -s $prefix.cerr ]] && f="$prefix.cerr" || f="$prefix.log"
+    put_txt "$f" "${ASYCO_ERR_BG_COL-#FDD}" "asyco-err"
+  fi
+  [[ $flg_no_text == false ]] &&
+    put_mpost_log "$prefix.log" "${ASYCO_OUT_BG_COL}"
+  put_fig "${figs[@]}"
+}
+
+# delete_glob - delete files from glob patterns
+delete_glob() { # $@: glob patterns
+  a=() && array_append_glob a "$@"
+  (( ${#a[@]} )) && rm -f "${a[@]}" 2>/dev/null
+}
+
+main() { # $@: script arguments
+  parse_args "$@"
+  dels=() # patterns of the intermediate files to be deleted
+  trap 'delete_glob "${dels[@]}"' EXIT HUP INT QUIT ABRT ILL SEGV TERM
+  case $EXT in asy) _asyco ;; mp) _mepoco ;; esac
+  return 0
+}
+
+[[ ${BASH_SOURCE[0]} != "$0" ]] || main "$@" # skip if sourced (return 0)
