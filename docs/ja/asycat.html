@@ -1,0 +1,314 @@
+<!DOCTYPE html><html><head>
+      <title>asycat</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+.markdown-preview h1 {
+  font-size: 1.75em;
+  font-weight: 600;
+  padding-bottom: 0.25em;
+}
+.markdown-preview h2 {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.markdown-preview h3 {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+.markdown-preview h4 {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.markdown-preview h5 {
+  font-size: 1em;
+  font-weight: 500;
+}
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3 {
+  break-after: avoid-page;
+}
+.markdown-preview {
+  counter-reset: h1 h2 h3 h4 h5 h6;
+  /*
+  h1:not(.unnumbered):before {
+    counter-increment: h1;
+    content: counter(h1, hsty) " ";
+  }
+  */
+  /*
+  h6:not(.unnumbered):before {
+    counter-increment: h6;
+    content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) counter(h4, hsty) counter(h5, hsty) counter(h6, hsty) " ";
+  }
+  */
+}
+@counter-style fsty {
+  system: cyclic;
+  symbols: "";
+}
+@counter-style hsty {
+  system: fixed;
+  symbols: "1." "2." "3." "4." "5." "6." "7." "8." "9." "10." "11." "12." "13." "14." "15." "16." "17." "18." "19." "20." "21." "22." "23." "24." "25." "26." "27." "28." "29." "30." "31." "32." "33." "34." "35." "36." "37." "38." "39." "40." "41." "42." "43." "44." "45." "46." "47." "48." "49." "50." "51." "52." "53." "54." "55." "56." "57." "58." "59." "60." "61." "62." "63." "64." "65." "66." "67." "68." "69." "70." "71." "72." "73." "74." "75." "76." "77." "78." "79." "80." "81." "82." "83." "84." "85." "86." "87." "88." "89." "90." "91." "92." "93." "94." "95." "96." "97." "98." "99." "**.";
+  range: 1 100;
+  fallback: fsty;
+  /* suffix seems not working */
+}
+.markdown-preview h1:not(.unnumbered) {
+  counter-set: h2 h3 h4 h5 h6;
+}
+.markdown-preview h2:not(.unnumbered) {
+  counter-set: h3 h4 h5 h6;
+}
+.markdown-preview h3:not(.unnumbered) {
+  counter-set: h4 h5 h6;
+}
+.markdown-preview h4:not(.unnumbered) {
+  counter-set: h5 h6;
+}
+.markdown-preview h5:not(.unnumbered) {
+  counter-set: h6;
+}
+.markdown-preview h2:not(.unnumbered):before {
+  counter-increment: h2;
+  content: counter(h1, hsty) counter(h2, hsty) " ";
+}
+.markdown-preview h3:not(.unnumbered):before {
+  counter-increment: h3;
+  content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) " ";
+}
+.markdown-preview h4:not(.unnumbered):before {
+  counter-increment: h4;
+  content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) counter(h4, hsty) " ";
+}
+.markdown-preview h5:not(.unnumbered):before {
+  counter-increment: h5;
+  content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) counter(h4, hsty) counter(h5, hsty) " ";
+}
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="asycat">asycat </h1>
+<style>code { white-space: pre-wrap !important; } </style>
+<p><code>asycat</code> を使うと、<a href="https://asymptote.sourceforge.io">Asymptote</a> または <a href="https://tug.org/metapost.html">MetaPost</a> のファイルから、コードと図を横に並べたマークダウンを生成できます。</p>
+<p><img src="color.png" alt="asycat が生成するマークダウンの Visual Studio Code でのプレビュー" title="asycat が生成するマークダウンの Visual Studio Code でのプレビュー" width="65%" style="display:block;margin:auto;"></p>
+<p>マークダウンは、<a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> と、ブラウザや <a href="https://www.pandoc.org">pandoc</a> を経由することで PDF ファイルに変換できます。<code>asycat</code> はコードチャンクからは呼び出せず、コマンド行から実行する必要があります。</p>
+<p><img src="asycat_flow.png" alt="asycat のフロー図" title="asycat のフロー図" width="35%" style="display:block;margin:auto;"></p>
+<h2 id="必要な環境とインストール">必要な環境とインストール </h2>
+<p><a href="./INSTALL.html">INSTALL.md</a> を参照してください。</p>
+<h2 id="使用法">使用法 </h2>
+<h3 id="マークダウンファイルの作成">マークダウンファイルの作成 </h3>
+<p>Asymptote や MetaPost のファイルを引数に指定して <code>asycat</code> を実行し、出力されるマークダウンをファイルにリダイレクトします。</p>
+<p>次の例では、作業ディレクトリの下の拡張子が <code>.asy</code> のファイルについて、図とコードを並べたマークダウンを <code>output.md</code> に出力します。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat *.asy <span class="token operator">&gt;</span> output.md
+</code></pre><h3 id="コードチャンクの実行">コードチャンクの実行 </h3>
+<p>マークダウンファイルを VS Code で開き、必要に応じて修正して保存します。<code>Open Preview to the Side</code> でプレビューを表示し、<code>Run Code Chunk</code>（ <kbd>▶︎</kbd> ボタン）または <code>Run All Code Chunks</code>（ <kbd>ALL</kbd> ボタン）でコードチャンクを実行します。</p>
+<h3 id="pdf-ファイルの作成">PDF ファイルの作成 </h3>
+<p>プレビューのショートカットメニュー（コンテキストメニュー）で <code>Open in Browser</code> を実行します。ブラウザで文書を印刷することで PDF ファイルを作成できます。大きい用紙（例えば A3）への印刷をお勧めします。ショートカットメニューの <code>Export &gt; HTML</code> で HTML ファイルを作成し、<code>pandoc</code> コマンドで HTML ファイルを PDF ファイルに変換することもできます。</p>
+<h2 id="オプション">オプション </h2>
+<dl>
+<dt><code>-B</code></dt>
+<dd>印刷の際にファイルごとに改ページします。</dd>
+<dt><code>-N</code></dt>
+<dd>コードに行番号を表示します。<code>-W</code> と同時には指定できず、<code>-W</code> は取り消されます。</dd>
+<dt><code>-P {N|S|E|W|F}</code></dt>
+<dd>コードに対して図を表示する位置を設定します。<code>N</code> は上、<code>S</code> は下、<code>E</code> は右、<code>W</code> は左に図を表示します。<code>F</code> はコードを表示せず図だけを表示します。省略時値は <code>E</code> です。</dd>
+<dt><code>-W</code></dt>
+<dd>コードを折り返します。<code>-N</code> と同時には指定できず、<code>-N</code> は取り消されます。</dd>
+<dt><code>--fig-width=WIDTH</code></dt>
+<dd>横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に、図の幅を <em><code>WIDTH</code></em> に設定します。省略時値は <code>30%</code> です。</dd>
+<dt><code>--fixed-layout</code></dt>
+<dd>横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に、<code>table-layout</code> を <code>fixed</code> に設定します。</dd>
+<dt><code>--heading=LEVEL</code></dt>
+<dd>見出しのレベルを <em><code>LEVEL</code></em> の絶対値に設定します。見出しにはファイル名を用い、<em><code>LEVEL</code></em> が負の値ではファイル名からディレクトリを除去します。<em><code>LEVEL</code></em> が <code>0</code> では見出しを表示しません。省略時値は <code>3</code> です。</dd>
+<dt><code>--id-prefix=PREFIX</code></dt>
+<dd>図がコードの左の配置（<code>-P W</code>）の場合に、コードチャンクの <code>id</code> の前半部の文字列を <em><code>PREFIX</code></em> に設定します。<code>id</code> の後半部は通し番号です。省略時値は <code>fig-</code> です。</dd>
+<dt><code>--lang-asy-as=LANG</code></dt>
+<dd>Asymptote のファイル（<code>*.asy</code>）での構文強調表示の言語を <em><code>LANG</code></em> に設定します。省略時値は <code>cpp</code> です。</dd>
+<dt><code>--lang-as=LANG</code></dt>
+<dd>MetaPost のファイル（<code>*.mp</code>）での構文強調表示の言語を <em><code>LANG</code></em> に設定します。省略時値は <code>metafont</code> です。</dd>
+<dt><code>--no-alt</code></dt>
+<dd>ファイル名を図の代替テキストに設定しません。</dd>
+<dt><code>--no-cd</code></dt>
+<dd>ファイルのあるディレクトリに移動しません。</dd>
+<dt><code>--</code></dt>
+<dd>オプションの終了を示します。この後はファイル名またはディレクトリ名として扱われます。</dd>
+</dl>
+<p>他に、最初の引数でだけ有効な次のオプションがあります：<code>-h</code>, <code>--help</code>（使用法を表示して終了）、<code>--version</code>（バージョンを表示して終了）。</p>
+<p>その他のオプションは <code>asyco</code> または <code>mepoco</code> に渡されます。このため、短いオプションは結合できません（例えば <code>-NB</code> ではなく <code>-N -B</code> です）。また、短いオプションとその引数は結合できません（例えば <code>-PE</code> ではなく <code>-P E</code> です）。</p>
+<h2 id="環境変数">環境変数 </h2>
+<p>環境変数はシェルの初期設定ファイル（例えば <code>~/.bash_profile</code>）またはコマンド行から設定できます。</p>
+<dl>
+<dt><code>ASYCAT_ASY_OPTS</code></dt>
+<dd><code>asyco</code> のオプションを指定します。</dd>
+<dt><code>ASYCAT_MP_OPTS</code></dt>
+<dd><code>mepoco</code> のオプションを指定します。</dd>
+</dl>
+<p>これらの環境変数は <code>asycat</code> のオプションの設定には使えません。</p>
+<h2 id="クラス">クラス </h2>
+<p>クラスを用いた CSS (Cascading Style Sheets) プロパティの設定はマークダウン文書の全体に適用され、後の設定が優先されます。</p>
+<dl>
+<dt><code>asycat-block</code></dt>
+<dd>ファイルごとの <code>&lt;div&gt;</code> ブロックに設定されます。</dd>
+</dl>
+<p>以下のクラスは、横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に有効です。</p>
+<dl>
+<dt><code>asycat-table</code></dt>
+<dd>コードと図を含む表に設定されます。</dd>
+<dt><code>asycat-td-code</code></dt>
+<dd>コードと図を含む表の、コードのセルに設定されます。</dd>
+<dt><code>asycat-td-fig</code></dt>
+<dd>コードと図を含む表の、図のセルに設定されます。</dd>
+</dl>
+<h2 id="使用例">使用例 </h2>
+<h3 id="複数のディレクトリの指定">複数のディレクトリの指定 </h3>
+<p>ディレクトリは <code>--</code> の後または最後の引数として指定する必要があります。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat -- tests docs/color <span class="token operator">&gt;</span> output.md
+</code></pre><p>マークダウン文書 <code>output.md</code> を、ディレクトリ <code>tests</code> と <code>docs/color</code> の下の、拡張子が <code>.asy</code> または <code>.mp</code> のファイルから作成します。</p>
+<h3 id="実行ディレクトリの設定">実行ディレクトリの設定 </h3>
+<p>作業ディレクトリの下にないファイルを指定した場合、<code>asyco</code> や <code>mepoco</code> は各ファイルのあるディレクトリで実行されます。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat tests/test.asy <span class="token operator">&gt;</span> output.md
+</code></pre><p>図の表示部のコードチャンクのオプションは次のようになり、<code>args</code> に <code>asyco</code> のオプション <code>--cd=tests</code> が追加されます。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--cd=tests", "--alt=test"] output=html .hide continue}
+</code></pre><p>マークダウン文書のあるディレクトリで <code>asyco</code> を実行したい場合は <code>--no-cd</code> を指定します。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat --no-cd tests/test.asy <span class="token operator">&gt;</span> output.md
+</code></pre><p>図の表示部のコードチャンクのオプションは次のようになり、<code>args</code> に <code>--cd</code> オプションは追加されません。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--alt=test"] output=html .hide continue}
+</code></pre><h3 id="asymptote-と-meatpost-で別々のオプション">Asymptote と MeatPost で別々のオプション </h3>
+<p>環境変数を用いると、<code>asyco</code> と <code>mepoco</code> で別々のオプションを指定できます。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token assign-left variable">ASYCAT_ASY_OPTS</span><span class="token operator">=</span><span class="token string">"--img-zoom=2x"</span> <span class="token assign-left variable">ASYCAT_MP_OPTS</span><span class="token operator">=</span><span class="token string">"--img-zoom=2"</span> asycat <span class="token parameter variable">-f</span> png *.asy *.mp <span class="token operator">&gt;</span> output.md
+</code></pre><h3 id="複数の出力結果の結合">複数の出力結果の結合 </h3>
+<p>図がコードの左の配置（<code>-P W</code>）の場合、コードチャンクの参照に <code>id</code> を用います。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat <span class="token parameter variable">-P</span> W rgb.asy <span class="token operator">&gt;</span> rgb.md
+$ asycat <span class="token parameter variable">-P</span> W cmyk.asy <span class="token operator">&gt;</span> cmyk.md
+</code></pre><p>この場合 <code>rgb.md</code> と <code>cmyk.md</code> の両方で、<code>id</code> が <code>fig-1</code> のコードチャンクを参照します。</p>
+<p><code>asycat</code> の複数の出力結果をひとつのマークダウン文書にまとめる（<code>@import</code> で取り込むなどの）場合、<code>id</code> の衝突を避けるため <code>--id-prefix</code> を用います。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat <span class="token parameter variable">-P</span> W --id-prefix<span class="token operator">=</span>fig-c- cmyk.asy <span class="token operator">&gt;</span> cmyk.md
+</code></pre><p>この場合 <code>id</code> が <code>fig-c-1</code> のコードチャンクが生成されます。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-n"]  output=none id=fig-c-1}
+</code></pre><h2 id="著作権と利用許諾">著作権と利用許諾 </h2>
+<p>(c) 2025-2026 aelata</p>
+<p>このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。<br>
+<a href="https://opensource.org/license/mit-0">https://opensource.org/license/mit-0</a></p>
+<hr>
+
+      </div>
+      <div class="md-sidebar-toc">
+<div class="md-toc">
+<details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#asycat" class="md-toc-link"><p>asycat</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#必要な環境とインストール" class="md-toc-link">
+            <p>必要な環境とインストール</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#使用法" class="md-toc-link"><p>使用法</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#マークダウンファイルの作成" class="md-toc-link">
+            <p>マークダウンファイルの作成</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#コードチャンクの実行" class="md-toc-link">
+            <p>コードチャンクの実行</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#pdf-ファイルの作成" class="md-toc-link">
+            <p>PDF ファイルの作成</p>
+
+          </a></div>
+        </div>
+      </details>
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#オプション" class="md-toc-link">
+            <p>オプション</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#環境変数" class="md-toc-link">
+            <p>環境変数</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#クラス" class="md-toc-link">
+            <p>クラス</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#使用例" class="md-toc-link"><p>使用例</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#複数のディレクトリの指定" class="md-toc-link">
+            <p>複数のディレクトリの指定</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#実行ディレクトリの設定" class="md-toc-link">
+            <p>実行ディレクトリの設定</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#asymptote-と-meatpost-で別々のオプション" class="md-toc-link">
+            <p>Asymptote と MeatPost で別々のオプション</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#複数の出力結果の結合" class="md-toc-link">
+            <p>複数の出力結果の結合</p>
+
+          </a></div>
+        </div>
+      </details>
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#著作権と利用許諾" class="md-toc-link">
+            <p>著作権と利用許諾</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+</div>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    
+    
+    
+    
+    
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  
+    </body></html>

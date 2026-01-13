@@ -1,0 +1,549 @@
+<!DOCTYPE html><html><head>
+      <title>setup</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+.markdown-preview h1 {
+  font-size: 1.75em;
+  font-weight: 600;
+  padding-bottom: 0.25em;
+}
+.markdown-preview h2 {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.markdown-preview h3 {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+.markdown-preview h4 {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.markdown-preview h5 {
+  font-size: 1em;
+  font-weight: 500;
+}
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3 {
+  break-after: avoid-page;
+}
+.markdown-preview {
+  counter-reset: h1 h2 h3 h4 h5 h6;
+  /*
+  h1:not(.unnumbered):before {
+    counter-increment: h1;
+    content: counter(h1, hsty) " ";
+  }
+  */
+  /*
+  h6:not(.unnumbered):before {
+    counter-increment: h6;
+    content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) counter(h4, hsty) counter(h5, hsty) counter(h6, hsty) " ";
+  }
+  */
+}
+@counter-style fsty {
+  system: cyclic;
+  symbols: "";
+}
+@counter-style hsty {
+  system: fixed;
+  symbols: "1." "2." "3." "4." "5." "6." "7." "8." "9." "10." "11." "12." "13." "14." "15." "16." "17." "18." "19." "20." "21." "22." "23." "24." "25." "26." "27." "28." "29." "30." "31." "32." "33." "34." "35." "36." "37." "38." "39." "40." "41." "42." "43." "44." "45." "46." "47." "48." "49." "50." "51." "52." "53." "54." "55." "56." "57." "58." "59." "60." "61." "62." "63." "64." "65." "66." "67." "68." "69." "70." "71." "72." "73." "74." "75." "76." "77." "78." "79." "80." "81." "82." "83." "84." "85." "86." "87." "88." "89." "90." "91." "92." "93." "94." "95." "96." "97." "98." "99." "**.";
+  range: 1 100;
+  fallback: fsty;
+  /* suffix seems not working */
+}
+.markdown-preview h1:not(.unnumbered) {
+  counter-set: h2 h3 h4 h5 h6;
+}
+.markdown-preview h2:not(.unnumbered) {
+  counter-set: h3 h4 h5 h6;
+}
+.markdown-preview h3:not(.unnumbered) {
+  counter-set: h4 h5 h6;
+}
+.markdown-preview h4:not(.unnumbered) {
+  counter-set: h5 h6;
+}
+.markdown-preview h5:not(.unnumbered) {
+  counter-set: h6;
+}
+.markdown-preview h2:not(.unnumbered):before {
+  counter-increment: h2;
+  content: counter(h1, hsty) counter(h2, hsty) " ";
+}
+.markdown-preview h3:not(.unnumbered):before {
+  counter-increment: h3;
+  content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) " ";
+}
+.markdown-preview h4:not(.unnumbered):before {
+  counter-increment: h4;
+  content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) counter(h4, hsty) " ";
+}
+.markdown-preview h5:not(.unnumbered):before {
+  counter-increment: h5;
+  content: counter(h1, hsty) counter(h2, hsty) counter(h3, hsty) counter(h4, hsty) counter(h5, hsty) " ";
+}
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="使用環境の準備">使用環境の準備 </h1>
+<style> code { white-space: pre-wrap !important; } </style>
+<p><code>asyco</code> と <code>mepoco</code> は Windows, macOS, Linux のオペレーティング・システム（OS）で使えます。ここでは OS ごとに使用環境の準備について説明します。</p>
+<div class="code-chunk" data-id="code-chunk-id-0" data-cmd="toc"><div class="input-div"><div class="code-chunk-btn-group"><div class="run-btn btn btn-xs btn-primary"><span>▶︎</span></div><div class="run-all-btn btn btn-xs btn-primary">all</div></div><div class="status">running...</div></div><div class="output-div"></div></div><ol>
+<li><a href="#windows-11">Windows 11</a></li>
+<li><a href="#macos-15">macOS 15</a></li>
+<li><a href="#linux">Linux</a></li>
+</ol>
+<p><a href="https://asymptote.sourceforge.io">Asymptote</a> で日本語を扱うための設定については <a href="asy_ja.html">asy_ja.md</a> を参照してください。</p>
+<p><code>asyco</code> と <code>mepoco</code> の動作は以下の環境で確認しています。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Windows 11 Pro 24H2 <br> Git for Windows 2.51.2</th>
+<th>macOS 15.7</th>
+<th>Ubuntu 24.04</th>
+<th>Ubuntu 24.04</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bash</code></td>
+<td>5.2.37</td>
+<td>3.2.57</td>
+<td>5.2.21</td>
+<td>5.2.21</td>
+</tr>
+<tr>
+<td>TeX</td>
+<td>Tex Live 2025 <br> (CTAN)</td>
+<td>MacTeX 2025 <br> (Homebrew)</td>
+<td>Tex Live 2023 <br> (Ubuntu)</td>
+<td>Tex Live 2025 <br> (CTAN)</td>
+</tr>
+<tr>
+<td><code>asy</code></td>
+<td>3.04</td>
+<td>3.04</td>
+<td>2.87</td>
+<td>3.04</td>
+</tr>
+<tr>
+<td><code>mpost</code></td>
+<td>2.11</td>
+<td>2.11</td>
+<td>2.02</td>
+<td>2.11</td>
+</tr>
+<tr>
+<td><code>dvisvgm</code></td>
+<td>3.4.3</td>
+<td>3.4.3</td>
+<td>3.2.1</td>
+<td>3.4.3</td>
+</tr>
+<tr>
+<td><code>gs</code></td>
+<td>10.03.0 <br> (TeX Live)</td>
+<td>10.06.0 <br> (Homebrew)</td>
+<td>10.02.1 <br> (Ubuntu)</td>
+<td>10.02.1 <br> (Ubuntu)</td>
+</tr>
+</tbody>
+</table>
+<p>Linux のディストリビューションは <a href="https://releases.ubuntu.com/noble/">Ubuntu 24.04</a> を用い、Windows または macOS 上の仮想環境（<a href="https://www.virtualbox.org">VirtualBox</a> 7.2）で実行しています。</p>
+<p>ローカルの <code>asy</code> コマンドや <code>mpost</code> コマンドを使う場合は TeX のインストールが必要です。TeX のディストリビューションは、<a href="https://ctan.org">Comprehensive TeX Archive Network (CTAN)</a> のパッケージを基にした、<a href="https://www.tug.org/texlive/">TeX Live</a> または <a href="https://www.tug.org/mactex/">MacTeX</a> を用います。Ubuntu では、<a href="https://packages.ubuntu.com/noble/texlive-full">TeX Live 2023（Ubuntu の texlive-full パッケージ）</a>または <a href="https://www.tug.org/texlive/">TeX Live 2025（CTAN のパッケージ）</a>を用います。</p>
+<p><a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> はバージョン 1.106.3、<a href="https://shd101wyy.github.io/markdown-preview-enhanced">Markdown Preview Enhanced (MPE)</a> はバージョン 0.8.20 を用います。</p>
+<p>なお、asyco の開発環境は macOS で、<a href="https://github.com/koalaman/shellcheck">shellcheck</a> で構文を確認し、<a href="https://github.com/shellspec/shellspec">shellspec</a> で動作を確認しています。</p>
+<h2 id="windows-11">Windows 11 </h2>
+<p>あらかじめソフトウェアを展開するフォルダ（例えば <code>C:\opt</code>）を作成しておきます。このフォルダは自分の環境に合わせて適当に置き換えてください。</p>
+<p>Windows のコマンド検索パス（<code>Path</code>）の設定が必要になる場合があります。Windows にはユーザ環境変数の <code>Path</code>とシステム環境変数の <code>Path</code> があり、システム環境変数の <code>Path</code> が先に検索されます。環境変数の編集は、<s>Windows の設定から「設定 &gt; システム &gt; バージョン情報 &gt; システムの詳細設定 &gt; 環境変数」で行います</s> <code>C:\Windows\System32\SystemPropertiesAdvanced.exe</code> を起動し、下部にある <kbd>環境変数(N)...</kbd> ボタンをクリックします。ユーザ環境変数の <code>Path</code> は「...のユーザ環境変数 &gt; 変数 Path &gt; 編集」で、システム環境変数の <code>Path</code> は「システム環境変数 &gt; 変数 Path &gt; 編集」で設定します。</p>
+<p>エクスプローラでファイルの区別を容易にするため、ファイルの拡張子の表示をお勧めします。拡張子を表示するには「エクスプローラのオプション &gt; 表示 &gt; 詳細設定」で「登録されている拡張子を表示しない」のチェックを外します。</p>
+<h3 id="bash">Bash </h3>
+<p>ここでは、<a href="https://www.msys2.org">MSYS2</a> を基にした <a href="https://gitforwindows.org">Git for Windows</a> に含まれる bash (Git Bash) を使います。PortableGit のファイル（例えば <code>PortableGit-2.51.2-64-bit.7z.exe</code>）を <a href="https://github.com/git-for-windows/git/releases">GitHub</a> から ダウンロードして実行し、例えば <code>C:\opt\PortableGit</code> に展開します。Windows の環境変数 <code>Path</code> に <code>env.exe</code> のあるフォルダ（例えば <code>C:\opt\PortableGit\usr\bin</code>）を追加します。</p>
+<h3 id="vs-code-mpe">VS Code, MPE </h3>
+<p>VS Code のインストーラ（例えば <code>VSCodeUserSetup-x64-1.106.3.exe</code>）を <a href="https://code.visualstudio.com/download">Download Visual Studio Code のページ</a>からダウンロードしてインストールします。インストーラではなく <code>.zip</code> ファイル（例えば <code>VSCode-win32-x64-1.106.3.zip</code>）を用いる場合は、例えば <code>C:\opt\VSCode</code> に展開し、Windows の環境変数 <code>Path</code> に <code>C:\opt\VSCode\bin</code> を追加します。</p>
+<p>MPE の <code>.vsix</code> ファイル（例えば <code>markdown-preview-enhanced-0.8.20.vsix</code>）を <a href="https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases">GitHub</a> からダウンロードしてインストールします。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
+</code></pre><p>もちろん VS Code のマーケットプレイス経由でインストールしても構いません。</p>
+<h3 id="tex-live">TeX Live </h3>
+<p>下記のページを参考に、ネットワークまたは ISO イメージから TeX Live をインストールします。</p>
+<ul>
+<li><a href="https://texwiki.texjp.org/?TeX%20Live%2FWindows">TEX Wiki - TeX Live/Windows (https://texwiki.texjp.org/?TeX%20Live%2FWindows)</a></li>
+</ul>
+<p>インストール先には、例えば <code>C:\opt\texlive\2025</code> を用います。</p>
+<h4 id="ネットワークからインストール">ネットワークからインストール </h4>
+<p>TeX Live をネットワークからインストールする場合、インストーラ（<code>install-tl-windows.exe</code>）を適当なミラーサイト（例えば <code>http://ftp.jaist.ac.jp/pub/CTAN/systems/texlive/tlnet/</code>）からダウンロードして実行します。</p>
+<h4 id="iso-イメージからインストール">ISO イメージからインストール </h4>
+<p>TeX Live 2025 の ISO イメージ（<code>texlive2025-20250308.iso</code>）からインストールする場合、ISO イメージを適当なミラーサイト（例えば <code>http://ftp.jaist.ac.jp/pub/CTAN/systems/texlive/Images</code>）からダウンロードし、エクスプローラで ISO イメージを開き、その中のインストーラ（<code>install-tl-windows.bat</code>）を実行します。</p>
+<h4 id="パッケージの更新">パッケージの更新 </h4>
+<p><code>tlmgr</code> が Windows のバッチファイルのため、bash ではなく Windows のコマンドプロンプトで作業します。</p>
+<p>TeX Live のパッケージの更新には、次のコマンドを実行します。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>C:\...&gt;tlmgr update --self --all
+</code></pre><h3 id="asymptote">Asymptote </h3>
+<h4 id="tex-live-の-asy">TeX Live の asy </h4>
+<p>TeX Live の <code>asy</code> を用いる場合は、特にインストールの必要はありません。</p>
+<h4 id="sourceforge-の-asy">SourceForge の asy </h4>
+<p>SourceForge の <code>asy</code> は、TeX Live の <code>asy</code> よりも速く（詳細は <a href="time.html">time.md</a> を参照）、最新版を使えます。<br>
+<a href="https://sourceforge.net/projects/asymptote/files/">SourceForge</a> から Asymptote のインストーラ（例えば <code>asymptote-3.05-setup.exe</code>） をダウンロードしてインストールします。Asymptote のインストール先は、標準では <code>C:\Program Files\Asymptote</code> です。コマンド検索パスは設定されないため、Windows の環境変数 <code>Path</code> に <code>C:\Program Files\Asymptote</code> を追加します。</p>
+<p>Ghostscript 関連の設定として、例えば以下を <code>~/.asy/config.asy</code> に追加します。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>import settings;
+settings.gs="C:\opt\texlive\2025\tlpkg\tlgs\bin\gswin64c.exe";
+settings.libgs="C:\opt\texlive\2025\tlpkg\tlgs\bin\gsdll64.dll";
+</code></pre><p>また、Windows の環境変数 <code>GS_LIB</code> に <code>C:\opt\texlive\2025\tlpkg\tlgs\Resource\Init;C:\opt\texlive\2025\tlpkg\tlgs\kanji</code> を設定します。</p>
+<p><code>asyco</code> では <code>asy</code> の場所を <code>--cmd</code> で指定できます。</p>
+<ul>
+<li><code>--cmd=/c/opt/texlive/2025/bin/windows</code> (TeX Live の <code>asy</code>)</li>
+<li><code>--cmd="/c/Program Files/Asymptote"</code> (SourceForge の <code>asy</code>)</li>
+</ul>
+<p>標準ではない場所、例えば <code>C:\opt\Asymptote</code> に Asymptote をインストールした場合は、<code>asyco</code> を実行する際に <code>--sysdir=/c/opt/Asymptote</code> を指定する必要があります。<code>config.asy</code> での <code>settings.sysdir</code> の設定は有効ではないようです。<code>--cmd</code> オプションと <code>--sysdir</code> オプションは環境変数 <code>ASYCO_OPTS</code> でも設定できます。</p>
+<h3 id="metapost">MetaPost </h3>
+<p>MetaPost は TeX Live に含まれています。特にインストールの必要はありません。</p>
+<h3 id="imagemagick">ImageMagick </h3>
+<p>ImageMagick のファイル（例えば <code>ImageMagick-7.1.2-11-portable-Q16-HDRI-x64.7z</code>）を <a href="https://imagemagick.org/script/download.php">ImageMagick のページ</a> からダウンロードし、例えば <code>C:\opt\ImageMagick-7</code> の下に展開します（Windows の tar コマンドで展開できます）。<br>
+Windows の環境変数 <code>Path</code> に <code>C:\opt\ImageMagick-7</code> を追加します。bash の初期設定ファイル <code>~/.bash_profile</code> で環境変数 <code>PATH</code> に <code>/c/opt/ImageMagick-7</code> を追加しても構いません</p>
+<h2 id="macos-15">macOS 15 </h2>
+<h3 id="homebrew">Homebrew </h3>
+<p>macOS では Homebrew を用いると必要な環境の準備が簡単になります。あらかじめ macOS の Command Line Tools (CLT) をインストールします。</p>
+<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% <span class="token function">sudo</span> xcode-select <span class="token parameter variable">--install</span>
+</code></pre><p>Homebrew のインストーラ（例えば <code>Homebrew-5.0.8.pkg</code>）を <a href="https://github.com/Homebrew/brew/releases">GitHub</a> からダウンロードして実行します。以下を <code>~/.zprofile</code> に追加し、あらためてターミナルを開きます<!--（macOS ではターミナルを開くたびにログインシェルが起動されます）-->。</p>
+<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code><span class="token builtin class-name">eval</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span>/opt/homebrew/bin/brew shellenv<span class="token variable">)</span></span>"</span>
+</code></pre><h3 id="vs-code-mpe-1">VS Code, MPE </h3>
+<p>Homebrew で VS Code をインストールします。</p>
+<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% brew <span class="token function">install</span> <span class="token parameter variable">--cask</span> visual-studio-code
+</code></pre><p>MPE の <code>.vsix</code> ファイル（例えば <code>markdown-preview-enhanced-0.8.20.vsix</code>）を <a href="https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases">GitHub</a> からダウンロードし、インストールします。</p>
+<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
+</code></pre><p>もちろん VS Code のマーケットプレイス経由でインストールしても構いません。</p>
+<h3 id="mactex">MacTeX </h3>
+<p>MacTeX はインストーラ（<code>MacTeX.pkg</code>）ではなく Homebrew によるインストールをお勧めします。Asymptote が依存する Ghostscript が同時にインストールされます。</p>
+<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% brew <span class="token function">install</span> <span class="token parameter variable">--cask</span> mactex-no-gui
+</code></pre><p>Asymptote の設定ファイル（<code>~/.asy/config.asy</code>）で libgs を設定します。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>import settings;
+settings.libgs = "/opt/homebrew/lib/libgs.dylib";
+</code></pre><h4 id="パッケージの更新-1">パッケージの更新 </h4>
+<p>MacTeX のパッケージの検証のため、あらかじめ <a href="https://gnupg.org">GnuPG</a> をインストールしておきます。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>% brew <span class="token function">install</span> gnupg
+</code></pre><p>MacTeX のパッケージの更新には、次のコマンドを実行します。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>% sudo tlmgr update --self --all
+</code></pre><h3 id="asymptote-1">Asymptote </h3>
+<p>Asymptote は MacTeX に含まれています。特にインストールの必要はありません。</p>
+<p>Homebrew で最新版の Asymptote (<code>/opt/homebrew/bin/asy</code>) もインストールできます。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>% brew <span class="token function">install</span> asymptote
+</code></pre><p><code>asyco</code> では <code>asy</code> の場所を <code>--cmd</code> で指定できます。</p>
+<ul>
+<li><code>--cmd=/Library/TeX/texbin</code> (MacTeX の <code>asy</code>)</li>
+<li><code>--cmd=/opt/homebrew/bin</code> (Homebrew の <code>asy</code>)</li>
+</ul>
+<p><code>--cmd</code> オプションは環境変数 <code>ASYCO_OPTS</code> でも設定できます。</p>
+<h3 id="metapost-1">MetaPost </h3>
+<p>MetaPost は MacTeX に含まれています。特にインストールの必要はありません。</p>
+<h3 id="imagemagick-1">ImageMagick </h3>
+<p>Homebrew で <a href="https://imagemagick.org/index.php">ImageMagick</a> をインストールします。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>% brew install imagemagick
+</code></pre><p>ImageMagick-7 がインストールされます。</p>
+<h2 id="linux">Linux </h2>
+<p>Linux のディストリビューションとして Ubuntu 24.04 を用います。<a href="https://www.virtualbox.org">VirtualBox</a> で実行する場合は、ある程度の資源（例えば、複数コアなど）を割り当てます。</p>
+<h3 id="ubuntu-のパッケージの更新">Ubuntu のパッケージの更新 </h3>
+<p>作業の前に Ubuntu のパッケージを更新します。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> update
+$ <span class="token function">sudo</span> <span class="token function">apt</span> upgrade
+<span class="token comment">## $ sudo apt autoremove # as needed</span>
+<span class="token comment">## $ sudo systemctl reboot # as needed</span>
+</code></pre><h3 id="日本語環境のパッケージ">日本語環境のパッケージ </h3>
+<p>日本語環境の追加が必要な場合は、パッケージをインストールします。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token variable"><span class="token variable">$(</span>check-language-support <span class="token parameter variable">-l</span> ja<span class="token variable">)</span></span>
+$ <span class="token function">sudo</span> systemctl <span class="token function">reboot</span>
+</code></pre><h3 id="vs-code-mpe-2">VS Code, MPE </h3>
+<p>VS Code の <code>.deb</code> ファイル（例えば <code>code_1.106.3-1764110892_amd64.deb</code>）を、<a href="https://code.visualstudio.com/download">Download Visual Studio Code のページ</a>からダウンロードし、インストールします。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> ./code_1.106.3-1764110892_amd64.deb
+</code></pre><p><code>Add Microsoft apt repository for Visual Studio Code?</code> は矢印キーでどちらかを選び <kbd>Enter</kbd> を押します。<code>N: Download is performed unsandboxed as root ...</code> のメッセージは無視します。</p>
+<p>Markdown Preview Enhanced (MPE) の <code>.vsix</code> ファイル（例えば <code>markdown-preview-enhanced-0.8.20.vsix</code>）を <a href="https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases">GitHub</a> からダウンロードしてインストールします。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
+</code></pre><p>もちろん VS Code のマーケットプレイス経由でインストールしても構いません。</p>
+<h3 id="ブラウザ">ブラウザ </h3>
+<p>Ubuntu 24.04 の標準ブラウザは Snap 版の Firefox です。Snap 版の Firefox は <code>/tmp</code> の下あるファイルを開けないため、MPE の <code>Open in Browser</code> が使えません。下記の記事を参考にデフォルトブラウザを変更します。</p>
+<p><a href="https://gihyo.jp/admin/serial/01/ubuntu-recipe/0710">Snap版Firefoxを使用しないでやり過ごす (https://gihyo.jp/admin/serial/01/ubuntu-recipe/0710)</a></p>
+<p>ここでは <code>firefox-esr</code> をインストールし、デフォルトブラウザに設定します。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> add-apt-repository ppa:mozillateam/ppa
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> firefox-esr firefox-esr-locale-ja
+
+$ xdg-settings <span class="token builtin class-name">set</span> default-web-browser firefox-esr.desktop
+</code></pre><h3 id="tex-live-1">TeX Live </h3>
+<p>TeX Live は、Ubuntu のパッケージによるインストールが簡単ですが、CTAN から最新の TeX Live をインストールすることもできます。</p>
+<h4 id="ubuntu-のパッケージによるインストール">Ubuntu のパッケージによるインストール </h4>
+<p>Ubuntu の <code>texlive-full</code> パッケージを用いて TeX Live をインストールします。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> texlive-full
+</code></pre><p>Ubuntu 24.04 では TeX Live 2023 がインストールされ、<code>asy</code> のバージョンは 2.87 になります。</p>
+<h4 id="ctan-のパッケージによるインストール">CTAN のパッケージによるインストール </h4>
+<p>あらかじめインストール先のディレクトリを作成します（例えば <code>sudo mkdir /usr/local/texlive</code>）。所有者を自分に変更（例えば <code>sudo chown $USER /usr/local/texlive</code>）してからインストールすると、<code>tlmgr</code> の実行に <code>sudo</code> が不要になります。</p>
+<h5 id="ネットワークインストール">ネットワーク・インストール </h5>
+<p>CTAN の <code>systems/texlive/tlnet</code> (<code>http://mirror.ctan.org/systems/texlive/tlnet</code>) の下から、インストーラ（<code>install-unx.tar.gz</code>）をダウンロードして展開し、<code>install-tl</code> を実行します。</p>
+<h5 id="iso-イメージからインストール-1">ISO イメージからインストール </h5>
+<p>CTAN の <code>systems/texlive/Images</code> (<code>http://mirror.ctan.org/systems/texlive/Images</code>) の下から、ISO イメージ（例えば <code>texlive2025-20250308.iso</code>）をダウンロードしてマウントし、<code>install-tl</code> を実行します。</p>
+<h5 id="tex-live-の設定">TeX Live の設定 </h5>
+<p>bash の 初期設定ファイル（例えば <code>~/.bash_profile</code>）で <code>PATH</code> に TeX Live のディレクトリ（例えば <code>/usr/local/texlive/2025/bin/x86_64-linux</code>）を追加します。</p>
+<p><code>asy</code> を動かすためには、さらに以下を実行する必要があります。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>$ sudo apt install freeglut3-dev
+$ sudo ln -s /lib/x86_64-linux-gnu/libglut.so.3{.12.0,}
+</code></pre><h5 id="パッケージの更新-2">パッケージの更新 </h5>
+<p>TeX Live のパッケージの更新には、次のコマンドを実行します。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>$ tlmgr update --self --all
+</code></pre><p>TeXLive 2025 の ISO イメージの <code>asy</code> のバージョンは 3.01 ですが、tlmgr でパッケージを更新すると、<code>asy</code> のバージョン 3.04 になります。</p>
+<h3 id="asymptote-2">Asymptote </h3>
+<p>Asymptote は TeX Live に含まれています。特にインストールの必要はありません。</p>
+<p>最新版の Asymptote を使いたい場合は、ソース・コードからビルドします。詳細は割愛しますが、以下を参考にしてください。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> build-essential autoconf bison flex libtool pkg-config libz-dev freeglut3-dev libtirpc-dev libglm-dev libreadline-dev libcurl4-openssl-dev libboost-filesystem-dev libgsl-dev libfftw3-dev libsigsegv-dev python3-pyqt5 qttools5-dev
+
+$ <span class="token builtin class-name">cd</span> ~/src
+$ <span class="token function">tar</span> xf ~/Download/asymptote-3.05.tar.gz
+$ <span class="token builtin class-name">cd</span> asymptote-3.05
+
+$ ./autogen.sh
+$ ./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span>/opt/Asymptote --disable-lsp
+$ <span class="token function">make</span>
+$ <span class="token function">make</span> check
+$ <span class="token function">make</span> <span class="token function">install</span>
+</code></pre><h3 id="metapost-2">MetaPost </h3>
+<p>MetaPost は TeX Live に含まれています。特にインストールの必要はありません。</p>
+<h3 id="imagemagick-2">ImageMagick </h3>
+<p>ImageMagick をインストールします。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> imagemagick
+</code></pre><p>ImageMagick-6 がインストールされます。Asymptote 2.92 以後は ImageMagick-7 の <code>magick</code> コマンドを期待します。TeX Live 2025 の <code>asy</code> を使う場合は、<code>~/.asy/config.asy</code> に <code>settings.convert = "convert";</code> を追加します。</p>
+<hr>
+
+      </div>
+      <div class="md-sidebar-toc">
+<div class="md-toc">
+<details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#使用環境の準備" class="md-toc-link"><p>使用環境の準備</p>
+</a>
+          </summary>
+        <div>
+          <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#windows-11" class="md-toc-link"><p>Windows 11</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#bash" class="md-toc-link">
+            <p>Bash</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#vs-code-mpe" class="md-toc-link">
+            <p>VS Code, MPE</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#tex-live" class="md-toc-link"><p>TeX Live</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#ネットワークからインストール" class="md-toc-link">
+            <p>ネットワークからインストール</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#iso-イメージからインストール" class="md-toc-link">
+            <p>ISO イメージからインストール</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#パッケージの更新" class="md-toc-link">
+            <p>パッケージの更新</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#asymptote" class="md-toc-link"><p>Asymptote</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#tex-live-の-asy" class="md-toc-link">
+            <p>TeX Live の asy</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#sourceforge-の-asy" class="md-toc-link">
+            <p>SourceForge の asy</p>
+
+          </a></div>
+        </div>
+      </details>
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#metapost" class="md-toc-link">
+            <p>MetaPost</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#imagemagick" class="md-toc-link">
+            <p>ImageMagick</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#macos-15" class="md-toc-link"><p>macOS 15</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#homebrew" class="md-toc-link">
+            <p>Homebrew</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#vs-code-mpe-1" class="md-toc-link">
+            <p>VS Code, MPE</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#mactex" class="md-toc-link"><p>MacTeX</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#パッケージの更新-1" class="md-toc-link">
+            <p>パッケージの更新</p>
+
+          </a></div>
+        </div>
+      </details>
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#asymptote-1" class="md-toc-link">
+            <p>Asymptote</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#metapost-1" class="md-toc-link">
+            <p>MetaPost</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#imagemagick-1" class="md-toc-link">
+            <p>ImageMagick</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#linux" class="md-toc-link"><p>Linux</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#ubuntu-のパッケージの更新" class="md-toc-link">
+            <p>Ubuntu のパッケージの更新</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#日本語環境のパッケージ" class="md-toc-link">
+            <p>日本語環境のパッケージ</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#vs-code-mpe-2" class="md-toc-link">
+            <p>VS Code, MPE</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#ブラウザ" class="md-toc-link">
+            <p>ブラウザ</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#tex-live-1" class="md-toc-link"><p>TeX Live</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#ubuntu-のパッケージによるインストール" class="md-toc-link">
+            <p>Ubuntu のパッケージによるインストール</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#ctan-のパッケージによるインストール" class="md-toc-link"><p>CTAN のパッケージによるインストール</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#ネットワークインストール" class="md-toc-link">
+            <p>ネットワーク・インストール</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#iso-イメージからインストール-1" class="md-toc-link">
+            <p>ISO イメージからインストール</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#tex-live-の設定" class="md-toc-link">
+            <p>TeX Live の設定</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#パッケージの更新-2" class="md-toc-link">
+            <p>パッケージの更新</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+        </div>
+      </details>
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#asymptote-2" class="md-toc-link">
+            <p>Asymptote</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#metapost-2" class="md-toc-link">
+            <p>MetaPost</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#imagemagick-2" class="md-toc-link">
+            <p>ImageMagick</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+        </div>
+      </details>
+    
+</div>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    
+    
+    
+    
+    
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  
+    </body></html>

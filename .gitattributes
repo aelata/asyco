@@ -1,0 +1,5 @@
+.gitattributes export-ignore
+.gitignore export-ignore
+.shellspec export-ignore
+spec export-ignore
+docs/.nojekyll export-ignore

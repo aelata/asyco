@@ -1,0 +1,5 @@
+/.shellspec-quick.log
+/spec/report/results.tap
+/asyco.sh
+/asycat.sh
+/*.md
