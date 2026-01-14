@@ -13,7 +13,7 @@
 
 <!-- /code_chunk_output -->
 
-[Asymptote](https://asymptote.sourceforge.io) で日本語を扱うための設定については [asy_ja.md](asy_ja.html) を参照してください。
+[Asymptote](https://asymptote.sourceforge.io) で日本語を扱うための設定については [asy_ja.md](asy_ja.md) を参照してください。
 
 `asyco` と `mepoco` の動作は以下の環境で確認しています。
 
@@ -105,7 +105,7 @@ C:\...>tlmgr update asymptote
 TeX Live の `asy` を用いる場合は、特にインストールの必要はありません。
 
 #### SourceForge の asy
-SourceForge の `asy` は、TeX Live の `asy` よりも速く（詳細は [time.md](time.html) を参照）、最新版を使えます。
+SourceForge の `asy` は、TeX Live の `asy` よりも速く（詳細は [time.md](time.md) を参照）、最新版を使えます。
 [SourceForge](https://sourceforge.net/projects/asymptote/files/) から Asymptote のインストーラ（例えば `asymptote-3.05-setup.exe`） をダウンロードしてインストールします。Asymptote のインストール先は、標準では `C:\Program Files\Asymptote` です。コマンド検索パスは設定されないため、Windows の環境変数 `Path` に `C:\Program Files\Asymptote` を追加します。
 
 Ghostscript 関連の設定として、例えば以下を `~/.asy/config.asy` に追加します。

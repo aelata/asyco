@@ -10,7 +10,7 @@
 ![asyco のフロー図](asyco_flow.png "asyco のフロー図"){width=53% style="display:block;margin:auto;"}
 
 ## 必要な環境とインストール
-[INSTALL.md](./INSTALL.html) を参照してください。
+[INSTALL.md](./INSTALL.md) を参照してください。
 
 ## 使用法
 VS Code でマークダウン文書を開き、`asyco` または `mepoco` を呼び出すコードチャンクを書いて実行します。
@@ -66,7 +66,7 @@ MPE のコードチャンクの最初の行は次のような形式です。
 コードチャンクの主なオプションを以下に示します：
 
 `lang`
-: 構文強調表示の言語を設定します。構文強調表示しなければ *`lang`* は省略できます。VS Code と MPE は、Asymptote (`asy`) と MetaPost (`mp`) の構文強調表示に対応していませんが、代わりに文法が似た言語を設定できます。Asymptote では `cpp`、MetaPost では `metafont` を設定します。詳細は [ISSUES.md](ISSUES.html) を参照してください。
+: 構文強調表示の言語を設定します。構文強調表示しなければ *`lang`* は省略できます。VS Code と MPE は、Asymptote (`asy`) と MetaPost (`mp`) の構文強調表示に対応していませんが、代わりに文法が似た言語を設定できます。Asymptote では `cpp`、MetaPost では `metafont` を設定します。詳細は [ISSUES.md](ISSUES.md) を参照してください。
 
 `cmd`
 : 実行するコマンドを設定します。`env` コマンドを設定します。macOS や Linux では `asyco` や `mepoco` を設定する方法もありますが、Windows との文書の互換性を考慮して `env` を設定することをお勧めします。
@@ -263,7 +263,7 @@ write(inverse((0, 0, 1, 1, 2, 4)) * (8, 26)); // You will get "(3,5)".
 ````
 
 ### MetaPost での複数の図
-MetaPost で複数の図を 1 つのコードチャンクに含める場合、図は `beginfig` の番号順に出力され、テキストはコード中の出現順に出力されます。複数の図の位置揃えについては [ISSUES.md](ISSUES.html) を参照してください。
+MetaPost で複数の図を 1 つのコードチャンクに含める場合、図は `beginfig` の番号順に出力され、テキストはコード中の出現順に出力されます。複数の図の位置揃えについては [ISSUES.md](ISSUES.md) を参照してください。
 
 ````metafont
 ```mp {cmd=env args=[mepoco] output=html}
@@ -317,8 +317,8 @@ MPE の `@import` で Asymptote や MetaPost のファイルを取り込んで�
 ```
 
 ## 関連項目
-* `asycat` を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は [asycat.md](asycat.html) を参照してください。
-* 起こりうる問題と対処法については [ISSUES.md](ISSUES.html) を参照してください。
+* `asycat` を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は [asycat.md](asycat.md) を参照してください。
+* 起こりうる問題と対処法については [ISSUES.md](ISSUES.md) を参照してください。
 
 ## 著作権と利用許諾
 (c) 2025-2026 aelata

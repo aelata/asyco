@@ -16,7 +16,7 @@
 * ローカルの `asy` コマンドで SVG (Scalable Vector Graphics) または PNG (Portable Network Graphics) 形式の図を出力できる
 * [Asymptote http server](https://github.com/vectorgraphics/asymptote-http-server)（例えば `asymptote.ualberta.ca:10007`）に接続できる
 
-必要な環境の準備については [setup.md](setup.html) を参照してください。
+必要な環境の準備については [setup.md](setup.md) を参照してください。
 
 ## インストール
 `asyco` のインストール先（例えば `$HOME/bin` や `/usr/local/bin`）は bash のコマンド検索パス（`PATH`）に含まれている必要があります。Windows では `asyco` のインストール先（例えば `%USERPROFILE%\bin` や `C:\opt\PortableGit\usr\local\bin`）を Windows のコマンド検索パス（`Path`）に追加します。Windows のコマンド検索パス（`Path`）は bash のコマンド検索パス（`PATH`）に取り込まれます。
@@ -33,7 +33,7 @@ $ cp asyco ~/bin
 $ chmod +x ~/bin/asyco
 ```
 
-`asyco` のインストールには `install.sh` スクリプトも利用できます。インストールの詳細と動作確認については [INSTALL.md](INSTALL.html) を参照してください。
+`asyco` のインストールには `install.sh` スクリプトも利用できます。インストールの詳細と動作確認については [INSTALL.md](INSTALL.md) を参照してください。
 
 ## 使用法
 VS Code でマークダウン文書を開き、`asyco` を呼び出すコードチャンクを書いて実行します。
@@ -150,11 +150,11 @@ Asymptote http server を用いる場合、エラーメッセージは表示さ�
 その他のオプションは `asy` コマンドに渡されます。このため、短いオプションは結合できません（例えば `-KA N` ではなく `-K -A N`）。また、短いオプションとその引数は結合できません（例えば `-AN` ではなく `-A N`）。
 
 ## 関連項目
-* `asyco` の詳細は [asyco.md](asyco.html) を参照してください。
-* `mepoco` を使うと [MetaPost](https://tug.org/metapost.html) 言語で書かれた図をマークダウン文書に容易に埋め込めます。詳細は [asyco.md](asyco.html) を参照してください。
-* `asycat` を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は [asycat.md](asycat.html) を参照してください。
-* インストールの詳細と動作確認については [INSTALL.md](./INSTALL.html) を参照してください。
-* 起こりうる問題と対処法については [ISSUES.md](ISSUES.html) を参照してください。
+* `asyco` の詳細は [asyco.md](asyco.md) を参照してください。
+* `mepoco` を使うと [MetaPost](https://tug.org/metapost.html) 言語で書かれた図をマークダウン文書に容易に埋め込めます。詳細は [asyco.md](asyco.md) を参照してください。
+* `asycat` を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は [asycat.md](asycat.md) を参照してください。
+* インストールの詳細と動作確認については [INSTALL.md](./INSTALL.md) を参照してください。
+* 起こりうる問題と対処法については [ISSUES.md](ISSUES.md) を参照してください。
 
 ## 著作権と利用許諾
 (c) 2025-2026 aelata

@@ -32,7 +32,7 @@ $ cp asyco ~/bin
 $ chmod +x ~/bin/asyco
 ```
 
-You can also use the `install.sh` script to install `asyco`. See [INSTALL.md](INSTALL.html) for installation details and checking operations.
+You can also use the `install.sh` script to install `asyco`. See [INSTALL.md](INSTALL.md) for installation details and checking operations.
 
 ## Usage
 Open a Markdown document in VS Code. Write and run MPE code chunks calling `asyco`.
@@ -149,13 +149,13 @@ Additionally, the following options are available if specified as the first argu
 Other options are passed to `asy`. For this behavior, short options cannot be combined (use `-K -A N` instead of `-KA N`, for example). Also, a short option and its argument must be separated by spaces (use `-A N` instead of `-AN`, for example).
 
 ## See also
-* See [asyco.md](asyco.html) for the details of `asyco`.
-* With `mepoco`, you can easily embed figures written in the [MetaPost](https://tug.org/metapost.html) language into a Markdown document. See [asyco.md](asyco.html) for details.
-* With `asycat`, you can generate Markdown with code and figures side by side from Asymptote or MetaPost files. See [asycat.md](asycat.html) for details.
-* See [INSTALL.md](INSTALL.html) for installation details and checking operations.
-* See [ISSUES.md](ISSUES.html) for possible issues and some fixes.
+* See [asyco.md](asyco.md) for the details of `asyco`.
+* With `mepoco`, you can easily embed figures written in the [MetaPost](https://tug.org/metapost.html) language into a Markdown document. See [asyco.md](asyco.md) for details.
+* With `asycat`, you can generate Markdown with code and figures side by side from Asymptote or MetaPost files. See [asycat.md](asycat.md) for details.
+* See [INSTALL.md](INSTALL.md) for installation details and checking operations.
+* See [ISSUES.md](ISSUES.md) for possible issues and some fixes.
 
-* See [ja/README.md](ja/README.html) for the Japanese documentation.
+* See [ja/README.md](ja/README.md) for the Japanese documentation.
 
 ## Copyright and license
 (c) 2025-2026 aelata
