@@ -260,7 +260,7 @@ endfig;
 ### MPE による書き換え
 構文強調表示の言語に `cpp` や `metafont` を指定する代わりに、MPE で `asy` や `mp` を書き換えることもできます。
 
-`.crossnote/Parser.js` の `onWillParseMarkdown` を次のように設定します。
+`.crossnote/parser.js` の `onWillParseMarkdown` を次のように設定します。
 
 ```javascript
   onWillParseMarkdown: async function(markdown) {
