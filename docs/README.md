@@ -160,7 +160,7 @@ Other options are passed to `asy`. For this behavior, short options cannot be co
 ## Copyright and license
 (c) 2025-2026 aelata
 
-This software is licensed under the MIT No attribution (MIT-0) License.
+This software is licensed under the MIT No attribution (MIT-0) License. However, this License does not apply to any files with the .html or .js extension.
 [https://opensource.org/license/mit-0](https://opensource.org/license/mit-0)
 
 ---
