@@ -257,7 +257,7 @@ endfig;
 ### Rewriting by MPE
 Instead of setting the syntax highlighting language to `cpp` or `metafont`, MPE can rewrite `asy` or `mp` to them.
 
-Set `onWillParseMarkdown` in `.crossnote/Parser.js` as follows.
+Set `onWillParseMarkdown` in `.crossnote/parser.js` as follows.
 
 ```javascript
   onWillParseMarkdown: async function(markdown) {
