@@ -159,7 +159,7 @@ Asymptote http server を用いる場合、エラーメッセージは表示さ�
 ## 著作権と利用許諾
 (c) 2025-2026 aelata
 
-このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。
+このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。ただし、本許諾は拡張子が .html または .js のファイルには適用されないものとします。
 [https://opensource.org/license/mit-0](https://opensource.org/license/mit-0)
 
 ---
