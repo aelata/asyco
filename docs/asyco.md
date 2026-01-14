@@ -10,7 +10,7 @@ The Markdown document can be converted to a PDF file through a browser or [pando
 ![Flow diagram of asyco](asyco_flow.png "Flow diagram of asyco"){width=53% style="display:block;margin:auto;"}
 
 ## Requirements and installation
-See [INSTALL.md](INSTALL.html).
+See [INSTALL.md](INSTALL.md).
 
 ## Usage
 Open a Markdown document in VS Code. Write and run MPE code chunks calling `asyco` or `mepoco`.
@@ -66,7 +66,7 @@ You can also set `args` as follows.
 The main options of a code chunk are described below:
 
 `lang`
-: Set the language for syntax highlighting. Omit *`lang`* with no syntax highlighting. The syntax highlighting of Asymptote (`asy`) and MetaPost (`mp`) is not available in VS Code and MPE. However, you can set the language that has similar syntax. Use `cpp` for Asymptote and `metafont` for MetaPost. See [ISSUES.md](ISSUES.html) for details.
+: Set the language for syntax highlighting. Omit *`lang`* with no syntax highlighting. The syntax highlighting of Asymptote (`asy`) and MetaPost (`mp`) is not available in VS Code and MPE. However, you can set the language that has similar syntax. Use `cpp` for Asymptote and `metafont` for MetaPost. See [ISSUES.md](ISSUES.md) for details.
 
 `cmd`
 : Set the command to be executed. Set the `env` command. Setting `env` is recommended considering document compatibility with Windows, even if `asyco` or `mepoco` can be used on macOS or Linux.
@@ -243,7 +243,7 @@ write(inverse((0, 0, 1, 1, 2, 4)) * (8, 26)); // You will get "(3,5)".
 ````
 
 ### Multiple figures in MetaPost
-If you put multiple figures written in MetaPost in one code chunk, the figure output are in the order of the argument of `beginfig`, not in the order of the appearance in the code. However, the text output are in the order of the appearance in the code. See [ISSUES](ISSUES.html) for the alignment of multiple figures.
+If you put multiple figures written in MetaPost in one code chunk, the figure output are in the order of the argument of `beginfig`, not in the order of the appearance in the code. However, the text output are in the order of the appearance in the code. See [ISSUES](ISSUES.md) for the alignment of multiple figures.
 
 ````metafont
 ```mp {cmd=env args=[mepoco] output=html}
@@ -296,8 +296,8 @@ You can include and execute the file of Asymptote or MetaPost with `@import` of 
 ```
 
 ## See also
-* With `asycat`, you can generate Markdown with code and figures side by side from Asymptote or MetaPost files. See [asycat.md](asycat.html) for details.
-* See [ISSUES.md](ISSUES.html) for possible issues and some fixes.
+* With `asycat`, you can generate Markdown with code and figures side by side from Asymptote or MetaPost files. See [asycat.md](asycat.md) for details.
+* See [ISSUES.md](ISSUES.md) for possible issues and some fixes.
 
 ## Copyright and license
 (c) 2025-2026 aelata

@@ -10,7 +10,7 @@
 ![asycat のフロー図](asycat_flow.png "asycat のフロー図"){width=35% style="display:block;margin:auto;"}
 
 ## 必要な環境とインストール
-[INSTALL.md](./INSTALL.html) を参照してください。
+[INSTALL.md](./INSTALL.md) を参照してください。
 
 ## 使用法
 ### マークダウンファイルの作成

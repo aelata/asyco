@@ -23,7 +23,7 @@
 
 * ローカルの `mpost` コマンドで SVG または PNG 形式の図を出力できる
 
-必要な環境の準備については [setup.md](setup.html) を参照してください。
+必要な環境の準備については [setup.md](setup.md) を参照してください。
 
 ## インストール
 スクリプトのインストール先（例えば `$HOME/bin` や `/usr/local/bin`）は、bash のコマンド検索パス（`PATH`）に含まれている必要があります。Windows ではスクリプトのインストール先（例えば `%USERPROFILE%\bin` や `C:\opt\PortableGit\usr\local\bin`）を Windows のコマンド検索パス（`Path`）に追加します。Windows のコマンド検索パス（`Path`）は bash のコマンド検索パス（`PATH`）に取り込まれます。

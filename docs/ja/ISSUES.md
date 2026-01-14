@@ -391,7 +391,7 @@ endfig;
 ```
 
 ## asyco の遅さ
-`asyco` の実行時間の大部分は `asy` の実行時間です。実行時間の詳細は [time.md](time.html) を参照してください。
+`asyco` の実行時間の大部分は `asy` の実行時間です。実行時間の詳細は [time.md](time.md) を参照してください。
 
 ### 実行環境による比較
 異なる実行環境での `asyco` の実行時間を以下に示します。Ubuntu は Windows 上の [VirtualBox](https://www.virtualbox.org) で実行しています。Windows と macOS は別の計算機です。TeX 処理系は省略時値の `latex` です。

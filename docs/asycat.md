@@ -10,7 +10,7 @@ The Markdown can be converted to a PDF file through [Visual Studio Code (VS Code
 ![Flow diagram of asycat](asycat_flow.png "Flow diagram of asycat"){width=35% style="display:block;margin:auto;"}
 
 ## Requirements and installation
-See [INSTALL.md](INSTALL.html).
+See [INSTALL.md](INSTALL.md).
 
 ## Usage
 ### Creating a Markdown file

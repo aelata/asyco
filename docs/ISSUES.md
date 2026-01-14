@@ -387,7 +387,7 @@ You can also set the `align-items` property of the asyco-fig class (`.asyco-fig`
 ```
 
 ## Slow execution of asyco
-Most of the execution time of `asyco` is spent on `asy`. See [time.md](time.html) for the details of the execution time.
+Most of the execution time of `asyco` is spent on `asy`. See [time.md](time.md) for the details of the execution time.
 
 ### Execution time by environment
 The typical execution times of `asyco` for each execution environment are shown below. Ubuntu runs in [VirtualBox](https://www.virtualbox.org) on Windows. Windows and macOS run on different computers. The TeX engine is `latex` (default).
