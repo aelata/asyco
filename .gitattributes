@@ -3,3 +3,4 @@
 .shellspec export-ignore
 spec export-ignore
 docs/.nojekyll export-ignore
+*.html export-ignore
