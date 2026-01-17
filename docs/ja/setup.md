@@ -277,7 +277,32 @@ $ sudo apt install git
 -->
 
 ### ブラウザ
-Ubuntu 24.04 の標準ブラウザは Snap 版の Firefox です。Snap 版の Firefox は `/tmp` の下あるファイルを開けないため、MPE の `Open in Browser` が使えません。下記の記事を参考にデフォルトブラウザを変更します。
+Ubuntu 24.04 の標準ブラウザは Snap 版の Firefox です。Snap 版の Firefox は `/tmp` の下あるファイルを開けないため、MPE の `Open in Browser` が使えません（`Export > HTML` で作成した HTML ファイルを開くことはできます）。
+
+Firefox の[ダウンロードページ](https://www.firefox.com/ja/download/all)でブラウザー、プラットフォーム、言語を選択し、ファイル（例えば `firefox-147.0.1.tar.xz` や `firefox-140.7.0esr.tar.xz`）をダウンロードします。
+
+インストール先（例えば `~/bin`）にファイルを展開します。
+```bash
+$ cd ~/bin
+$ tar xf ~/Download/firefox-147.0.1.tar.xz
+```
+
+`~/.local/share/applications` の下に、例えば次のファイルを作成します。
+**custom-firefox.desktop**
+```ini
+[Desktop Entry]
+Type=Application
+Name=Custom Firefox
+Exec=sh -c "$HOME/bin/filefox/firefox %u"
+Icon=firefox
+Terminal=false
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+```
+
+Ubuntu の Settings > Apps > Default Apps > Web で Custom Firefox を選択し、既定のブラウザに設定します。
+
+<!--
+下記の記事を参考にデフォルトブラウザを変更します。
 
 [Snap版Firefoxを使用しないでやり過ごす (https://gihyo.jp/admin/serial/01/ubuntu-recipe/0710)](https://gihyo.jp/admin/serial/01/ubuntu-recipe/0710)
 
@@ -288,6 +313,7 @@ $ sudo apt install firefox-esr firefox-esr-locale-ja
 
 $ xdg-settings set default-web-browser firefox-esr.desktop
 ```
+-->
 
 <!--
 Firefox の言語（設定 > 一般 > 言語）を日本語に設定しないと、違和感のあるフォントで日本語が表示される場合があります。
