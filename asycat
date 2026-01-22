@@ -2,7 +2,7 @@
 
 # asycat - generate Markdown with Asymptote/MetaPost code and figures
 VERSION="\
-asycat version 0.8.0
+asycat version 0.8.1
 
 (c) 2025-2026 aelata
 This software is licensed under the MIT No Attribution (MIT-0) License.
@@ -203,7 +203,7 @@ parse_opts() {
 put_code_fig() { # $1: file, $2: code chunk option
   echo '```'"$AS {cmd=env args=[\"$CMD\"$args] $lnum output=html $2}"
   ncat "$1"
-  echo '```'
+  echo '```'$'\n'
 }
 
 # put_code - put code (figure to east or west)
@@ -211,7 +211,7 @@ put_code() { # $1: file, $2: id
   echo \
 '```'"$AS {cmd=env args=[\"$CMD\", \"-n\"] $lnum output=none ${2+id=$2}}"
   ncat "$1"
-  echo '```'
+  echo '```'$'\n'
 }
 
 # put_fig - put a figure to the east or west of code
@@ -220,7 +220,7 @@ put_fig() { # $1: id
   echo \
 '```'"$AS {cmd=env args=[\"$CMD\"$args] output=html .hide continue${1+=$1}}"
   echo "$RCC"
-  echo '```'
+  echo '```'$'\n'
 }
 
 _asycat() { # $@: files
@@ -262,8 +262,8 @@ _asycat() { # $@: files
     fi
 
     echo "<div class='asycat-block' style='$dsty'>"$'\n'
-    (( 0 < arg_level )) && echo "$HEADING $f"
-    (( arg_level < 0 )) && echo "$HEADING ${f##*/}"
+    (( 0 < arg_level )) && echo "$HEADING $f"$'\n'
+    (( arg_level < 0 )) && echo "$HEADING ${f##*/}"$'\n'
 
     o=("${opts[@]}")
     s=$(dirname "$f")
