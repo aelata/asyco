@@ -2,10 +2,10 @@
 
 # install.sh - install / uninstall 'asyco'
 VERSION="\
-install.sh version 0.8.0
+install.sh version 0.9.0
 
 (c) 2025-2026 aelata
-This software is licensed under the MIT No Attribution (MIT-0) License.
+This script is licensed under the MIT No Attribution (MIT-0) License.
 https://opensource.org/license/mit-0
 "
 

@@ -2,10 +2,10 @@
 
 # asyco - write a graphics output file from 'asy' to the character output
 VERSION="\
-asyco version 0.8.0
+asyco version 0.9.0
 
 (c) 2025-2026 aelata
-This software is licensed under the MIT No Attribution (MIT-0) License.
+This script is licensed under the MIT No Attribution (MIT-0) License.
 https://opensource.org/license/mit-0
 "
 

@@ -2,10 +2,10 @@
 
 # asycat - generate Markdown with Asymptote/MetaPost code and figures
 VERSION="\
-asycat version 0.8.1
+asycat version 0.9.0
 
 (c) 2025-2026 aelata
-This software is licensed under the MIT No Attribution (MIT-0) License.
+This script is licensed under the MIT No Attribution (MIT-0) License.
 https://opensource.org/license/mit-0
 "
 
