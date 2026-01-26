@@ -1,0 +1,14 @@
+{
+  "MD013": {
+    "line_length": 1024
+  },
+  "MD014": false,
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD033": {
+    "allowed_elements": [
+      "br", "table", "tr", "td", "div", "style", "kbd", "details", "summary"]
+  },
+  "MD060": false
+}

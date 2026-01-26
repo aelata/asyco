@@ -111,40 +111,49 @@
 <h2 id="requirements">Requirements </h2>
 <p><code>asyco</code> works on Windows, macOS, and Linux. You need an environment where you can:</p>
 <ul>
-<li>run bash scripts using the <code>env</code> command and use basic tools such as <code>sort</code> and <code>awk</code><br>
-On Windows, you can run the scripts in the <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) environment. The Windows command search path (<code>Path</code>) must include the directory where <code>env.exe</code> is located, such as <code>C:\opt\PortableGit\usr\bin</code> or <code>C:\Program Files\Git\usr\bin</code>.</li>
-<li>run code chunks of MPE in VS Code<br>
-In the VS Code settings, <code>Markdown-preview-enhanced: Enable Script Execution</code> must be selected; it is not selected by default.</li>
+<li>
+<p>run bash scripts using the <code>env</code> command and use basic tools such as <code>sort</code> and <code>awk</code></p>
+<p>On Windows, you can run the scripts in the <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) environment. The Windows command search path (<code>Path</code>) must include the directory where <code>env.exe</code> is located, such as <code>C:\opt\PortableGit\usr\bin</code>.</p>
+</li>
+<li>
+<p>run the code chunks of MPE in VS Code</p>
+<p>In the VS Code settings, <code>Markdown-preview-enhanced: Enable Script Execution</code> must be selected; it is not selected by default.</p>
+</li>
 </ul>
 <p>You also need an environment where you can do at least one of the following:</p>
 <ul>
-<li>draw figures in SVG (Scalable Vector Graphics) or PNG (Portable Network Graphics) format with the local <code>asy</code> command</li>
-<li>connect to the <a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a> such as <code>asymptote.ualberta.ca:10007</code></li>
+<li>
+<p>draw figures in SVG (Scalable Vector Graphics) or PNG (Portable Network Graphics) format with the local <code>asy</code> command</p>
+</li>
+<li>
+<p>connect to the <a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a> such as <code>asymptote.ualberta.ca:10007</code></p>
+</li>
 </ul>
 <h2 id="installation">Installation </h2>
-<p>The installation directory of <code>asyco</code>, such as <code>$HOME/bin</code> or <code>/usr/local/bin</code>, must be included in the bash command search path (<code>PATH</code>). On Windows, add the installation directory, such as <code>%USERPROFILE%\bin</code> or <code>C:\opt\PortableGit\usr\local\bin</code>, to the Windows command search path (<code>Path</code>), which will then be included in the bash command search path (<code>PATH</code>).</p>
+<p>The installation directory of <code>asyco</code>, such as <code>$HOME/bin</code> or <code>/usr/local/bin</code>, must be included in the shell command search path (<code>PATH</code>). On Windows, add the installation directory, such as <code>%USERPROFILE%\bin</code> or <code>C:\opt\PortableGit\usr\local\bin</code>, to the Windows command search path (<code>Path</code>). Tha value of <code>Path</code> will then be included in the shell command search path (<code>PATH</code>).</p>
 <p>Install <code>asyco</code> with the following steps.</p>
 <ol>
 <li>Copy <code>asyco</code> to the installation directory.</li>
 <li>Give execute permission to <code>asyco</code>.</li>
 </ol>
-<p>For example, if the installation directory is <code>$HOME/bin</code>, run the following commands on the bash command line.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">cp</span> asyco ~/bin
-$ <span class="token function">chmod</span> +x ~/bin/asyco
+<p>For example, if the installation directory is <code>$HOME/bin</code>, run the following on the command line of your shell, such as bash.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ cp asyco ~/bin
+$ chmod +x ~/bin/asyco
 </code></pre><p>You can also use the <code>install.sh</code> script to install <code>asyco</code>. See <a href="INSTALL.html">INSTALL.md</a> for installation details and checking operations.</p>
 <h2 id="usage">Usage </h2>
 <p>Open a Markdown document in VS Code. Write and run MPE code chunks calling <code>asyco</code>.</p>
 <h3 id="writing-a-code-chunk">Writing a code chunk </h3>
 <p>In the options of a code chunk:</p>
 <ul>
+<li>Set the syntax highlighting language to <code>cpp</code> (which has syntax similar to Asymptote) as needed</li>
 <li>Set <code>cmd</code> to <code>env</code></li>
 <li>Set <code>asyco</code> and its options to <code>args</code></li>
 <li>Set <code>output</code> to <code>html</code></li>
 </ul>
-<p>In the following example, the option <code>-M 1mm</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>M <span class="token number">1</span>mm<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<p>In the following example, the option <code>-M 1mm</code> for <code>asyco</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -M 1mm] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="running-the-code-chunk">Running the code chunk </h3>
 <p>Preview the document with <code>Open Preview to the Side</code> in VS Code. Run the code chunk with <code>Run Code Chunk</code> ( <kbd>▶︎</kbd> button) or <code>Run All Code Chunks</code> ( <kbd>ALL</kbd> button).</p>
 <h3 id="creating-a-pdf-file">Creating a PDF file </h3>
@@ -152,22 +161,22 @@ $ <span class="token function">chmod</span> +x ~/bin/asyco
 <h2 id="examples">Examples </h2>
 <h3 id="asymptote-http-server">Asymptote http server </h3>
 <p>With the Asymptote http server, you can embed figures written in Asymptote into a Markdown document without the local <code>asy</code> command. Specify the <code>--remote</code> option for <code>asyco</code>. The default Asymptote http server <code>asymptote.ualberta.ca:10007</code> is used if you do not set the server with the <code>--server</code> option.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">--</span>remote<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --remote] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="png-image">PNG image </h3>
 <p>Specify the option <code>-f png</code> for <code>asyco</code> to draw a figure as a PNG image. The value of the code chunk option <code>output</code> must be <code>html</code>, not <code>png</code>. In the following example, image resolution and display magnification are changed with <code>-render 4 --img-zoom=0.25x</code> and the image is saved to <code>fig.png</code> with <code>-o fig</code>.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>f png <span class="token operator">-</span>render <span class="token number">4</span> <span class="token operator">--</span>img<span class="token operator">-</span>zoom<span class="token operator">=</span><span class="token number">0.25</span>x <span class="token operator">-</span>o fig<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="warning-message">Warning message </h3>
 <p>With the local <code>asy</code> command, warning messages or error messages may appear.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><p>In the above example, the following waning messages appear.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>: warning [unbounded]: x scaling in picture unbounded
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>: warning [unbounded]: x scaling in picture unbounded
 : warning [unbounded]: y scaling in picture unbounded
 </code></pre><p>The warning messages can be suppressed with the <code>--silent</code> option of <code>asyco</code>. The warning messages can also be suppressed individually with the <code>-nowarn</code> option of <code>asy</code>; use <code>-nowarn unbounded</code> for the above example.</p>
 <p>With the Asymptote http server, error messages may appear but warning messages will not.</p>
@@ -218,10 +227,7 @@ $ <span class="token function">chmod</span> +x ~/bin/asyco
 <p>With <code>asycat</code>, you can generate Markdown with code and figures side by side from Asymptote or MetaPost files. See <a href="asycat.html">asycat.md</a> for details.</p>
 </li>
 <li>
-<p>See <a href="INSTALL.html">INSTALL.md</a> for installation details and checking operations.</p>
-</li>
-<li>
-<p>See <a href="ISSUES.html">ISSUES.md</a> for possible issues and some fixes.</p>
+<p>See <a href="ISSUES.html">ISSUES.md</a> for frequent issues and some fixes.</p>
 </li>
 <li>
 <p>See <a href="ja/README.html">ja/README.md</a> for the Japanese documentation.</p>

@@ -111,71 +111,80 @@
 <h2 id="必要な環境">必要な環境 </h2>
 <p><code>asyco</code> は Windows, macOS, Linux で使えます。次の環境が必要です：</p>
 <ul>
-<li><code>env</code> コマンドで bash スクリプトを実行でき、<code>sort</code>, <code>awk</code> などの基本ツールを使える<br>
-Windows では <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) の環境で実行できます。<code>env.exe</code> のあるディレクトリ（例えば <code>C:\opt\PortableGit\usr\bin</code> や <code>C:\Program Files\Git\usr\bin</code>）が Windows のコマンド検索パス（<code>Path</code>）に含まれている必要があります。</li>
-<li>VS Code で MPE のコードチャンクを実行できる<br>
-VS Code の設定で <code>Markdown-preview-enhanced: Enable Script Execution</code> が選択されている必要があります（初期設定では選択されていません）。</li>
+<li>
+<p><code>env</code> コマンドで bash スクリプトを実行でき、<code>sort</code>, <code>awk</code> などの基本ツールを使える</p>
+<p>Windows では <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) の環境で bash スクリプトを実行できます。<code>env.exe</code> のあるディレクトリ（例えば <code>C:\opt\PortableGit\usr\bin</code>）が Windows のコマンド検索パス（<code>Path</code>）に含まれている必要があります。</p>
+</li>
+<li>
+<p>VS Code で MPE のコードチャンクを実行できる</p>
+<p>VS Code の設定で <code>Markdown-preview-enhanced: Enable Script Execution</code> が選択されている必要があります（初期設定では選択されていません）。</p>
+</li>
 </ul>
 <p>さらに次のいずれかの環境が必要です：</p>
 <ul>
-<li>ローカルの <code>asy</code> コマンドで SVG (Scalable Vector Graphics) または PNG (Portable Network Graphics) 形式の図を出力できる</li>
-<li><a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a>（例えば <code>asymptote.ualberta.ca:10007</code>）に接続できる</li>
+<li>
+<p>ローカルの <code>asy</code> コマンドで SVG (Scalable Vector Graphics) または PNG (Portable Network Graphics) 形式の図を出力できる</p>
+</li>
+<li>
+<p><a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a>（例えば <code>asymptote.ualberta.ca:10007</code>）に接続できる</p>
+</li>
 </ul>
 <p>必要な環境の準備については <a href="setup.html">setup.md</a> を参照してください。</p>
 <h2 id="インストール">インストール </h2>
-<p><code>asyco</code> のインストール先（例えば <code>$HOME/bin</code> や <code>/usr/local/bin</code>）は bash のコマンド検索パス（<code>PATH</code>）に含まれている必要があります。Windows では <code>asyco</code> のインストール先（例えば <code>%USERPROFILE%\bin</code> や <code>C:\opt\PortableGit\usr\local\bin</code>）を Windows のコマンド検索パス（<code>Path</code>）に追加します。Windows のコマンド検索パス（<code>Path</code>）は bash のコマンド検索パス（<code>PATH</code>）に取り込まれます。</p>
+<p><code>asyco</code> のインストール先（例えば <code>$HOME/bin</code> や <code>/usr/local/bin</code>）はシェルのコマンド検索パス（<code>PATH</code>）に含まれている必要があります。Windows では、あらかじめ <code>asyco</code> のインストール先（例えば <code>%USERPROFILE%\bin</code> や <code>C:\opt\PortableGit\usr\local\bin</code>）を Windows のコマンド検索パス（<code>Path</code>）に追加します。<code>Path</code> の値はシェルのコマンド検索パス（<code>PATH</code>）に取り込まれます。</p>
 <p>以下の手順で <code>asyco</code> をインストールします。</p>
 <ol>
 <li><code>asyco</code> をインストール先にコピーします。</li>
 <li><code>asyco</code> に実行権限を付与します。</li>
 </ol>
-<p>例えばインストール先が <code>$HOME/bin</code> の場合、bash のコマンド行で以下を実行します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">cp</span> asyco ~/bin
-$ <span class="token function">chmod</span> +x ~/bin/asyco
+<p>例えばインストール先が <code>$HOME/bin</code> の場合、bash などのシェルのコマンド行で以下を実行します。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ cp asyco ~/bin
+$ chmod +x ~/bin/asyco
 </code></pre><p><code>asyco</code> のインストールには <code>install.sh</code> スクリプトも利用できます。インストールの詳細と動作確認については <a href="INSTALL.html">INSTALL.md</a> を参照してください。</p>
 <h2 id="使用法">使用法 </h2>
 <p>VS Code でマークダウン文書を開き、<code>asyco</code> を呼び出すコードチャンクを書いて実行します。</p>
 <h3 id="コードチャンクの記述">コードチャンクの記述 </h3>
 <p>コードチャンクのオプションで：</p>
 <ul>
+<li>必要に応じて構文強調表示の言語に <code>cpp</code>（構文が Asymptote に類似）を設定</li>
 <li><code>cmd</code> に <code>env</code> を設定</li>
 <li><code>args</code> に <code>asyco</code> とそのオプションを設定</li>
 <li><code>output</code> に <code>html</code> を設定</li>
 </ul>
 <p>次の例では <code>args</code> に <code>asyco</code> のオプション <code>-M 1mm</code>（図に 1mm の余白を設定）を追加しています。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>M <span class="token number">1</span>mm<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -M 1mm] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="コードチャンクの実行">コードチャンクの実行 </h3>
 <p>VS Code の <code>Open Preview to the Side</code> でプレビューを表示し、<code>Run Code Chunk</code>（ <kbd>▶︎</kbd> ボタン）または <code>Run All Code Chunks</code>（ <kbd>ALL</kbd> ボタン）でコードチャンクを実行します。</p>
 <h3 id="pdf-ファイルの作成">PDF ファイルの作成 </h3>
 <p>プレビューのショートカットメニュー（コンテキストメニュー）で <code>Open in Browser</code> を実行します。ブラウザで文書を印刷することで PDF ファイルを作成できます。ショートカットメニューの <code>Export &gt; HTML</code> で HTML ファイルを作成し、<code>pandoc</code> コマンドで HTML ファイルを PDF ファイルに変換することもできます。</p>
 <h2 id="使用例">使用例 </h2>
 <h3 id="asymptote-http-server">Asymptote http server </h3>
-<p>Asymptote http sever を使えば、ローカルの <code>asy</code> コマンドを使えなくても、Asymptote で書かれた図をマークダウン文書に埋め込めます。Asymptote http sever を使うには <code>asyco</code> の <code>--remote</code> オプションを指定します。サーバを <code>--server</code> オプションで設定しなければ、省略時値の <code>asymptote.ualberta.ca:10007</code> が使われます。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">--</span>remote<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<p>Asymptote http sever を使えば、ローカルの <code>asy</code> コマンドを使えなくても、Asymptote で書かれた図をマークダウン文書に埋め込めます。Asymptote http sever を使うには <code>asyco</code> の <code>--remote</code> オプションを指定します。サーバを <code>--server</code> オプションで設定しなければ、<code>asymptote.ualberta.ca:10007</code> がサーバに用いられます。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --remote] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="png-画像">PNG 画像 </h3>
 <p>図を PNG 画像として出力するには <code>asyco</code> のオプションに <code>-f png</code> を指定します。コードチャンクの <code>output</code> オプションには <code>html</code> を設定します（<code>png</code> ではありません）。次の例では、画像の解像度と表示倍率を変更し（<code>-render 4 --img-zoom=0.25x</code>）、画像を <code>fig.png</code> に保存します（<code>-o fig</code>）。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>f png <span class="token operator">-</span>render <span class="token number">4</span> <span class="token operator">--</span>img<span class="token operator">-</span>zoom<span class="token operator">=</span><span class="token number">0.25</span>x <span class="token operator">-</span>o fig<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="警告メッセージ">警告メッセージ </h3>
 <p>ローカルの <code>asy</code> コマンドを用いる場合、警告メッセージやエラーメッセージが表示されることがあります。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">--</span>silent<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --silent] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><p>上の例では、次のメッセージが表示されます。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>: warning [unbounded]: x scaling in picture unbounded
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>: warning [unbounded]: x scaling in picture unbounded
 : warning [unbounded]: y scaling in picture unbounded
 </code></pre><p>警告メッセージは <code>asyco</code> の <code>--silent</code> オプションで抑制できます。警告メッセージは <code>asy</code> の <code>-nowarn</code> オプションでも個別に抑制でき、上のメッセージは <code>-nowarn unbounded</code> で抑制できます。</p>
 <p>Asymptote http server を用いる場合、エラーメッセージは表示されますが警告メッセージは表示されません。</p>
 <h2 id="オプション">オプション </h2>
 <dl>
 <dt><code>-f {svg|png}</code></dt>
-<dd>図の出力形式を設定します。対応する形式は SVG（<code>svg</code>）と PNG （<code>png</code>）だけです。省略時値は <code>svg</code> です。</dd>
+<dd>図の出力形式を設定します。対応する形式は SVG（<code>svg</code>）と PNG（<code>png</code>）だけです。省略時値は <code>svg</code> です。</dd>
 <dt><code>-o PREFIX</code></dt>
 <dd>出力ファイルの ディレクトリ名 / ファイル名（拡張子なし）を <em><code>PREFIX</code></em> に設定します。出力ファイルは保存されます。</dd>
 <dt><code>-A {L|C|R|N}</code></dt>
@@ -212,8 +221,7 @@ $ <span class="token function">chmod</span> +x ~/bin/asyco
 <li><code>asyco</code> の詳細は <a href="asyco.html">asyco.md</a> を参照してください。</li>
 <li><code>mepoco</code> を使うと <a href="https://tug.org/metapost.html">MetaPost</a> 言語で書かれた図をマークダウン文書に容易に埋め込めます。詳細は <a href="asyco.html">asyco.md</a> を参照してください。</li>
 <li><code>asycat</code> を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は <a href="asycat.html">asycat.md</a> を参照してください。</li>
-<li>インストールの詳細と動作確認については <a href="./INSTALL.html">INSTALL.md</a> を参照してください。</li>
-<li>起こりうる問題と対処法については <a href="ISSUES.html">ISSUES.md</a> を参照してください。</li>
+<li>よくある問題と対処法については <a href="ISSUES.html">ISSUES.md</a> を参照してください。</li>
 </ul>
 <h2 id="著作権と利用許諾">著作権と利用許諾 </h2>
 <p>(c) 2025-2026 aelata</p>

@@ -107,17 +107,17 @@
       
 <h1 id="asycat">asycat </h1>
 <style>code { white-space: pre-wrap !important; } </style>
-<p>With <code>asycat</code>, you can generate Markdown with code and figures side by side from <a href="https://asymptote.sourceforge.io">Asymptote</a> or <a href="https://tug.org/metapost.html">MetaPost</a> files.</p>
-<p><img src="color.png" alt="Preview of markdown by asycat on Visual Studio Code" title="Preview of markdown by asycat on Visual Studio Code" width="65%" style="display:block;margin:auto;"></p>
-<p>The Markdown can be converted to a PDF file through <a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> and either a browser or <a href="https://pandoc.org">pandoc</a>. <code>asycat</code> cannot be called from code chunks and must be executed on the command line.</p>
+<p>With <code>asycat</code>, you can generate Markdown with code and figures side by side from <a href="https://asymptote.sourceforge.io">Asymptote</a> or <a href="https://tug.org/metapost.html">MetaPost</a> files. Embedding the figures uses the <a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk">code chunk</a> feature of <a href="https://shd101wyy.github.io/markdown-preview-enhanced">Markdown Preview Enhanced (MPE)</a>, an extension for <a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a>.</p>
+<p><img src="color.png" alt="Preview of markdown by asycat on Visual Studio Code" title="Preview of markdown by asycat on Visual Studio Code" width="60%" style="display:block;margin:auto;"></p>
+<p>The Markdown can be converted to a PDF file through VS Code and either a browser or <a href="https://pandoc.org">pandoc</a>. <code>asycat</code> cannot be called from code chunks and must be executed on the shell command line.</p>
 <p><img src="asycat_flow.png" alt="Flow diagram of asycat" title="Flow diagram of asycat" width="35%" style="display:block;margin:auto;"></p>
 <h2 id="requirements-and-installation">Requirements and installation </h2>
 <p>See <a href="INSTALL.html">INSTALL.md</a>.</p>
 <h2 id="usage">Usage </h2>
 <h3 id="creating-a-markdown-file">Creating a Markdown file </h3>
-<p>Run <code>asycat</code> on the command line with Asymptote or MetaPost files as arguments, while redirecting Markdown output to a file.</p>
-<p>In the following example, a Markdown file <code>output.md</code>, which contains code and figures side by side, is created from files with the <code>.asy</code> extension in the current directory.</p>
-<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>$ asycat *.asy <span class="token operator">&gt;</span> output.md
+<p>Run <code>asycat</code> on the shell command line with Asymptote or MetaPost files as arguments, while redirecting Markdown output to a file.<br>
+In the following example, a Markdown file <code>output.md</code>, which contains code and figures side by side, is created from files with the <code>.asy</code> extension in the current directory.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat *.asy &gt; output.md
 </code></pre><h3 id="running-code-chunks-in-the-markdown-file">Running code chunks in the Markdown file </h3>
 <p>Open the Markdown file in VS Code. Edit the file as needed, then save it. Preview the file with <code>Open Preview to the Side</code>. Run code chunks with <code>Run Code Chunk</code> ( <kbd>▶︎</kbd> button) or <code>Run All Code Chunks</code> ( <kbd>ALL</kbd> button).</p>
 <h3 id="creating-a-pdf-file">Creating a PDF file </h3>
@@ -149,7 +149,7 @@
 <dt><code>--no-cd</code></dt>
 <dd>Do not change directory for each file.</dd>
 <dt><code>--</code></dt>
-<dd>Option-end delimiter. Arguments after "--" are treated as filenames or directory names.</dd>
+<dd>Option-end delimiter. Arguments after <code>--</code> are treated as filenames or directory names.</dd>
 </dl>
 <p>Additionally, the following options are available if specified as the first argument: <code>-h</code>, <code>--help</code> (show usage and exit) and <code>--version</code> (show version information and exit).</p>
 <p>Other options are passed to <code>asyco</code> or <code>mepoco</code>. For this behavior, short options cannot be combined (use <code>-N -B</code> instead of <code>-NB</code>, for example). Also, a short option and its argument must be separated by spaces (use <code>-P E</code> instead of <code>-PE</code>, for example).</p>
@@ -179,32 +179,33 @@
 </dl>
 <h2 id="examples">Examples </h2>
 <h3 id="specifying-multiple-directories">Specifying multiple directories </h3>
-<p>Directories must be specified after the option-end delimiter <code>--</code> or as the last argument.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat -- tests docs/color <span class="token operator">&gt;</span> output.md
-</code></pre><p>The Markdown document <code>output.md</code> is created from files with the <code>.asy</code> or <code>.mp</code> extension in the <code>tests</code> and <code>docs/color</code> directories.</p>
-<h3 id="setting-execution-directory">Setting execution directory </h3>
+<p>Directories must be specified after the option-end delimiter <code>--</code> or as the last argument. In the following example, the Markdown document <code>output.md</code> is created from files with the <code>.asy</code> or <code>.mp</code> extension in the <code>tests</code> and <code>docs/color</code> directories.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat -- tests docs/color &gt; output.md
+</code></pre><h3 id="setting-execution-directory">Setting execution directory </h3>
 <p>If you specify files that are not in the current directory, <code>asyco</code> or <code>mepoco</code> will be executed after changing to each directory where the file is located.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat tests/test.asy <span class="token operator">&gt;</span> output.md
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat tests/test.asy &gt; output.md
 </code></pre><p>The code chunk options are as follows. The option <code>--cd=tests</code> for <code>asyco</code> is added to <code>args</code>.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--cd=tests", "--alt=test"] output=html .hide continue}
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--cd=tests", "--alt=test"] output=html .hide continue}
 </code></pre><p>If you want to run <code>asyco</code> in the directory where the Markdown document is located, specify the <code>--no-cd</code> option.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat --no-cd tests/test.asy <span class="token operator">&gt;</span> output.md
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat --no-cd tests/test.asy &gt; output.md
 </code></pre><p>The code chunk options are as follows. The <code>--cd</code> option is not added to <code>args</code>.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--alt=test"] output=html .hide continue}
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--alt=test"] output=html .hide continue}
 </code></pre><h3 id="separate-options-for-asymptote-and-meatpost">Separate options for Asymptote and MeatPost </h3>
 <p>You can specify options for <code>asyco</code> and <code>mepoco</code> separately using environment variables.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token assign-left variable">ASYCAT_ASY_OPTS</span><span class="token operator">=</span><span class="token string">"--img-zoom=2x"</span> <span class="token assign-left variable">ASYCAT_MP_OPTS</span><span class="token operator">=</span><span class="token string">"--img-zoom=2"</span> asycat <span class="token parameter variable">-f</span> png *.asy *.mp <span class="token operator">&gt;</span> output.md
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ ASYCAT_ASY_OPTS="--img-zoom=2x" ASYCAT_MP_OPTS="--img-zoom=2" asycat -f png *.asy *.mp &gt; output.md
 </code></pre><h3 id="merging-multiple-markdown-documents">Merging multiple Markdown documents </h3>
 <p>If you set figures to appear to the left of code (<code>-P W</code>), a code chunk uses <code>id</code> to reference another code chunk.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat <span class="token parameter variable">-P</span> W rgb.asy <span class="token operator">&gt;</span> rgb.md
-$ asycat <span class="token parameter variable">-P</span> W cmyk.asy <span class="token operator">&gt;</span> cmyk.md
-</code></pre><p>Both <code>rgb.md</code> and <code>cmyk.md</code> use the same identifier <code>fig-1</code> to reference their code chunks. You can use the <code>--id-prefix</code> option to avoid the collision of identifiers when merging or importing multiple Markdown documents generated by <code>asycat</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat <span class="token parameter variable">-P</span> W --id-prefix<span class="token operator">=</span>fig-c- cmyk.asy <span class="token operator">&gt;</span> cmyk.md
-</code></pre><p>The code chunk with <code>id=fig-c-1</code> is generated, instead of <code>id=fig-1</code>.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-n"]  output=none id=fig-c-1}
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat -P W rgb.asy &gt; rgb.md
+$ asycat -P W cmyk.asy &gt; cmyk.md
+</code></pre><p>The code chunks with <code>id=fig-1</code> are generated in both <code>rgb.md</code> and <code>cmyk.md</code>.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-n"]  output=none id=fig-1}
+</code></pre><p>You can use the <code>--id-prefix</code> option to avoid the collision of identifiers when merging or importing multiple Markdown documents generated by <code>asycat</code>.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat -P W --id-prefix=fig-c- cmyk.asy &gt; cmyk.md
+</code></pre><p>The code chunk with <code>id=fig-c-1</code> is generated in <code>cmyk.md</code>.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-n"]  output=none id=fig-c-1}
 </code></pre><h2 id="copyright-and-license">Copyright and license </h2>
 <p>(c) 2025-2026 aelata</p>
-<p>This software is licensed under the MIT No attribution (MIT-0) License.<br>
+<p>This software is licensed under the MIT No attribution (MIT-0) License. However, this License does not apply to any files with the .html or .js extension.<br>
 <a href="https://opensource.org/license/mit-0">https://opensource.org/license/mit-0</a></p>
 <hr>
 

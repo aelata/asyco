@@ -113,30 +113,34 @@
 <ul>
 <li>
 <p>run bash scripts using the <code>env</code> command and use basic tools such as <code>sort</code> and <code>awk</code></p>
-<p>On Windows, you can run the scripts in the <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) environment. The Windows command search path (<code>Path</code>) must include the directory where <code>env.exe</code> is located, such as <code>C:\opt\PortableGit\usr\bin</code> or <code>C:\Program Files\Git\usr\bin</code>.</p>
+<p>On Windows, you can run the scripts in the <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) environment. The Windows command search path (<code>Path</code>) must include the directory where <code>env.exe</code> is located, such as <code>C:\opt\PortableGit\usr\bin</code>.</p>
 </li>
 <li>
-<p>run code chunks of <a href="https://shd101wyy.github.io/markdown-preview-enhanced">Markdown Preview Enhanced (MPE)</a> in <a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a></p>
+<p>run the code chunks of <a href="https://shd101wyy.github.io/markdown-preview-enhanced">Markdown Preview Enhanced (MPE)</a> in <a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a></p>
 <p>In the VS Code settings, <code>Markdown-preview-enhanced: Enable Script Execution</code> must be selected; it is not selected by default.</p>
 </li>
 </ul>
 <p>For <code>asyco</code>, you also need an environment where you can do at least one of the following:</p>
 <ul>
-<li>draw figures in SVG (Scalable Vector Graphics) or PNG (Portable Network Graphics) format with the local <code>asy</code> command</li>
-<li>connect to the <a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a> such as <code>asymptote.ualberta.ca:10007</code></li>
+<li>
+<p>draw figures in SVG (Scalable Vector Graphics) or PNG (Portable Network Graphics) format with the local <code>asy</code> command</p>
+</li>
+<li>
+<p>connect to the <a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a> such as <code>asymptote.ualberta.ca:10007</code></p>
+</li>
 </ul>
 <p>For <code>mepoco</code>, you also need an environment where you can:</p>
 <ul>
 <li>draw figures in SVG or PNG format with the local <code>mpost</code> command</li>
 </ul>
 <h2 id="installation-1">Installation </h2>
-<p>The installation directory of the scripts, such as <code>$HOME/bin</code> or <code>/usr/local/bin</code>, must be included in the bash command search path (<code>PATH</code>). On Windows, add the installation directory, such as <code>%USERPROFILE%\bin</code> or <code>C:\opt\PortableGit\usr\local\bin</code>, to the Windows command search path (<code>Path</code>), which will then be included in the bash command search path (<code>PATH</code>).</p>
+<p>The installation directory of the scripts, such as <code>$HOME/bin</code> or <code>/usr/local/bin</code>, must be included in the shell command search path (<code>PATH</code>). On Windows, add the installation directory, such as <code>%USERPROFILE%\bin</code> or <code>C:\opt\PortableGit\usr\local\bin</code>, to the Windows command search path (<code>Path</code>) in advance. The value of <code>Path</code> will then be included in the shell command search path (<code>PATH</code>).</p>
 <p>Install the scripts using either of the methods below.</p>
 <h3 id="installation-with-installsh">Installation with install.sh </h3>
-<p>Run <code>install.sh</code> with the installation directory as an argument, such as <code>~/bin</code>. On Windows, run <code>install.sh</code> on the bash (Git Bash) command line.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">bash</span> install.sh ~/bin
+<p>Run <code>install.sh</code> with the installation directory as an argument. For example, if the installation directory is <code>$HOME/bin</code>, run the following on the command line of your shell, such as bash.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ bash install.sh ~/bin
 </code></pre><p>On Windows, running <code>install.sh</code> at the command prompt is also possible.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>C:\...&gt;bash install.sh %USERPROFILE%\bin
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>C:\...&gt;bash install.sh %USERPROFILE%\bin
 </code></pre><p><code>install.sh</code> copies <code>asyco</code> and <code>asycat</code> to the installation directory and gives execute permission to them. The options below are available.</p>
 <dl>
 <dt><code>-m</code></dt>
@@ -148,17 +152,16 @@
 </dl>
 <h3 id="installation-without-installsh">Installation without install.sh </h3>
 <p>Copy <code>asyco</code> and <code>asycat</code> to the installation directory and give execute permission to them. Create a symbolic link from <code>asyco</code> to <code>mepoco</code> as needed. For example, run the following commands.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">cp</span> asyco asycat ~/bin
-$ <span class="token builtin class-name">cd</span> ~/bin
-$ <span class="token function">chmod</span> +x asyco asycat
-$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> mepoco
-$ <span class="token function">ln</span> <span class="token parameter variable">-s</span> asyco mepoco
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ cp asyco asycat ~/bin
+$ cd ~/bin
+$ chmod +x asyco asycat
+$ rm -f mepoco
+$ ln -s asyco mepoco
 </code></pre><h2 id="uninstallation">Uninstallation </h2>
-<p>On Windows, remove the installation directory from the Windows command search path (<code>Path</code>) as needed.</p>
-<p>Uninstall the scripts using either of the methods below.</p>
+<p>Uninstall the scripts using either of the methods below. On Windows, remove the installation directory from the Windows command search path (<code>Path</code>) as needed after the uninstallation.</p>
 <h3 id="uninstallation-with-uninstallsh">Uninstallation with uninstall.sh </h3>
-<p>Run <code>uninstall.sh</code> with the installation directory as an argument, such as <code>~/bin</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">bash</span> uninstall.sh ~/bin
+<p>Run <code>uninstall.sh</code> with the installation directory as an argument. For example, if the installation directory is <code>$HOME/bin</code>, run the following on the command line of your shell, such as bash.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ bash uninstall.sh ~/bin
 </code></pre><p><code>uninstall.sh</code> removes <code>asyco</code>, <code>asycat</code>, and <code>mepoco</code> from the installation directory. <code>uninstall.sh</code> removes <code>mepoco</code> even if the <code>-m</code> option is not specified. The option below is available.</p>
 <dl>
 <dt><code>-n</code></dt>
@@ -166,8 +169,8 @@ $ <span class="token function">ln</span> <span class="token parameter variable">
 </dl>
 <h3 id="uninstallation-without-uninstallsh">Uninstallation without uninstall.sh </h3>
 <p>Remove <code>asyco</code>, <code>asycat</code>, and <code>mepoco</code> from the the installation directory, such as <code>~/bin</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token builtin class-name">cd</span> ~/bin
-$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> asyco asycat mepoco
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ cd ~/bin
+$ rm -f asyco asycat mepoco
 </code></pre><hr>
 <div style="break-after:page;"></div>
 <h2 id="checking-requirements">Checking requirements </h2>
@@ -176,9 +179,11 @@ $ <span class="token function">rm</span> <span class="token parameter variable">
 <p>Verify that a bash script can be executed from the code chunk of MPE in VS Code.</p>
 <ol>
 <li>
-<p>Open the Markdown file <code>test_pre.md</code> in VS Code.</p>
-<p><strong>test_pre.md</strong></p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=curl args=[--version]}</span>
+<p>Open the Markdown file <code>test_pre.md</code> in VS Code.<br>
+<br></p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> test_pre.md</span>
+
+<span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=curl args=[--version]}</span>
 <span class="token code-block language-cmd">Code chunk 1</span>
 <span class="token punctuation">```</span></span>
 
@@ -199,8 +204,8 @@ $ <span class="token function">rm</span> <span class="token parameter variable">
 </li>
 <li>
 <p>Run "Code chunk 2" with <code>Run Code Chunk</code>.<br>
-"Code chunk 2" will then execute <code>./test.sh</code> using the <code>env</code> command.</p>
-<p><strong>test.sh</strong></p>
+"Code chunk 2" will then execute the following <code>./test.sh</code> script using the <code>env</code> command.<br>
+<br></p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token shebang important">#!/bin/bash</span>
 <span class="token builtin class-name">echo</span> <span class="token string">"OSTYPE: <span class="token environment constant">$OSTYPE</span>"</span>
 </code></pre><p>Verify that the line starting with <code>OSTYPE:</code> appears. If the line does not appear on Windows, confirm that the Windows command search path (<code>Path</code>) includes the directory where <code>env.exe</code> is located, such as <code>C:\opt\PortableGit\usr\bin</code> or <code>C:\Program Files\Git\usr\bin</code>.</p>
@@ -210,57 +215,59 @@ $ <span class="token function">rm</span> <span class="token parameter variable">
 <p>Verify the following based on the format of your figures and the Asymptote engine, where appropriate.</p>
 <h4 id="svg-output-with-asy">SVG output with asy </h4>
 <p>If you will draw figures in SVG format with the local <code>asy</code> command, run <code>asy</code> as follows. Verify that the output file <code>test.svg</code> is in SVG format.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.svg
-$ asy <span class="token parameter variable">-noV</span> <span class="token parameter variable">-f</span> svg test.asy
-$ <span class="token function">file</span> test.svg
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.svg
+$ asy -noV -f svg test.asy
+$ file test.svg
 test.svg: SVG Scalable Vector Graphics image
-$ <span class="token function">rm</span> test.svg
+$ rm test.svg
 </code></pre><h4 id="png-output-with-asy">PNG output with asy </h4>
 <p>If you will draw figures in PNG format with the local <code>asy</code> command, run <code>asy</code> as follows. Verify that the output file <code>test.png</code> is in PNG format.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.png
-$ asy <span class="token parameter variable">-noV</span> <span class="token parameter variable">-f</span> png test.asy
-$ <span class="token function">file</span> test.png
-test.png: PNG image data, <span class="token number">151</span> x <span class="token number">150</span>, <span class="token number">8</span>-bit/color RGBA, non-interlaced
-$ <span class="token function">rm</span> test.png
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.png
+$ asy -noV -f png test.asy
+$ file test.png
+test.png: PNG image data, 151 x 150, 8-bit/color RGBA, non-interlaced
+$ rm test.png
 </code></pre><h4 id="svg-output-with-the-asymptote-http-server">SVG output with the Asymptote http server </h4>
 <p>If you will draw figures in SVG format with the Asymptote http server, run <code>curl</code> as follows for example. Verify that the output file <code>test.svg</code> is in SVG format.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.svg
-$ <span class="token function">curl</span> --data-binary @test.asy <span class="token string">'asymptote.ualberta.ca:10007?f=svg'</span> <span class="token parameter variable">-o</span> test.svg
-$ <span class="token function">file</span> test.svg
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.svg
+$ curl --data-binary @test.asy 'asymptote.ualberta.ca:10007?f=svg' -o test.svg
+$ file test.svg
 test.svg: SVG Scalable Vector Graphics image
-$ <span class="token function">rm</span> test.svg
+$ rm test.svg
 </code></pre><h4 id="png-output-with-the-asymptote-http-server">PNG output with the Asymptote http server </h4>
 <p>If you will draw figures in PNG format with the Asymptote http server, run <code>curl</code> as follows for example. Verify that the output file <code>test.png</code> is in PNG format.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.png
-$ <span class="token function">curl</span> --data-binary @test.asy <span class="token string">'asymptote.ualberta.ca:10007?f=png'</span> <span class="token parameter variable">-o</span> test.png
-$ <span class="token function">file</span> test.png
-test.png: PNG image data, <span class="token number">57</span> x <span class="token number">57</span>, <span class="token number">8</span>-bit/color RGBA, non-interlaced
-$ <span class="token function">rm</span> test.png
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.png
+$ curl --data-binary @test.asy 'asymptote.ualberta.ca:10007?f=png' -o test.png
+$ file test.png
+test.png: PNG image data, 57 x 57, 8-bit/color RGBA, non-interlaced
+$ rm test.png
 </code></pre><h3 id="metapost">MetaPost </h3>
 <p>Verify the following based on the format of your figures, where appropriate.</p>
 <h4 id="svg-output">SVG output </h4>
 <p>If you will draw figures in SVG format, run <code>mpost</code> as follows and verify that the output file <code>test.1.svg</code> is in SVG format.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.1.svg
-$ mpost <span class="token parameter variable">-s</span> <span class="token string">'outputformat="svg"'</span> <span class="token parameter variable">-s</span> <span class="token string">'outputtemplate="test.%c.svg"'</span> test.mp
-$ <span class="token function">file</span> test.1.svg
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.1.svg
+$ mpost -s 'outputformat="svg"' -s 'outputtemplate="test.%c.svg"' test.mp
+$ file test.1.svg
 test.1.svg: SVG Scalable Vector Graphics image
-$ <span class="token function">rm</span> test.1.svg test.log
+$ rm test.1.svg test.log
 </code></pre><h4 id="png-output">PNG output </h4>
 <p>If you will draw figures in PNG format, run <code>mpost</code> as follows and verify that the output file <code>test.1.png</code> is in PNG format.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.1.png
-$ mpost <span class="token parameter variable">-s</span> <span class="token string">'outputformat="png"'</span> <span class="token parameter variable">-s</span> <span class="token string">'outputtemplate="test.%c.png"'</span> test.mp
-$ <span class="token function">file</span> test.1.png
-test.1.png: PNG image data, <span class="token number">86</span> x <span class="token number">86</span>, <span class="token number">8</span>-bit/color RGBA, non-interlaced
-$ <span class="token function">rm</span> test.1.png test.log
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.1.png
+$ mpost -s 'outputformat="png"' -s 'outputtemplate="test.%c.png"' test.mp
+$ file test.1.png
+test.1.png: PNG image data, 86 x 86, 8-bit/color RGBA, non-interlaced
+$ rm test.1.png test.log
 </code></pre><h2 id="checking-operations">Checking operations </h2>
 <p>Beforehand, change to the <code>tests</code> directory, which contains the files used for checking operations.</p>
 <h3 id="vs-code-mpe-1">VS Code, MPE </h3>
 <p>Verify that <code>asyco</code> or <code>mepoco</code> can be executed from the code chunk of MPE in VS Code.</p>
 <ol>
 <li>
-<p>Open the Markdown file <code>test_post.md</code> in VS Code.</p>
-<p><strong>test_post.md</strong></p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=env args=[asyco --version]}</span>
+<p>Open the Markdown file <code>test_post.md</code> in VS Code.<br>
+<br></p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> test_post.md</span>
+
+<span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=env args=[asyco --version]}</span>
 <span class="token code-block language-cmd">Code chunk 1 (for asyco)</span>
 <span class="token punctuation">```</span></span>
 
@@ -273,55 +280,55 @@ $ <span class="token function">rm</span> test.1.png test.log
 </li>
 <li>
 <p>Run "Code Chunk 1" or "Code Chunk 2 " with <code>Run Code Chunk</code>.</p>
-<p>Verify that the version of <code>asyco</code> or <code>mepoco</code> appears. If the version does not appear, confirm that the bash command search path (<code>PATH</code>) includes the installation directory, such as <code>$HOME\bin</code>. On Windows, confirm that the Windows command search path (<code>Path</code>) includes the installation directory, such as <code>%USERPROFILE%\bin</code>.</p>
+<p>Verify that the version of <code>asyco</code> or <code>mepoco</code> appears. If the version does not appear, confirm that the shell command search path (<code>PATH</code>) includes the installation directory, such as <code>$HOME\bin</code>. On Windows, confirm that the Windows command search path (<code>Path</code>) includes the installation directory, such as <code>%USERPROFILE%\bin</code>.</p>
 </li>
 </ol>
 <h3 id="asyco">asyco </h3>
 <p>Verify the following based on the format of your figures and the Asymptote engine, where appropriate.</p>
 <h4 id="svg-output-with-asy-1">SVG output with asy </h4>
 <p>If you will draw figures in SVG format with the local <code>asy</code> command, run <code>asyco</code> as follows and verify that the output ends with <code>&lt;/svg&gt;&lt;/div&gt;&lt;br&gt;</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asyco test.asy
-<span class="token punctuation">..</span>.
-<span class="token operator">&lt;</span>/svg<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asyco test.asy
+...
+&lt;/svg&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h4 id="png-output-with-asy-1">PNG output with asy </h4>
 <p>If you will draw figures in PNG format with the local <code>asy</code> command, run <code>asyco</code> as follows and verify that the output ends with <code>"&gt;&lt;/div&gt;&lt;br&gt;</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asyco <span class="token parameter variable">-f</span> png test.asy
-<span class="token punctuation">..</span>.
-"<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asyco -f png test.asy
+...
+"&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h4 id="svg-output-with-the-asymptote-http-server-1">SVG output with the Asymptote http server </h4>
 <p>If you will draw figures in SVG format with the Asymptote http server, run <code>asyco</code> as follows and verify that the output ends with <code>&lt;/svg&gt;&lt;/div&gt;&lt;br&gt;</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asyco <span class="token parameter variable">--remote</span> test.asy
-<span class="token punctuation">..</span>.
-<span class="token operator">&lt;</span>/svg<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asyco --remote test.asy
+...
+&lt;/svg&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h4 id="png-output-with-the-asymptote-http-server-1">PNG output with the Asymptote http server </h4>
 <p>If you will draw figures in PNG format with the Asymptote http server, run <code>asyco</code> as follows and verify that the output ends with <code>"&gt;&lt;/div&gt;&lt;br&gt;</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asyco <span class="token parameter variable">--remote</span> <span class="token parameter variable">-f</span> png test.asy
-<span class="token punctuation">..</span>.
-<span class="token operator">&lt;</span>/svg<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asyco --remote -f png test.asy
+...
+"&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h3 id="mepoco">mepoco </h3>
 <p>Verify the following based on the format of your figures, where appropriate.</p>
 <h4 id="svg-output-1">SVG output </h4>
 <p>If you will draw figures in SVG format, run <code>mepoco</code> as follows and verify that the output ends with <code>&lt;/svg&gt;&lt;/div&gt;&lt;br&gt;</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ mepoco test.mp
-<span class="token punctuation">..</span>.
-<span class="token operator">&lt;</span>/svg<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ mepoco test.mp
+...
+&lt;/svg&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h4 id="png-output-1">PNG output </h4>
 <p>If you will draw figures in PNG format, run <code>mepoco</code> as follows and verify that the output ends with <code>"&gt;&lt;/div&gt;&lt;br&gt;</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ mepoco <span class="token parameter variable">-f</span> png test.mp
-<span class="token punctuation">..</span>.
-"<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ mepoco -f png test.mp
+...
+"&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h3 id="asycat">asycat </h3>
 <p>Run <code>asycat</code> as follows and verify that the output ends with <code>&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat test.asy test.mp
-<span class="token punctuation">..</span>.
-<span class="token operator">&lt;</span>/td<span class="token operator">&gt;</span><span class="token operator">&lt;</span>/tr<span class="token operator">&gt;</span><span class="token operator">&lt;</span>/table<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat test.asy test.mp
+...
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
 </code></pre><hr>
 
       </div>

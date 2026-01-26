@@ -107,17 +107,17 @@
       
 <h1 id="asycat">asycat </h1>
 <style>code { white-space: pre-wrap !important; } </style>
-<p><code>asycat</code> を使うと、<a href="https://asymptote.sourceforge.io">Asymptote</a> または <a href="https://tug.org/metapost.html">MetaPost</a> のファイルから、コードと図を横に並べたマークダウンを生成できます。</p>
-<p><img src="color.png" alt="asycat が生成するマークダウンの Visual Studio Code でのプレビュー" title="asycat が生成するマークダウンの Visual Studio Code でのプレビュー" width="65%" style="display:block;margin:auto;"></p>
-<p>マークダウンは、<a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> と、ブラウザや <a href="https://www.pandoc.org">pandoc</a> を経由することで PDF ファイルに変換できます。<code>asycat</code> はコードチャンクからは呼び出せず、コマンド行から実行する必要があります。</p>
+<p><code>asycat</code> を使うと、<a href="https://asymptote.sourceforge.io">Asymptote</a> または <a href="https://tug.org/metapost.html">MetaPost</a> のファイルから、コードと図を横に並べたマークダウンを生成できます。図の埋め込みには <a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> の拡張機能である <a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/ja-jp/">Markdown Preview Enhanced (MPE)</a> の<a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/ja-jp/code-chunk">コードチャンク</a>を用います。</p>
+<p><img src="color.png" alt="asycat が生成するマークダウンの Visual Studio Code でのプレビュー" title="asycat が生成するマークダウンの Visual Studio Code でのプレビュー" width="60%" style="display:block;margin:auto;"></p>
+<p>マークダウンは、VS Code と、ブラウザや <a href="https://www.pandoc.org">pandoc</a> を経由することで PDF ファイルに変換できます。<code>asycat</code> はコードチャンクからは呼び出せず、シェルのコマンド行から実行する必要があります。</p>
 <p><img src="asycat_flow.png" alt="asycat のフロー図" title="asycat のフロー図" width="35%" style="display:block;margin:auto;"></p>
 <h2 id="必要な環境とインストール">必要な環境とインストール </h2>
 <p><a href="./INSTALL.html">INSTALL.md</a> を参照してください。</p>
 <h2 id="使用法">使用法 </h2>
 <h3 id="マークダウンファイルの作成">マークダウンファイルの作成 </h3>
-<p>Asymptote や MetaPost のファイルを引数に指定して <code>asycat</code> を実行し、出力されるマークダウンをファイルにリダイレクトします。</p>
-<p>次の例では、作業ディレクトリの下の拡張子が <code>.asy</code> のファイルについて、図とコードを並べたマークダウンを <code>output.md</code> に出力します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat *.asy <span class="token operator">&gt;</span> output.md
+<p>Asymptote や MetaPost のファイルを引数に指定して <code>asycat</code> をシェルのコマンド行で実行し、出力されるマークダウンをファイルにリダイレクトします。<br>
+次の例では、作業ディレクトリの下の拡張子が <code>.asy</code> のファイルについて、図とコードを並べたマークダウンを <code>output.md</code> に出力します。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat *.asy &gt; output.md
 </code></pre><h3 id="コードチャンクの実行">コードチャンクの実行 </h3>
 <p>マークダウンファイルを VS Code で開き、必要に応じて修正して保存します。<code>Open Preview to the Side</code> でプレビューを表示し、<code>Run Code Chunk</code>（ <kbd>▶︎</kbd> ボタン）または <code>Run All Code Chunks</code>（ <kbd>ALL</kbd> ボタン）でコードチャンクを実行します。</p>
 <h3 id="pdf-ファイルの作成">PDF ファイルの作成 </h3>
@@ -133,9 +133,9 @@
 <dt><code>-W</code></dt>
 <dd>コードを折り返します。<code>-N</code> と同時には指定できず、<code>-N</code> は取り消されます。</dd>
 <dt><code>--fig-width=WIDTH</code></dt>
-<dd>横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に、図の幅を <em><code>WIDTH</code></em> に設定します。省略時値は <code>30%</code> です。</dd>
+<dd>コードと図が横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に、図の幅を <em><code>WIDTH</code></em> に設定します。省略時値は <code>30%</code> です。</dd>
 <dt><code>--fixed-layout</code></dt>
-<dd>横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に、<code>table-layout</code> を <code>fixed</code> に設定します。</dd>
+<dd>コードと図が横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に、<code>table-layout</code> を <code>fixed</code> に設定します。</dd>
 <dt><code>--heading=LEVEL</code></dt>
 <dd>見出しのレベルを <em><code>LEVEL</code></em> の絶対値に設定します。見出しにはファイル名を用い、<em><code>LEVEL</code></em> が負の値ではファイル名からディレクトリを除去します。<em><code>LEVEL</code></em> が <code>0</code> では見出しを表示しません。省略時値は <code>3</code> です。</dd>
 <dt><code>--id-prefix=PREFIX</code></dt>
@@ -149,7 +149,7 @@
 <dt><code>--no-cd</code></dt>
 <dd>ファイルのあるディレクトリに移動しません。</dd>
 <dt><code>--</code></dt>
-<dd>オプションの終了を示します。この後はファイル名またはディレクトリ名として扱われます。</dd>
+<dd>オプションの終了を示します。この後の引数はファイル名またはディレクトリ名として扱われます。</dd>
 </dl>
 <p>他に、最初の引数でだけ有効な次のオプションがあります：<code>-h</code>, <code>--help</code>（使用法を表示して終了）、<code>--version</code>（バージョンを表示して終了）。</p>
 <p>その他のオプションは <code>asyco</code> または <code>mepoco</code> に渡されます。このため、短いオプションは結合できません（例えば <code>-NB</code> ではなく <code>-N -B</code> です）。また、短いオプションとその引数は結合できません（例えば <code>-PE</code> ではなく <code>-P E</code> です）。</p>
@@ -168,7 +168,7 @@
 <dt><code>asycat-block</code></dt>
 <dd>ファイルごとの <code>&lt;div&gt;</code> ブロックに設定されます。</dd>
 </dl>
-<p>以下のクラスは、横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に有効です。</p>
+<p>以下のクラスは、コードと図が横並びの配置（<code>-P E</code> または <code>-P W</code>）の場合に有効です。</p>
 <dl>
 <dt><code>asycat-table</code></dt>
 <dd>コードと図を含む表に設定されます。</dd>
@@ -179,33 +179,33 @@
 </dl>
 <h2 id="使用例">使用例 </h2>
 <h3 id="複数のディレクトリの指定">複数のディレクトリの指定 </h3>
-<p>ディレクトリは <code>--</code> の後または最後の引数として指定する必要があります。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat -- tests docs/color <span class="token operator">&gt;</span> output.md
-</code></pre><p>マークダウン文書 <code>output.md</code> を、ディレクトリ <code>tests</code> と <code>docs/color</code> の下の、拡張子が <code>.asy</code> または <code>.mp</code> のファイルから作成します。</p>
-<h3 id="実行ディレクトリの設定">実行ディレクトリの設定 </h3>
+<p>ディレクトリは <code>--</code> の後または最後の引数として指定する必要があります。次の例では、ディレクトリ <code>tests</code> と <code>docs/color</code> の下の、拡張子が <code>.asy</code> または <code>.mp</code> のファイルから、マークダウン文書 <code>output.md</code> を作成します。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat -- tests docs/color &gt; output.md
+</code></pre><h3 id="実行ディレクトリの設定">実行ディレクトリの設定 </h3>
 <p>作業ディレクトリの下にないファイルを指定した場合、<code>asyco</code> や <code>mepoco</code> は各ファイルのあるディレクトリで実行されます。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat tests/test.asy <span class="token operator">&gt;</span> output.md
-</code></pre><p>図の表示部のコードチャンクのオプションは次のようになり、<code>args</code> に <code>asyco</code> のオプション <code>--cd=tests</code> が追加されます。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--cd=tests", "--alt=test"] output=html .hide continue}
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat tests/test.asy &gt; output.md
+</code></pre><p>図の表示部のコードチャンクのオプションは次のようになり、<code>args</code> に <code>asyco</code> のオプション <code>--cd=tests</code> が付加されます。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--cd=tests", "--alt=test"] output=html .hide continue}
 </code></pre><p>マークダウン文書のあるディレクトリで <code>asyco</code> を実行したい場合は <code>--no-cd</code> を指定します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat --no-cd tests/test.asy <span class="token operator">&gt;</span> output.md
-</code></pre><p>図の表示部のコードチャンクのオプションは次のようになり、<code>args</code> に <code>--cd</code> オプションは追加されません。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--alt=test"] output=html .hide continue}
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat --no-cd tests/test.asy &gt; output.md
+</code></pre><p>図の表示部のコードチャンクのオプションは次のようになり、<code>args</code> に <code>--cd</code> オプションは付加されません。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-A", "N", "--alt=test"] output=html .hide continue}
 </code></pre><h3 id="asymptote-と-meatpost-で別々のオプション">Asymptote と MeatPost で別々のオプション </h3>
 <p>環境変数を用いると、<code>asyco</code> と <code>mepoco</code> で別々のオプションを指定できます。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token assign-left variable">ASYCAT_ASY_OPTS</span><span class="token operator">=</span><span class="token string">"--img-zoom=2x"</span> <span class="token assign-left variable">ASYCAT_MP_OPTS</span><span class="token operator">=</span><span class="token string">"--img-zoom=2"</span> asycat <span class="token parameter variable">-f</span> png *.asy *.mp <span class="token operator">&gt;</span> output.md
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ ASYCAT_ASY_OPTS="--img-zoom=2x" ASYCAT_MP_OPTS="--img-zoom=2" asycat -f png *.asy *.mp &gt; output.md
 </code></pre><h3 id="複数の出力結果の結合">複数の出力結果の結合 </h3>
 <p>図がコードの左の配置（<code>-P W</code>）の場合、コードチャンクの参照に <code>id</code> を用います。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat <span class="token parameter variable">-P</span> W rgb.asy <span class="token operator">&gt;</span> rgb.md
-$ asycat <span class="token parameter variable">-P</span> W cmyk.asy <span class="token operator">&gt;</span> cmyk.md
-</code></pre><p>この場合 <code>rgb.md</code> と <code>cmyk.md</code> の両方で、<code>id</code> が <code>fig-1</code> のコードチャンクを参照します。</p>
-<p><code>asycat</code> の複数の出力結果をひとつのマークダウン文書にまとめる（<code>@import</code> で取り込むなどの）場合、<code>id</code> の衝突を避けるため <code>--id-prefix</code> を用います。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat <span class="token parameter variable">-P</span> W --id-prefix<span class="token operator">=</span>fig-c- cmyk.asy <span class="token operator">&gt;</span> cmyk.md
-</code></pre><p>この場合 <code>id</code> が <code>fig-c-1</code> のコードチャンクが生成されます。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```cpp {cmd=env args=["asyco", "-n"]  output=none id=fig-c-1}
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat -P W rgb.asy &gt; rgb.md
+$ asycat -P W cmyk.asy &gt; cmyk.md
+</code></pre><p>この場合 <code>rgb.md</code> と <code>cmyk.md</code> の両方で <code>id=fig-1</code> のコードチャンクが生成されます。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-n"]  output=none id=fig-1}
+</code></pre><p><code>asycat</code> の複数の出力結果をひとつのマークダウン文書にまとめる（<code>@import</code> で取り込むなどの）場合、<code>id</code> の衝突を避けるため <code>--id-prefix</code> を用います。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asycat -P W --id-prefix=fig-c- cmyk.asy &gt; cmyk.md
+</code></pre><p>この場合 <code>cmyk.md</code> で <code>id=fig-c-1</code> のコードチャンクが生成されます。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-n"]  output=none id=fig-c-1}
 </code></pre><h2 id="著作権と利用許諾">著作権と利用許諾 </h2>
 <p>(c) 2025-2026 aelata</p>
-<p>このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。<br>
+<p>このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。ただし、本許諾は拡張子が .html または .js のファイルには適用されないものとします。<br>
 <a href="https://opensource.org/license/mit-0">https://opensource.org/license/mit-0</a></p>
 <hr>
 

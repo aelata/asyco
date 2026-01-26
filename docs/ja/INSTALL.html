@@ -113,7 +113,7 @@
 <ul>
 <li>
 <p><code>env</code> コマンドで bash スクリプトを実行でき、<code>sort</code>, <code>awk</code> などの基本ツールを使える</p>
-<p>Windows では <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) の環境で実行できます。<code>env.exe</code> のあるディレクトリ（例えば <code>C:\opt\PortableGit\usr\bin</code> や <code>C:\Program Files\Git\usr\bin</code>）が Windows のコマンド検索パス（<code>Path</code>）に含まれている必要があります。</p>
+<p>Windows では <a href="https://gitforwindows.org">Git for Windows</a> (<a href="https://www.msys2.org">MSYS2</a>) の環境で bash スクリプトを実行できます。<code>env.exe</code> のあるディレクトリ（例えば <code>C:\opt\PortableGit\usr\bin</code>）が Windows のコマンド検索パス（<code>Path</code>）に含まれている必要があります。</p>
 </li>
 <li>
 <p><a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> で <a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/ja-jp/">Markdown Preview Enhanced (MPE)</a> のコードチャンクを実行できる</p>
@@ -122,8 +122,12 @@
 </ul>
 <p><code>asyco</code> では、さらに次のいずれかの環境が必要です：</p>
 <ul>
-<li>ローカルの <code>asy</code> コマンドで SVG (Scalable Vector Graphics) または PNG (Portable Network Graphics) 形式の図を出力できる</li>
-<li><a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a>（例えば <code>asymptote.ualberta.ca:10007</code>）に接続できる</li>
+<li>
+<p>ローカルの <code>asy</code> コマンドで SVG (Scalable Vector Graphics) または PNG (Portable Network Graphics) 形式の図を出力できる</p>
+</li>
+<li>
+<p><a href="https://github.com/vectorgraphics/asymptote-http-server">Asymptote http server</a>（例えば <code>asymptote.ualberta.ca:10007</code>）に接続できる</p>
+</li>
 </ul>
 <p><code>mepoco</code> では、さらに次の環境が必要です：</p>
 <ul>
@@ -131,13 +135,13 @@
 </ul>
 <p>必要な環境の準備については <a href="setup.html">setup.md</a> を参照してください。</p>
 <h2 id="インストール-1">インストール </h2>
-<p>スクリプトのインストール先（例えば <code>$HOME/bin</code> や <code>/usr/local/bin</code>）は、bash のコマンド検索パス（<code>PATH</code>）に含まれている必要があります。Windows ではスクリプトのインストール先（例えば <code>%USERPROFILE%\bin</code> や <code>C:\opt\PortableGit\usr\local\bin</code>）を Windows のコマンド検索パス（<code>Path</code>）に追加します。Windows のコマンド検索パス（<code>Path</code>）は bash のコマンド検索パス（<code>PATH</code>）に取り込まれます。</p>
+<p>スクリプトのインストール先（例えば <code>$HOME/bin</code> や <code>/usr/local/bin</code>）は、シェルのコマンド検索パス（<code>PATH</code>）に含まれている必要があります。Windows では、あらかじめスクリプトのインストール先（例えば <code>%USERPROFILE%\bin</code> や <code>C:\opt\PortableGit\usr\local\bin</code>）を Windows のコマンド検索パス（<code>Path</code>）に加えます。<code>Path</code> の値はシェルのコマンド検索パス（<code>PATH</code>）に取り込まれます。</p>
 <p>以下のどちらかの方法でインストールします。</p>
 <h3 id="installsh-を使う方法">install.sh を使う方法 </h3>
-<p>インストール先（例えば <code>~/bin</code>）を引数に指定して <code>install.sh</code> を実行します。Windows では bash (Git Bash) のコマンド行で実行します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">bash</span> install.sh ~/bin
+<p>インストール先を引数に指定して <code>install.sh</code> を実行します。例えばインストール先が <code>$HOME/bin</code> の場合、bash などのシェルのコマンド行で以下を実行します。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ bash install.sh ~/bin
 </code></pre><p>Windows ではコマンドプロンプトで <code>install.sh</code> を実行することもできます。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>C:\...&gt;bash install.sh %USERPROFILE%\bin
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>C:\...&gt;bash install.sh %USERPROFILE%\bin
 </code></pre><p><code>install.sh</code> はインストール先に <code>asyco</code> と <code>asycat</code> のファイルをコピーし、実行権限を付与します。以下のオプションが使えます。</p>
 <dl>
 <dt><code>-m</code></dt>
@@ -145,21 +149,20 @@
 <dt><code>-n</code></dt>
 <dd>インストールの際に実行されるコマンドを表示するだけで、実際にはインストールしません。</dd>
 <dt><code>-l</code></dt>
-<dd>ファイルをコピーするのではなく、インストール先から作業ディレクトリのファイルへのシンボリック・リンクを作成します。</dd>
+<dd><code>asyco</code> と <code>asycat</code> のファイルをコピーするのではなく、作業ディレクトリのファイルからインストール先へのシンボリック・リンクを作成します。</dd>
 </dl>
 <h3 id="installsh-を使わない方法">install.sh を使わない方法 </h3>
 <p><code>asyco</code> と <code>asycat</code> のファイルをインストール先にコピーし、実行権限を付与します。必要に応じて <code>asyco</code> から <code>mepoco</code> へのシンボリックリンクを作成します。例えば以下のコマンドを実行します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">cp</span> asyco asycat ~/bin
-$ <span class="token builtin class-name">cd</span> ~/bin
-$ <span class="token function">chmod</span> +x asyco asycat
-$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> mepoco
-$ <span class="token function">ln</span> <span class="token parameter variable">-s</span> asyco mepoco
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ cp asyco asycat ~/bin
+$ cd ~/bin
+$ chmod +x asyco asycat
+$ rm -f mepoco
+$ ln -s asyco mepoco
 </code></pre><h2 id="アンインストール">アンインストール </h2>
-<p>Windows では必要に応じてスクリプトのインストール先を Windows のコマンド検索パス（<code>Path</code>）から削除します。</p>
-<p>以下のどちらかの方法でアンインストールします。</p>
+<p>以下のどちらかの方法でアンインストールします。Windows では、アンインストール後に、必要に応じてスクリプトのインストール先を Windows のコマンド検索パス（<code>Path</code>）から削除します。</p>
 <h3 id="uninstallsh-を使う方法">uninstall.sh を使う方法 </h3>
-<p>インストール先（例えば <code>~/bin</code>）を引数に指定して <code>uninstall.sh</code> を実行します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">bash</span> uninstall.sh ~/bin
+<p>インストール先を引数に指定して <code>uninstall.sh</code> を実行します。例えばインストール先が <code>$HOME/bin</code> の場合、bash などのシェルのコマンド行で以下を実行します。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ bash uninstall.sh ~/bin
 </code></pre><p><code>uninstall.sh</code> はインストール先から <code>asyco</code>, <code>asycat</code>, <code>mepoco</code> を削除します。<code>uninstall.sh</code> は <code>-m</code> オプションを指定しなくても <code>mepoco</code> を削除します。以下のオプションが使えます。</p>
 <dl>
 <dt><code>-n</code></dt>
@@ -167,19 +170,21 @@ $ <span class="token function">ln</span> <span class="token parameter variable">
 </dl>
 <h3 id="uninstallsh-を使わない方法">uninstall.sh を使わない方法 </h3>
 <p>インストール先（例えば <code>~/bin</code>）から <code>asyco</code>, <code>asycat</code>, <code>mepoco</code> を削除します</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token builtin class-name">cd</span> ~/bin
-$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> asyco asycat mepoco
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ cd ~/bin
+$ rm -f asyco asycat mepoco
 </code></pre><hr>
 <div style="break-after:page;"></div>
 <h2 id="必要な環境の確認">必要な環境の確認 </h2>
 <p>あらかじめ、必要な環境の確認のためのファイルがある、<code>tests</code> ディレクトリに移動します。</p>
 <h3 id="vs-code-mpe">VS Code, MPE </h3>
-<p>VS Code のコードチャンクから bash スクリプトを実行できることを確認します。</p>
+<p>VS Code で　MPE のコードチャンクから bash スクリプトを実行できることを確認します。</p>
 <ol>
 <li>
-<p>VS Code で <code>test_pre.md</code> を開きます。</p>
-<p><strong>test_pre.md</strong></p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=curl args=[--version]}</span>
+<p>VS Code で <code>test_pre.md</code> を開きます。<br>
+<br></p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> test_pre.md</span>
+
+<span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=curl args=[--version]}</span>
 <span class="token code-block language-cmd">Code chunk 1</span>
 <span class="token punctuation">```</span></span>
 
@@ -200,8 +205,8 @@ $ <span class="token function">rm</span> <span class="token parameter variable">
 </li>
 <li>
 <p><code>Run Code Chunk</code> で Code chunk 2 を実行します。<br>
-Code chunk 2 は <code>env</code> コマンドで <code>./test.sh</code> を実行します。</p>
-<p><strong>test.sh</strong></p>
+Code chunk 2 は <code>env</code> コマンドで次の <code>./test.sh</code> スクリプトを実行します。<br>
+<br></p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token shebang important">#!/bin/bash</span>
 <span class="token builtin class-name">echo</span> <span class="token string">"OSTYPE: <span class="token environment constant">$OSTYPE</span>"</span>
 </code></pre><p><code>OSTYPE:</code> で始まる行が表示されることを確認します。もし表示されなければ、Windows では <code>env.exe</code> のあるディレクトリ（例えば <code>C:\opt\PortableGit\usr\bin</code> や <code>C:\Program Files\Git\usr\bin</code>）が Windows のコマンド検索パス（<code>Path</code>）に含まれることを確認します。</p>
@@ -211,57 +216,59 @@ Code chunk 2 は <code>env</code> コマンドで <code>./test.sh</code> を実�
 <p>Asymptote の処理系と図の出力形式に合わせて以下を確認します。</p>
 <h4 id="asy-で-svg-形式">asy で SVG 形式 </h4>
 <p>ローカルの <code>asy</code> コマンドで SVG 形式の図を出力する場合、次のように <code>asy</code> を実行し、出力されるファイル <code>test.svg</code> が SVG 形式であることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.svg
-$ asy <span class="token parameter variable">-noV</span> <span class="token parameter variable">-f</span> svg test.asy
-$ <span class="token function">file</span> test.svg
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.svg
+$ asy -noV -f svg test.asy
+$ file test.svg
 test.svg: SVG Scalable Vector Graphics image
-$ <span class="token function">rm</span> test.svg
+$ rm test.svg
 </code></pre><h4 id="asy-で-png-形式の図">asy で PNG 形式の図 </h4>
 <p>ローカルの <code>asy</code> コマンドで PNG 形式の図を出力する場合、次のように <code>asy</code> を実行し、出力されるファイル <code>test.png</code> が PNG 形式であることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.png
-$ asy <span class="token parameter variable">-noV</span> <span class="token parameter variable">-f</span> png test.asy
-$ <span class="token function">file</span> test.png
-test.png: PNG image data, <span class="token number">57</span> x <span class="token number">57</span>, <span class="token number">8</span>-bit/color RGBA, non-interlaced
-$ <span class="token function">rm</span> test.png
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.png
+$ asy -noV -f png test.asy
+$ file test.png
+test.png: PNG image data, 57 x 57, 8-bit/color RGBA, non-interlaced
+$ rm test.png
 </code></pre><h4 id="asymptote-http-server-で-svg-形式">Asymptote http server で SVG 形式 </h4>
 <p>Asymptote http server で SVG 形式の図を出力する場合、例えば次のように <code>curl</code> を実行し、出力されるファイル <code>test.svg</code> が SVG 形式であることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.svg
-$ <span class="token function">curl</span> --data-binary @test.asy <span class="token string">'asymptote.ualberta.ca:10007?f=svg'</span> <span class="token parameter variable">-o</span> test.svg
-$ <span class="token function">file</span> test.svg
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.svg
+$ curl --data-binary @test.asy 'asymptote.ualberta.ca:10007?f=svg' -o test.svg
+$ file test.svg
 test.svg: SVG Scalable Vector Graphics image
-$ <span class="token function">rm</span> test.svg
+$ rm test.svg
 </code></pre><h4 id="asymptote-http-server-で-png-形式">Asymptote http server で PNG 形式 </h4>
 <p>Asymptote http server で PNG 形式の図を出力する場合、例えば次のように <code>curl</code> を実行し、出力されるファイル <code>test.png</code> が PNG 形式であることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.png
-$ <span class="token function">curl</span> --data-binary @test.asy <span class="token string">'asymptote.ualberta.ca:10007?f=png'</span> <span class="token parameter variable">-o</span> test.png
-$ <span class="token function">file</span> test.png
-test.png: PNG image data, <span class="token number">57</span> x <span class="token number">57</span>, <span class="token number">8</span>-bit/color RGBA, non-interlaced
-$ <span class="token function">rm</span> test.png
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.png
+$ curl --data-binary @test.asy 'asymptote.ualberta.ca:10007?f=png' -o test.png
+$ file test.png
+test.png: PNG image data, 57 x 57, 8-bit/color RGBA, non-interlaced
+$ rm test.png
 </code></pre><h3 id="metapost">MetaPost </h3>
 <p>図の出力形式に合わせて以下を確認します。</p>
 <h4 id="svg-形式">SVG 形式 </h4>
 <p>SVG  形式の図を出力する場合、次のように <code>mpost</code> を実行し、出力されるファイル <code>test.1.svg</code> が SVG 形式であることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.1.svg
-$ mpost <span class="token parameter variable">-s</span> <span class="token string">'outputformat="svg"'</span> <span class="token parameter variable">-s</span> <span class="token string">'outputtemplate="test.%c.svg"'</span> test.mp
-$ <span class="token function">file</span> test.1.svg
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.1.svg
+$ mpost -s 'outputformat="svg"' -s 'outputtemplate="test.%c.svg"' test.mp
+$ file test.1.svg
 test.1.svg: SVG Scalable Vector Graphics image
-$ <span class="token function">rm</span> test.1.svg test.log
+$ rm test.1.svg test.log
 </code></pre><h4 id="png-形式">PNG 形式 </h4>
 <p>PNG 形式の図を出力する場合、次のように <code>mpost</code> を実行し、出力されるファイル <code>test.1.png</code> が PNG 形式であることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> test.1.png
-$ mpost <span class="token parameter variable">-s</span> <span class="token string">'outputformat="png"'</span> <span class="token parameter variable">-s</span> <span class="token string">'outputtemplate="test.%c.png"'</span> test.mp
-$ <span class="token function">file</span> test.1.png
-test.1.png: PNG image data, <span class="token number">86</span> x <span class="token number">86</span>, <span class="token number">8</span>-bit/color RGBA, non-interlaced
-$ <span class="token function">rm</span> test.1.png test.log
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ rm -f test.1.png
+$ mpost -s 'outputformat="png"' -s 'outputtemplate="test.%c.png"' test.mp
+$ file test.1.png
+test.1.png: PNG image data, 86 x 86, 8-bit/color RGBA, non-interlaced
+$ rm test.1.png test.log
 </code></pre><h2 id="動作確認">動作確認 </h2>
 <p>あらかじめ、動作確認のためのファイルがある、<code>tests</code> ディレクトリに移動します。</p>
 <h3 id="vs-code-mpe-1">VS Code, MPE </h3>
 <p>VS Code のコードチャンクから <code>asyco</code> または <code>mepoco</code> を実行できることを確認します。</p>
 <ol>
 <li>
-<p>VS Code で <code>test_post.md</code> を開きます。</p>
-<p><strong>test_post.md</strong></p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=env args=[asyco --version]}</span>
+<p>VS Code で <code>test_post.md</code> を開きます。<br>
+<br></p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> test_post.md</span>
+
+<span class="token code"><span class="token punctuation">```</span><span class="token code-language"> {cmd=env args=[asyco --version]}</span>
 <span class="token code-block language-cmd">Code chunk 1 (for asyco)</span>
 <span class="token punctuation">```</span></span>
 
@@ -274,7 +281,7 @@ $ <span class="token function">rm</span> test.1.png test.log
 </li>
 <li>
 <p><code>Run Code Chunk</code> で Code chunk 1 または Code chunk 2 を実行します。</p>
-<p><code>asyco</code> または <code>mepoco</code> のバージョンが表示されることを確認します。もし表示されなければ、インストール先（例えば <code>$HOME/bin</code>）が bash のコマンド検索パス（<code>PATH</code>）に含まれることを確認します。Windows ではインストール先（例えば <code>%USERPROFILE%\bin</code>）が Windows のコマンド検索パス（<code>Path</code>）に含まれることを確認します。</p>
+<p><code>asyco</code> または <code>mepoco</code> のバージョンが表示されることを確認します。もし表示されなければ、インストール先（例えば <code>$HOME/bin</code>）がシェルのコマンド検索パス（<code>PATH</code>）に含まれることを確認します。Windows ではインストール先（例えば <code>%USERPROFILE%\bin</code>）が Windows のコマンド検索パス（<code>Path</code>）に含まれることを確認します。</p>
 </li>
 </ol>
 <h3 id="asyco">asyco </h3>
@@ -287,36 +294,36 @@ $ <span class="token function">rm</span> test.1.png test.log
 <span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
 </code></pre><h4 id="asy-で-png-形式">asy で PNG 形式 </h4>
 <p>ローカルの <code>asy</code> コマンドで PNG 形式の図を出力する場合、次のように <code>asyco</code> を実行し、最後に <code>"&gt;&lt;/div&gt;&lt;br&gt;</code> が出力されることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asyco <span class="token parameter variable">-f</span> png test.asy
-<span class="token punctuation">..</span>.
-"<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asyco -f png test.asy
+...
+"&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h4 id="asymptote-http-server-で-svg-形式-1">Asymptote http server で SVG 形式 </h4>
 <p>Asymptote http server で SVG 形式の図を出力する場合、次のように <code>asyco</code> を実行し、最後に <code>&lt;/svg&gt;&lt;/div&gt;&lt;br&gt;</code> が出力されることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asyco <span class="token parameter variable">--remote</span> test.asy
-<span class="token punctuation">..</span>.
-<span class="token operator">&lt;</span>/svg<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asyco --remote test.asy
+...
+&lt;/svg&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h4 id="asymptote-http-server-で-png-形式-1">Asymptote http server で PNG 形式 </h4>
 <p>Asymptote http server で PNG 形式の図を出力する場合、次のように <code>asyco</code> を実行し、最後に <code>"&gt;&lt;/div&gt;&lt;br&gt;</code> が出力されることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asyco <span class="token parameter variable">--remote</span> <span class="token parameter variable">-f</span> png test.asy
-<span class="token punctuation">..</span>.
-"<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ asyco --remote -f png test.asy
+...
+"&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h3 id="mepoco">mepoco </h3>
 <p>図の出力形式に合わせて以下を確認します。</p>
 <h4 id="svg-形式-1">SVG 形式 </h4>
 <p>SVG 形式の図を出力する場合、次のように <code>mepoco</code> を実行し、最後に <code>&lt;/svg&gt;&lt;/div&gt;&lt;br&gt;</code> が出力されることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ mepoco test.mp
-<span class="token punctuation">..</span>.
-<span class="token operator">&lt;</span>/svg<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ mepoco test.mp
+...
+&lt;/svg&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h4 id="png-形式-1">PNG 形式 </h4>
 <p>PNG 形式の図を出力する場合、次のように <code>mepoco</code> を実行し、最後に <code>"&gt;&lt;/div&gt;&lt;br&gt;</code> が出力されることを確認します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ mepoco <span class="token parameter variable">-f</span> png test.mp
-<span class="token punctuation">..</span>.
-"<span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">&gt;</span><span class="token operator">&lt;</span>br<span class="token operator">&gt;</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ mepoco -f png test.mp
+...
+"&gt;
+&lt;/div&gt;&lt;br&gt;
 </code></pre><h3 id="asycat">asycat </h3>
 <p>次のように <code>asycat</code> を実行し、最後に <code>&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</code> が出力されることを確認します。</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ asycat test.asy test.mp

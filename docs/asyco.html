@@ -118,33 +118,34 @@
 <h3 id="writing-a-code-chunk">Writing a code chunk </h3>
 <p>In the options of a code chunk:</p>
 <ul>
+<li>Set the syntax highlighting language to <code>cpp</code> (which has syntax similar to Asymptote) or to <code>metafont</code> (which has syntax similar to MetaPost) as needed</li>
 <li>Set <code>cmd</code> to <code>env</code></li>
 <li>Set the first argument of <code>args</code> to <code>asyco</code> or <code>mepoco</code> and add their options, if any, to <code>args</code></li>
 <li>Set <code>output</code> to <code>html</code></li>
 </ul>
-<p>In the following example, the option <code>-M 1mm</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>M <span class="token number">1</span>mm<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
-</code></pre><p>Replace <code>asyco</code> in <code>args</code> with <code>mepoco</code> for figures in MetaPost. In the following example, the <code>-F</code> option for <code>mepoco</code> is also specified to add <code>beginfig(0);</code> and <code>endfig;</code> before and after MetaPost code.</p>
-<pre data-role="codeBlock" data-info="metafont" class="language-metafont metafont"><code>```mp <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>mepoco <span class="token operator">-</span>F <span class="token operator">-</span>M <span class="token number">1</span><span class="token constant">mm</span><span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-scaled">scaled</span> <span class="token number">3</span><span class="token constant">cm</span><span class="token punctuation">;</span> <span class="token comment">% MetaPost code here</span>
-```
+<p>In the following example, the option <code>-M 1mm</code> for <code>asyco</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -M 1mm] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre><p>Replace <code>asyco</code> in <code>args</code> with <code>mepoco</code> for figures in MetaPost. Set the syntax highlighting language to <code>metafont</code> as needed. In the following example, the <code>-F</code> option for <code>mepoco</code> is also specified to add <code>beginfig(0);</code> and <code>endfig;</code> before and after MetaPost code.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">metafont {cmd=env args=[mepoco -F -M 1mm] output=html}</span>
+<span class="token code-block language-metafont"><span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-scaled">scaled</span> <span class="token number">3</span><span class="token constant">cm</span><span class="token punctuation">;</span> <span class="token comment">% MetaPost code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="running-the-code-chunk">Running the code chunk </h3>
 <p>Preview the document with <code>Open Preview to the Side</code> in VS Code. Run the code chunk with <code>Run Code Chunk</code> ( <kbd>▶︎</kbd> button) or <code>Run All Code Chunks</code> ( <kbd>ALL</kbd> button).</p>
 <h3 id="creating-a-pdf-file">Creating a PDF file </h3>
 <p>Choose <code>Open in Browser</code> from the shortcut (contextual) menu in the preview. Create a PDF file by printing in the browser. You can also choose <code>Export &gt; HTML</code> from the shortcut menu to create an HTML file that can then be converted to a PDF file with the <code>pandoc</code> command.</p>
 <h2 id="code-chunk-options">Code chunk options </h2>
-<p>The first line of the MPE code chunk has the following format.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```lang {cmd=command args=[arg1 arg2 ...] output=format ...}
-</code></pre><p>For example:</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```asy {cmd=env args=[asyco -f png --render 4] output=html}
+<p>The first line of an MPE code chunk has the following format.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```lang {cmd=command args=[arg1 arg2 ...] output=format ...}
+</code></pre><p>For example, it will be as follows.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=[asyco -f png --render 4] output=html}
 </code></pre><p>You can also set <code>args</code> as follows.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>```asy {cmd=env args=["asyco", "-f", "png", "--render", "4"] output=html}
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-f", "png", "--render", "4"] output=html}
 </code></pre><p>The main options of a code chunk are described below:</p>
 <dl>
 <dt><code>lang</code></dt>
-<dd>Set the language for syntax highlighting. Omit <em><code>lang</code></em> with no syntax highlighting. The syntax highlighting of Asymptote (<code>asy</code>) and MetaPost (<code>mp</code>) is not available in VS Code and MPE. However, you can set the language that has similar syntax. Use <code>cpp</code> for Asymptote and <code>metafont</code> for MetaPost. See <a href="ISSUES.html">ISSUES.md</a> for details.</dd>
+<dd>Set the language for syntax highlighting. The syntax highlighting of Asymptote (<code>asy</code>) and MetaPost (<code>mp</code>) is not available in VS Code and MPE. However, you can set the language that has similar syntax. Use <code>cpp</code> for Asymptote and <code>metafont</code> for MetaPost. See <a href="ISSUES.html">ISSUES.md</a> for details.</dd>
 <dt><code>cmd</code></dt>
 <dd>Set the command to be executed. Set the <code>env</code> command. Setting <code>env</code> is recommended considering document compatibility with Windows, even if <code>asyco</code> or <code>mepoco</code> can be used on macOS or Linux.</dd>
 <dt><code>args</code></dt>
@@ -206,7 +207,7 @@
 <h3 id="other-options">Other options </h3>
 <p>Other options are passed to <code>asy</code> or <code>mpost</code>. For this behavior, short options cannot be combined (use <code>-K -A N</code> instead of <code>-KA N</code>, for example). Also, a short option and its argument must be separated by spaces (use <code>-A N</code> instead of <code>-AN</code>, for example).</p>
 <h2 id="environment-variables">Environment variables </h2>
-<p>You can set the environment variables below in your shell initialization file, such as <code>~/.bash_profile</code>.</p>
+<p>You can set the environment variables below in the initialization file of your login shell, such as <code>~/.bash_profile</code>. On Windows, you must set the variables in the Windows environment variables.</p>
 <h3 id="default-options">Default options </h3>
 <p>You can set default options for <code>asyco</code> or <code>mepoco</code> with the following variables.</p>
 <dl>
@@ -215,9 +216,9 @@
 <dt><code>MEPOCO_OPTS</code></dt>
 <dd>Set default options for <code>mepoco</code>.</dd>
 </dl>
-<p>The command line options override the default options above. Default options can be confirmed at the last line of the usage (by the <code>--help</code> option of <code>asyco</code> or <code>mepoco</code>).</p>
+<p>Default options can be confirmed at the last line of the usage (by the <code>--help</code> option of <code>asyco</code> or <code>mepoco</code>). Command line options will override the default options.</p>
 <h3 id="background-color-of-text">Background color of text </h3>
-<p>The following variables are used in common for <code>asyco</code> and <code>mepoco</code>, even if the variable names start with <code>ASYCO_</code>.</p>
+<p>You can set the background color of text output from <code>asyco</code> or <code>mepoco</code> with the following variables. The variables are used in common for <code>asyco</code> and <code>mepoco</code>, even if the variable names start with <code>ASYCO_</code>.</p>
 <dl>
 <dt><code>ASYCO_OUT_BG_COL</code></dt>
 <dd>Set the background color of the standard output (text output from <code>asy</code> or <code>mpost</code>).</dd>
@@ -238,40 +239,40 @@
 <h2 id="examples">Examples </h2>
 <h3 id="asymptote-http-server">Asymptote http server </h3>
 <p>With the Asymptote http server, you can embed figures written in Asymptote into a Markdown document without the local <code>asy</code> command. Specify the <code>--remote</code> option for <code>asyco</code>. The default Asymptote http server <code>asymptote.ualberta.ca:10007</code> is used if you do not set the server with the <code>--server</code> option.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">--</span>remote<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --remote] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="png-image">PNG image </h3>
 <p>Specify the option <code>-f png</code> for <code>asyco</code> to draw a figure as a PNG image. The value of the code chunk option <code>output</code> must be <code>html</code>, not <code>png</code>. In the following example, image resolution and display magnification are changed with <code>-render 4 --img-zoom=0.25x</code> and the image is saved to <code>fig.png</code> with <code>-o fig</code>.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>f png <span class="token operator">-</span>render <span class="token number">4</span> <span class="token operator">--</span>img<span class="token operator">-</span>zoom<span class="token operator">=</span><span class="token number">0.25</span>x <span class="token operator">-</span>o fig<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="warning-message">Warning message </h3>
 <p>With the local <code>asy</code> command, warning messages or error messages may appear.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><p>In the above example, the following waning messages appear.</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>: warning [unbounded]: x scaling in picture unbounded
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>: warning [unbounded]: x scaling in picture unbounded
 : warning [unbounded]: y scaling in picture unbounded
 </code></pre><p>The warning messages can be suppressed with the <code>--silent</code> option of <code>asyco</code>. The warning messages can also be suppressed individually with the <code>-nowarn</code> option of <code>asy</code>; use <code>-nowarn unbounded</code> for the above example.</p>
 <p>With the Asymptote http server, error messages may appear but warning messages will not.</p>
 <h3 id="text-output">Text output </h3>
 <p>Even if the output of the command is text only, the value of the code chunk option <code>output</code> must be <code>html</code>, not <code>text</code>.</p>
-<pre data-role="codeBlock" data-info="metafont" class="language-metafont metafont"><code>```mp <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>mepoco<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token variable">x</span> <span class="token operator">+</span> <span class="token variable">y</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">metafont {cmd=env args=[mepoco] output=html}</span>
+<span class="token code-block language-metafont"><span class="token variable">x</span> <span class="token operator">+</span> <span class="token variable">y</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
 <span class="token number">2</span><span class="token variable">x</span> <span class="token operator">+</span> <span class="token number">4</span><span class="token variable">y</span> <span class="token operator">=</span> <span class="token number">26</span><span class="token punctuation">;</span>
-<span class="token command builtin">show</span> <span class="token punctuation">(</span><span class="token variable">x</span><span class="token punctuation">,</span> <span class="token variable">y</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">% You will get "&gt;&gt; (3,5)".</span>
-```
+<span class="token command builtin">show</span> <span class="token punctuation">(</span><span class="token variable">x</span><span class="token punctuation">,</span> <span class="token variable">y</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">% You will get "&gt;&gt; (3,5)".</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><p>If the output from <code>asy</code> is text only, <code>asyco</code> is not required.</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>asy<span class="token punctuation">}</span>
-<span class="token function">write</span><span class="token punctuation">(</span><span class="token function">inverse</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// You will get "(3,5)".</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=asy}</span>
+<span class="token code-block language-cpp"><span class="token function">write</span><span class="token punctuation">(</span><span class="token function">inverse</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// You will get "(3,5)".</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="multiple-figures-in-metapost">Multiple figures in MetaPost </h3>
-<p>If you put multiple figures written in MetaPost in one code chunk, the figure output are in the order of the argument of <code>beginfig</code>, not in the order of the appearance in the code. However, the text output are in the order of the appearance in the code. See <a href="ISSUES.html">ISSUES</a> for the alignment of multiple figures.</p>
-<pre data-role="codeBlock" data-info="metafont" class="language-metafont metafont"><code>```mp <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>mepoco<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-u <span class="token operator">:=</span> <span class="token number">2</span><span class="token constant">cm</span><span class="token punctuation">;</span>
+<p>If you put multiple figures written in MetaPost in one code chunk, the figure output is in the order of the argument of <code>beginfig</code>. However, the text output is in the order of the appearance in the code. See <a href="ISSUES.html">ISSUES</a> for the alignment of multiple figures.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">metafont {cmd=env args=[mepoco] output=html}</span>
+<span class="token code-block language-metafont">u <span class="token operator">:=</span> <span class="token number">2</span><span class="token constant">cm</span><span class="token punctuation">;</span>
 beginfig<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-xscaled">xscaled</span> <span class="token number">1</span>u <span class="token keyword keyword-yscaled">yscaled</span> <span class="token number">2</span>u<span class="token punctuation">;</span> <span class="token comment">% figure shown later</span>
 label<span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -281,11 +282,12 @@ beginfig<span class="token punctuation">(</span><span class="token number">1</sp
 <span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-xscaled">xscaled</span> <span class="token number">2</span>u <span class="token keyword keyword-yscaled">yscaled</span> <span class="token number">1</span>u<span class="token punctuation">;</span> <span class="token comment">% figure shown earlier</span>
 label<span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">% text shown later</span>
 <span class="token command builtin">show</span> <span class="token string">"Fig. 1"</span><span class="token punctuation">;</span>
-endfig<span class="token punctuation">;</span>
-```
+endfig<span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="settings-by-environment-variables">Settings by environment variables </h3>
-<p>You can configure <code>asyco</code> by setting environment variables in your shell initialization file, such as <code>~/.bash_profile</code>.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">ASYCO_OPTS</span><span class="token operator">=</span><span class="token string">"--cmd /Library/TeX/texbin/"</span>
+<p>You can configure <code>asyco</code> by setting environment variables in the initialization file of your login shell, such as <code>~/.bash_profile</code>. On Windows, you must set the variables in the Windows environment variables.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># ~/.bash_profile</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ASYCO_OPTS</span><span class="token operator">=</span><span class="token string">"--cmd /Library/TeX/texbin/"</span>
 <span class="token builtin class-name">export</span> <span class="token assign-left variable">ASYCO_OUT_BG_COL</span><span class="token operator">=</span><span class="token string">"#EEF"</span>
 </code></pre><p>The first line sets the path of <code>asy</code>. For example, <code>/Library/TeX/texbin/asy</code> is used even if <code>/opt/homebrew/bin/asy</code> is found first in the command search path (<code>PATH</code>). The second line sets the background color of the text output to light blue (<code>#EEF</code>).</p>
 <h3 id="settings-by-classes">Settings by classes </h3>
@@ -295,24 +297,27 @@ endfig<span class="token punctuation">;</span>
 <span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -version] output=html}</span>
 <span class="token code-block language-cpp"><span class="token comment">// args=[asyco -version]</span></span>
 <span class="token punctuation">```</span></span>
+
 <span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -environment] output=html}</span>
 <span class="token code-block language-cpp"><span class="token comment">// args=[asyco -environment]</span></span>
 <span class="token punctuation">```</span></span>
 </code></pre><h3 id="file-importing">File importing </h3>
 <p>You can include and execute the file of Asymptote or MetaPost with <code>@import</code> of MPE.</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">###</span> Asymptote</span>
+
 @import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
 
 <span class="token title important"><span class="token punctuation">###</span> MetaPost</span>
+
 @import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
 </code></pre><h2 id="see-also">See also </h2>
 <ul>
 <li>With <code>asycat</code>, you can generate Markdown with code and figures side by side from Asymptote or MetaPost files. See <a href="asycat.html">asycat.md</a> for details.</li>
-<li>See <a href="ISSUES.html">ISSUES.md</a> for possible issues and some fixes.</li>
+<li>See <a href="ISSUES.html">ISSUES.md</a> for frequent issues and some fixes.</li>
 </ul>
 <h2 id="copyright-and-license">Copyright and license </h2>
 <p>(c) 2025-2026 aelata</p>
-<p>This software is licensed under the MIT No attribution (MIT-0) License.<br>
+<p>This software is licensed under the MIT No attribution (MIT-0) License. However, this License does not apply to any files with the .html or .js extension.<br>
 <a href="https://opensource.org/license/mit-0">https://opensource.org/license/mit-0</a></p>
 <hr>
 

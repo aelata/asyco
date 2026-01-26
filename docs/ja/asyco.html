@@ -118,33 +118,34 @@
 <h3 id="コードチャンクの記述">コードチャンクの記述 </h3>
 <p>コードチャンクのオプションで：</p>
 <ul>
+<li>必要に応じて構文強調表示の言語に <code>cpp</code>（構文が Asymptote に類似）または <code>metafont</code>（構文が MetaPost に類似）を設定</li>
 <li><code>cmd</code> に <code>env</code> を設定</li>
 <li><code>args</code> の最初の引数に <code>asyco</code> または <code>mepoco</code> を設定し、そのオプションを <code>args</code> に追加</li>
 <li><code>output</code> に <code>html</code> を設定</li>
 </ul>
 <p>次の例では <code>args</code> に <code>asyco</code> のオプション <code>-M 1mm</code>（図に 1mm の余白を設定）を追加しています。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>M <span class="token number">1</span>mm<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
-</code></pre><p>MetaPost で書かれた図では <code>args</code> の <code>asyco</code> を <code>mepoco</code> に置き換えます。次の例では <code>mepoco</code> の <code>-F</code> オプション（コードの前後に <code>beginfig(0);</code> と <code>endfig;</code> を付加）も指定しています。</p>
-<pre data-role="codeBlock" data-info="metafont" class="language-metafont metafont"><code>```mp <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>mepoco <span class="token operator">-</span>F <span class="token operator">-</span>M <span class="token number">1</span><span class="token constant">mm</span><span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-scaled">scaled</span> <span class="token number">3</span><span class="token constant">cm</span><span class="token punctuation">;</span> <span class="token comment">% MetaPost code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -M 1mm] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre><p>MetaPost で書かれた図では <code>args</code> の <code>asyco</code> を <code>mepoco</code> に置き換えます。必要に応じて構文強調表示の言語には <code>metafont</code> を設定します。次の例では <code>mepoco</code> の <code>-F</code> オプション（コードの前後に <code>beginfig(0);</code> と <code>endfig;</code> を付加）も指定しています。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">metafont {cmd=env args=[mepoco -F -M 1mm] output=html}</span>
+<span class="token code-block language-metafont"><span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-scaled">scaled</span> <span class="token number">3</span><span class="token constant">cm</span><span class="token punctuation">;</span> <span class="token comment">% MetaPost code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="コードチャンクの実行">コードチャンクの実行 </h3>
 <p>VS Code の <code>Open Preview to the Side</code> でプレビューを表示し、<code>Run Code Chunk</code>（ <kbd>▶︎</kbd> ボタン）または <code>Run All Code Chunks</code>（ <kbd>ALL</kbd> ボタン）でコードチャンクを実行します。</p>
 <h3 id="pdf-ファイルの作成">PDF ファイルの作成 </h3>
 <p>プレビューのショートカットメニュー（コンテキストメニュー）で <code>Open in Browser</code> を実行します。ブラウザで文書を印刷することで PDF ファイルを作成できます。ショートカットメニューの <code>Export &gt; HTML</code> で HTML ファイルを作成し、<code>pandoc</code> コマンドで HTML ファイルを PDF ファイルに変換することもできます。</p>
 <h2 id="コードチャンクのオプション">コードチャンクのオプション </h2>
 <p>MPE のコードチャンクの最初の行は次のような形式です。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```lang <span class="token punctuation">{</span>cmd<span class="token operator">=</span>command args<span class="token operator">=</span><span class="token punctuation">[</span>arg1 arg2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span> output<span class="token operator">=</span>format <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```lang {cmd=command args=[arg1 arg2 ...] output=format ...}
 </code></pre><p>例えば次のようになります。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>f png <span class="token operator">-</span>render <span class="token number">4</span><span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=[asyco -f png -render 4] output=html}
 </code></pre><p><code>args</code> オプションは次のように設定することもできます</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"asyco"</span><span class="token punctuation">,</span> <span class="token string">"-f"</span><span class="token punctuation">,</span> <span class="token string">"png"</span><span class="token punctuation">,</span> <span class="token string">"-render"</span><span class="token punctuation">,</span> <span class="token string">"4"</span><span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>```cpp {cmd=env args=["asyco", "-f", "png", "-render", "4"] output=html}
 </code></pre><p>コードチャンクの主なオプションを以下に示します：</p>
 <dl>
 <dt><code>lang</code></dt>
-<dd>構文強調表示の言語を設定します。構文強調表示しなければ <em><code>lang</code></em> は省略できます。VS Code と MPE は、Asymptote (<code>asy</code>) と MetaPost (<code>mp</code>) の構文強調表示に対応していませんが、代わりに文法が似た言語を設定できます。Asymptote では <code>cpp</code>、MetaPost では <code>metafont</code> を設定します。詳細は <a href="ISSUES.html">ISSUES.md</a> を参照してください。</dd>
+<dd>構文強調表示の言語を設定します。VS Code と MPE は、Asymptote (<code>asy</code>) と MetaPost (<code>mp</code>) の構文強調表示に対応していませんが、代わりに構文が似た言語を設定できます。Asymptote では <code>cpp</code>、MetaPost では <code>metafont</code> を設定します。詳細は <a href="ISSUES.html">ISSUES.md</a> を参照してください。</dd>
 <dt><code>cmd</code></dt>
 <dd>実行するコマンドを設定します。<code>env</code> コマンドを設定します。macOS や Linux では <code>asyco</code> や <code>mepoco</code> を設定する方法もありますが、Windows との文書の互換性を考慮して <code>env</code> を設定することをお勧めします。</dd>
 <dt><code>args</code></dt>
@@ -206,18 +207,18 @@
 <h3 id="その他のオプション">その他のオプション </h3>
 <p>その他のオプションは <code>asy</code> または <code>mpost</code> コマンドに渡されます。このため、短いオプションは結合できません（例えば <code>-KA N</code> ではなく <code>-K -A N</code>）。また、短いオプションとその引数は結合できません（例えば <code>-AN</code> ではなく <code>-A N</code>）。</p>
 <h2 id="環境変数">環境変数 </h2>
-<p>環境変数はシェルの初期設定ファイル（例えば <code>~/.bash_profile</code>）で設定します。</p>
+<p>以下の環境変数はログインシェルの初期設定ファイル（例えば <code>~/.bash_profile</code>）で設定します。Windows では「Windows の環境変数」で環境変数を設定する必要があります。</p>
 <h3 id="初期オプション">初期オプション </h3>
-<p>以下の環境変数で <code>asyco</code> や <code>mepoco</code> の初期オプションを指定できます。</p>
+<p>次の環境変数で <code>asyco</code> や <code>mepoco</code> の初期オプションを指定できます。</p>
 <dl>
 <dt><code>ASYCO_OPTS</code></dt>
 <dd><code>asyco</code> の初期オプションを指定します。</dd>
 <dt><code>MEPOCO_OPTS</code></dt>
 <dd><code>mepoco</code> の初期オプションを指定します。</dd>
 </dl>
-<p>コマンド行で指定したオプションは、初期オプションよりも優先されます。環境変数から読み込んだ初期オプションは、使用法の表示（<code>asyco</code> または <code>mepoco</code> の <code>--help</code> オプション）の最後の行で確認できます。</p>
+<p>環境変数から読み込んだ初期オプションは、使用法の表示（<code>asyco</code> または <code>mepoco</code> の <code>--help</code> オプション）の最後の行で確認できます。コマンド行で指定したオプションは、初期オプションよりも優先されます。</p>
 <h3 id="テキストの背景色">テキストの背景色 </h3>
-<p>以下の環境変数は <code>ASYCO_</code> で始まりますが、<code>asyco</code> と <code>mepoco</code> で共通に用いられます。</p>
+<p>次の環境変数で <code>asyco</code> や <code>mepoco</code> から出力されるテキストの背景色を設定できます。変数名は <code>ASYCO_</code> で始まりますが、<code>asyco</code> と <code>mepoco</code> で共通に用いられます。</p>
 <dl>
 <dt><code>ASYCO_OUT_BG_COL</code></dt>
 <dd>標準出力（<code>asy</code> や <code>mpost</code> のテキスト出力）の背景色を設定します。</dd>
@@ -237,41 +238,41 @@
 </dl>
 <h2 id="使用例">使用例 </h2>
 <h3 id="asymptote-http-server">Asymptote http server </h3>
-<p>Asymptote http sever を使えば、ローカルの <code>asy</code> コマンドを使えなくても、Asymptote で書かれた図をマークダウン文書に埋め込めます。Asymptote http sever を使うには <code>asyco</code> の <code>--remote</code> オプションを指定します。サーバを <code>--server</code> オプションで設定しなければ、省略時値の <code>asymptote.ualberta.ca:10007</code> が使われます。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">--</span>remote<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<p>Asymptote http sever を使えば、ローカルの <code>asy</code> コマンドを使えなくても、Asymptote で書かれた図をマークダウン文書に埋め込めます。Asymptote http sever を使うには <code>asyco</code> の <code>--remote</code> オプションを指定します。サーバを <code>--server</code> オプションで設定しなければ、<code>asymptote.ualberta.ca:10007</code> がサーバに用いられます。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --remote] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="png-画像">PNG 画像 </h3>
 <p>図を PNG 画像として出力するには <code>asyco</code> のオプションに <code>-f png</code> を指定します。コードチャンクの <code>output</code> オプションには <code>html</code> を設定します（<code>png</code> ではありません）。次の例では、図の解像度と表示倍率を変更し（<code>-render 4 --img-zoom=0.25x</code>）、画像を <code>fig.png</code> に保存します（<code>-o fig</code>）。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">-</span>f png <span class="token operator">-</span>render <span class="token number">4</span> <span class="token operator">--</span>img<span class="token operator">-</span>zoom<span class="token operator">=</span><span class="token number">0.25</span>x <span class="token operator">-</span>o fig<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="警告メッセージ">警告メッセージ </h3>
 <p>ローカルの <code>asy</code> コマンドを用いる場合、警告メッセージやエラーメッセージが表示されることがあります。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>asyco <span class="token operator">--</span>silent<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --silent] output=html}</span>
+<span class="token code-block language-cpp"><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><p>上の例では、次のメッセージが表示されます。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>: warning [unbounded]: x scaling in picture unbounded
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>: warning [unbounded]: x scaling in picture unbounded
 : warning [unbounded]: y scaling in picture unbounded
 </code></pre><p>警告メッセージは <code>asyco</code> の <code>--silent</code> オプションで抑制できます。警告メッセージは <code>asy</code> の <code>-nowarn</code> オプションでも個別に抑制でき、上のメッセージは <code>-nowarn unbounded</code> で抑制できます。</p>
 <p>Asymptote http server を用いる場合、エラーメッセージは表示されますが警告メッセージは表示されません。</p>
 <h3 id="テキスト出力">テキスト出力 </h3>
 <p>コマンドの実行結果がテキストだけの場合も、コードチャンクの <code>output</code> オプションには <code>html</code> を設定します（<code>text</code> ではありません）。</p>
-<pre data-role="codeBlock" data-info="metafont" class="language-metafont metafont"><code>```mp <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>mepoco<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-<span class="token variable">x</span> <span class="token operator">+</span> <span class="token variable">y</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">metafont {cmd=env args=[mepoco] output=html}</span>
+<span class="token code-block language-metafont"><span class="token variable">x</span> <span class="token operator">+</span> <span class="token variable">y</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
 <span class="token number">2</span><span class="token variable">x</span> <span class="token operator">+</span> <span class="token number">4</span><span class="token variable">y</span> <span class="token operator">=</span> <span class="token number">26</span><span class="token punctuation">;</span>
-<span class="token command builtin">show</span> <span class="token punctuation">(</span><span class="token variable">x</span><span class="token punctuation">,</span> <span class="token variable">y</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">% You will get "&gt;&gt; (3,5)".</span>
-```
+<span class="token command builtin">show</span> <span class="token punctuation">(</span><span class="token variable">x</span><span class="token punctuation">,</span> <span class="token variable">y</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">% You will get "&gt;&gt; (3,5)".</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><p><code>asy</code> コマンドの出力がテキストだけであれば <code>asyco</code> を経由する必要はありません。</p>
-<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>```asy <span class="token punctuation">{</span>cmd<span class="token operator">=</span>asy<span class="token punctuation">}</span>
-<span class="token function">write</span><span class="token punctuation">(</span><span class="token function">inverse</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// You will get "(3,5)".</span>
-```
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=asy}</span>
+<span class="token code-block language-cpp"><span class="token function">write</span><span class="token punctuation">(</span><span class="token function">inverse</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// You will get "(3,5)".</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="metapost-での複数の図">MetaPost での複数の図 </h3>
 <p>MetaPost で複数の図を 1 つのコードチャンクに含める場合、図は <code>beginfig</code> の番号順に出力され、テキストはコード中の出現順に出力されます。複数の図の位置揃えについては <a href="ISSUES.html">ISSUES.md</a> を参照してください。</p>
-<pre data-role="codeBlock" data-info="metafont" class="language-metafont metafont"><code>```mp <span class="token punctuation">{</span>cmd<span class="token operator">=</span>env args<span class="token operator">=</span><span class="token punctuation">[</span>mepoco<span class="token punctuation">]</span> output<span class="token operator">=</span>html<span class="token punctuation">}</span>
-u <span class="token operator">:=</span> <span class="token number">2</span><span class="token constant">cm</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">metafont {cmd=env args=[mepoco] output=html}</span>
+<span class="token code-block language-metafont">u <span class="token operator">:=</span> <span class="token number">2</span><span class="token constant">cm</span><span class="token punctuation">;</span>
 beginfig<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-xscaled">xscaled</span> <span class="token number">1</span>u <span class="token keyword keyword-yscaled">yscaled</span> <span class="token number">2</span>u<span class="token punctuation">;</span> <span class="token comment">% figure shown later</span>
 label<span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -281,11 +282,12 @@ beginfig<span class="token punctuation">(</span><span class="token number">1</sp
 <span class="token macro function">draw</span> <span class="token constant">fullcircle</span> <span class="token keyword keyword-xscaled">xscaled</span> <span class="token number">2</span>u <span class="token keyword keyword-yscaled">yscaled</span> <span class="token number">1</span>u<span class="token punctuation">;</span> <span class="token comment">% figure shown earlier</span>
 label<span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">% text shown later</span>
 <span class="token command builtin">show</span> <span class="token string">"Fig. 1"</span><span class="token punctuation">;</span>
-endfig<span class="token punctuation">;</span>
-```
+endfig<span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
 </code></pre><h3 id="環境変数を用いた設定">環境変数を用いた設定 </h3>
-<p>シェルの初期設定ファイル（例えば <code>~/.bash_profile</code>）で環境変数を設定することで <code>asyco</code> の設定を行えます。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">ASYCO_OPTS</span><span class="token operator">=</span><span class="token string">"--cmd=/Library/TeX/texbin"</span>
+<p>ログインシェルの初期設定ファイル（例えば <code>~/.bash_profile</code>）で環境変数を設定することで <code>asyco</code> の設定を行えます。Windows では「Windows の環境変数」で環境変数を設定する必要があります。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># ~/.bash_profile</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ASYCO_OPTS</span><span class="token operator">=</span><span class="token string">"--cmd=/Library/TeX/texbin"</span>
 <span class="token builtin class-name">export</span> <span class="token assign-left variable">ASYCO_OUT_BG_COL</span><span class="token operator">=</span><span class="token string">"#EEF"</span>
 </code></pre><p>1 行目で <code>asy</code> コマンドの場所を設定します。例えばコマンド検索パス（<code>PATH</code>）で <code>/opt/homebrew/bin/asy</code> が最初に見つかる環境でも <code>/Library/TeX/texbin/asy</code> を実行します。2 行目で標準出力の領域の背景色を薄い青色（<code>#EEF</code>）に設定します。</p>
 <h3 id="クラスを用いた設定">クラスを用いた設定 </h3>
@@ -295,24 +297,27 @@ endfig<span class="token punctuation">;</span>
 <span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -version] output=html}</span>
 <span class="token code-block language-cpp"><span class="token comment">// args=[asyco -version]</span></span>
 <span class="token punctuation">```</span></span>
+
 <span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -environment] output=html}</span>
 <span class="token code-block language-cpp"><span class="token comment">// args=[asyco -environment]</span></span>
 <span class="token punctuation">```</span></span>
 </code></pre><h3 id="ファイルの取り込み">ファイルの取り込み </h3>
 <p>MPE の <code>@import</code> で Asymptote や MetaPost のファイルを取り込んで実行できます。</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">###</span> Asymptote</span>
+
 @import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
 
 <span class="token title important"><span class="token punctuation">###</span> MetaPost</span>
+
 @import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
 </code></pre><h2 id="関連項目">関連項目 </h2>
 <ul>
 <li><code>asycat</code> を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は <a href="asycat.html">asycat.md</a> を参照してください。</li>
-<li>起こりうる問題と対処法については <a href="ISSUES.html">ISSUES.md</a> を参照してください。</li>
+<li>よくある問題と対処法については <a href="ISSUES.html">ISSUES.md</a> を参照してください。</li>
 </ul>
 <h2 id="著作権と利用許諾">著作権と利用許諾 </h2>
 <p>(c) 2025-2026 aelata</p>
-<p>このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。<br>
+<p>このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。ただし、本許諾は拡張子が .html または .js のファイルには適用されないものとします。<br>
 <a href="https://opensource.org/license/mit-0">https://opensource.org/license/mit-0</a></p>
 <hr>
 

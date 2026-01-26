@@ -172,82 +172,81 @@
 </table>
 <p>Linux のディストリビューションは <a href="https://releases.ubuntu.com/noble/">Ubuntu 24.04</a> を用い、Windows または macOS 上の仮想環境（<a href="https://www.virtualbox.org">VirtualBox</a> 7.2）で実行しています。</p>
 <p>ローカルの <code>asy</code> コマンドや <code>mpost</code> コマンドを使う場合は TeX のインストールが必要です。TeX のディストリビューションは、<a href="https://ctan.org">Comprehensive TeX Archive Network (CTAN)</a> のパッケージを基にした、<a href="https://www.tug.org/texlive/">TeX Live</a> または <a href="https://www.tug.org/mactex/">MacTeX</a> を用います。Ubuntu では、<a href="https://packages.ubuntu.com/noble/texlive-full">TeX Live 2023（Ubuntu の texlive-full パッケージ）</a>または <a href="https://www.tug.org/texlive/">TeX Live 2025（CTAN のパッケージ）</a>を用います。</p>
-<p><a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> はバージョン 1.106.3、<a href="https://shd101wyy.github.io/markdown-preview-enhanced">Markdown Preview Enhanced (MPE)</a> はバージョン 0.8.20 を用います。</p>
+<p><a href="https://code.visualstudio.com">Visual Studio Code (VS Code)</a> はバージョン 1.106.3、<a href="https://shd101wyy.github.io/markdown-preview-enhanced">Markdown Preview Enhanced (MPE)</a> はバージョン 0.8.20 を用いています。</p>
 <p>なお、asyco の開発環境は macOS で、<a href="https://github.com/koalaman/shellcheck">shellcheck</a> で構文を確認し、<a href="https://github.com/shellspec/shellspec">shellspec</a> で動作を確認しています。</p>
 <h2 id="windows-11">Windows 11 </h2>
 <p>あらかじめソフトウェアを展開するフォルダ（例えば <code>C:\opt</code>）を作成しておきます。このフォルダは自分の環境に合わせて適当に置き換えてください。</p>
 <p>Windows のコマンド検索パス（<code>Path</code>）の設定が必要になる場合があります。Windows にはユーザ環境変数の <code>Path</code>とシステム環境変数の <code>Path</code> があり、システム環境変数の <code>Path</code> が先に検索されます。環境変数の編集は、<s>Windows の設定から「設定 &gt; システム &gt; バージョン情報 &gt; システムの詳細設定 &gt; 環境変数」で行います</s> <code>C:\Windows\System32\SystemPropertiesAdvanced.exe</code> を起動し、下部にある <kbd>環境変数(N)...</kbd> ボタンをクリックします。ユーザ環境変数の <code>Path</code> は「...のユーザ環境変数 &gt; 変数 Path &gt; 編集」で、システム環境変数の <code>Path</code> は「システム環境変数 &gt; 変数 Path &gt; 編集」で設定します。</p>
 <p>エクスプローラでファイルの区別を容易にするため、ファイルの拡張子の表示をお勧めします。拡張子を表示するには「エクスプローラのオプション &gt; 表示 &gt; 詳細設定」で「登録されている拡張子を表示しない」のチェックを外します。</p>
 <h3 id="bash">Bash </h3>
-<p>ここでは、<a href="https://www.msys2.org">MSYS2</a> を基にした <a href="https://gitforwindows.org">Git for Windows</a> に含まれる bash (Git Bash) を使います。PortableGit のファイル（例えば <code>PortableGit-2.51.2-64-bit.7z.exe</code>）を <a href="https://github.com/git-for-windows/git/releases">GitHub</a> から ダウンロードして実行し、例えば <code>C:\opt\PortableGit</code> に展開します。Windows の環境変数 <code>Path</code> に <code>env.exe</code> のあるフォルダ（例えば <code>C:\opt\PortableGit\usr\bin</code>）を追加します。</p>
+<p>ここでは、<a href="https://www.msys2.org">MSYS2</a> を基にした <a href="https://gitforwindows.org">Git for Windows</a> に含まれる bash (Git Bash) を使います。PortableGit のファイル（例えば <code>PortableGit-2.51.2-64-bit.7z.exe</code>）を <a href="https://github.com/git-for-windows/git/releases">GitHub</a> から ダウンロードして実行し、例えば <code>C:\opt\PortableGit</code> に展開します。もちろん、インストーラ（例えば、<code>Git-2.51.2-64-bit.exe</code>）でインストールしても構いません。Windows の環境変数 <code>Path</code> に <code>env.exe</code> のあるフォルダ（例えば <code>C:\opt\PortableGit\usr\bin</code> や <code>C:\Program Files\Git\usr\bin</code>）を加えます。</p>
 <h3 id="vs-code-mpe">VS Code, MPE </h3>
-<p>VS Code のインストーラ（例えば <code>VSCodeUserSetup-x64-1.106.3.exe</code>）を <a href="https://code.visualstudio.com/download">Download Visual Studio Code のページ</a>からダウンロードしてインストールします。インストーラではなく <code>.zip</code> ファイル（例えば <code>VSCode-win32-x64-1.106.3.zip</code>）を用いる場合は、例えば <code>C:\opt\VSCode</code> に展開し、Windows の環境変数 <code>Path</code> に <code>C:\opt\VSCode\bin</code> を追加します。</p>
+<p>VS Code のインストーラ（例えば <code>VSCodeUserSetup-x64-1.106.3.exe</code>）を <a href="https://code.visualstudio.com/download">Download Visual Studio Code のページ</a>からダウンロードしてインストールします。インストーラではなく <code>.zip</code> ファイル（例えば <code>VSCode-win32-x64-1.106.3.zip</code>）を用いる場合は、例えば <code>C:\opt\VSCode</code> に展開し、Windows の環境変数 <code>Path</code> に <code>C:\opt\VSCode\bin</code> を加えます。</p>
 <p>MPE の <code>.vsix</code> ファイル（例えば <code>markdown-preview-enhanced-0.8.20.vsix</code>）を <a href="https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases">GitHub</a> からダウンロードしてインストールします。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
 </code></pre><p>もちろん VS Code のマーケットプレイス経由でインストールしても構いません。</p>
 <h3 id="tex-live">TeX Live </h3>
 <p>下記のページを参考に、ネットワークまたは ISO イメージから TeX Live をインストールします。</p>
 <ul>
-<li><a href="https://texwiki.texjp.org/?TeX%20Live%2FWindows">TEX Wiki - TeX Live/Windows (https://texwiki.texjp.org/?TeX%20Live%2FWindows)</a></li>
+<li><a href="https://texwiki.texjp.org/?TeX%20Live%2FWindows">TeX Wiki - TeX Live/Windows (https://texwiki.texjp.org/?TeX%20Live%2FWindows)</a></li>
 </ul>
 <p>インストール先には、例えば <code>C:\opt\texlive\2025</code> を用います。</p>
 <h4 id="ネットワークからインストール">ネットワークからインストール </h4>
-<p>TeX Live をネットワークからインストールする場合、インストーラ（<code>install-tl-windows.exe</code>）を適当なミラーサイト（例えば <code>http://ftp.jaist.ac.jp/pub/CTAN/systems/texlive/tlnet/</code>）からダウンロードして実行します。</p>
+<p>CTAN の <code>systems/texlive/tlnet</code> (<code>http://mirror.ctan.org/systems/texlive/tlnet</code>) の下から、インストーラ（<code>install-tl-windows.exe</code>）をダウンロードして実行します。</p>
 <h4 id="iso-イメージからインストール">ISO イメージからインストール </h4>
-<p>TeX Live 2025 の ISO イメージ（<code>texlive2025-20250308.iso</code>）からインストールする場合、ISO イメージを適当なミラーサイト（例えば <code>http://ftp.jaist.ac.jp/pub/CTAN/systems/texlive/Images</code>）からダウンロードし、エクスプローラで ISO イメージを開き、その中のインストーラ（<code>install-tl-windows.bat</code>）を実行します。</p>
+<p>CTAN の <code>systems/texlive/Images</code> (<code>http://mirror.ctan.org/systems/texlive/Images</code>) の下から、ISO イメージ（例えば <code>texlive2025-20250308.iso</code>）をダウンロードし、エクスプローラで ISO イメージを開き、その中のインストーラ（<code>install-tl-windows.bat</code>）を実行します。</p>
 <h4 id="パッケージの更新">パッケージの更新 </h4>
 <p><code>tlmgr</code> が Windows のバッチファイルのため、bash ではなく Windows のコマンドプロンプトで作業します。</p>
 <p>TeX Live のパッケージの更新には、次のコマンドを実行します。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>C:\...&gt;tlmgr update --self --all
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>C:\...&gt;tlmgr update --self --all
 </code></pre><h3 id="asymptote">Asymptote </h3>
 <h4 id="tex-live-の-asy">TeX Live の asy </h4>
 <p>TeX Live の <code>asy</code> を用いる場合は、特にインストールの必要はありません。</p>
 <h4 id="sourceforge-の-asy">SourceForge の asy </h4>
 <p>SourceForge の <code>asy</code> は、TeX Live の <code>asy</code> よりも速く（詳細は <a href="time.html">time.md</a> を参照）、最新版を使えます。<br>
-<a href="https://sourceforge.net/projects/asymptote/files/">SourceForge</a> から Asymptote のインストーラ（例えば <code>asymptote-3.05-setup.exe</code>） をダウンロードしてインストールします。Asymptote のインストール先は、標準では <code>C:\Program Files\Asymptote</code> です。コマンド検索パスは設定されないため、Windows の環境変数 <code>Path</code> に <code>C:\Program Files\Asymptote</code> を追加します。</p>
-<p>Ghostscript 関連の設定として、例えば以下を <code>~/.asy/config.asy</code> に追加します。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>import settings;
-settings.gs="C:\opt\texlive\2025\tlpkg\tlgs\bin\gswin64c.exe";
-settings.libgs="C:\opt\texlive\2025\tlpkg\tlgs\bin\gsdll64.dll";
+<a href="https://sourceforge.net/projects/asymptote/files/">SourceForge</a> から Asymptote のインストーラ（例えば <code>asymptote-3.05-setup.exe</code>） をダウンロードしてインストールします。Asymptote のインストール先は、標準では <code>C:\Program Files\Asymptote</code> です。コマンド検索パスは自動で設定されないため、Windows の環境変数 <code>Path</code> に <code>C:\Program Files\Asymptote</code> を加えます。</p>
+<p>Ghostscript 関連の設定として、例えば以下を <code>~/.asy/config.asy</code> に加えます。</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-import">import</span> <span class="token module">settings</span><span class="token punctuation">;</span>
+settings<span class="token punctuation">.</span>gs<span class="token operator">=</span><span class="token string">"C:\opt\texlive\2025\tlpkg\tlgs\bin\gswin64c.exe"</span><span class="token punctuation">;</span>
+settings<span class="token punctuation">.</span>libgs<span class="token operator">=</span><span class="token string">"C:\opt\texlive\2025\tlpkg\tlgs\bin\gsdll64.dll"</span><span class="token punctuation">;</span>
 </code></pre><p>また、Windows の環境変数 <code>GS_LIB</code> に <code>C:\opt\texlive\2025\tlpkg\tlgs\Resource\Init;C:\opt\texlive\2025\tlpkg\tlgs\kanji</code> を設定します。</p>
 <p><code>asyco</code> では <code>asy</code> の場所を <code>--cmd</code> で指定できます。</p>
 <ul>
 <li><code>--cmd=/c/opt/texlive/2025/bin/windows</code> (TeX Live の <code>asy</code>)</li>
 <li><code>--cmd="/c/Program Files/Asymptote"</code> (SourceForge の <code>asy</code>)</li>
 </ul>
-<p>標準ではない場所、例えば <code>C:\opt\Asymptote</code> に Asymptote をインストールした場合は、<code>asyco</code> を実行する際に <code>--sysdir=/c/opt/Asymptote</code> を指定する必要があります。<code>config.asy</code> での <code>settings.sysdir</code> の設定は有効ではないようです。<code>--cmd</code> オプションと <code>--sysdir</code> オプションは環境変数 <code>ASYCO_OPTS</code> でも設定できます。</p>
+<p>標準ではない場所、例えば <code>C:\opt\Asymptote</code> に Asymptote をインストールした場合は、<code>asyco</code> を実行する際に <code>--sysdir=/c/opt/Asymptote</code> を指定する必要があります。<code>config.asy</code> での <code>settings.sysdir</code> の設定は有効ではないようです。<code>--cmd</code> オプションと <code>--sysdir</code> オプションは Windows の環境変数 <code>ASYCO_OPTS</code> でも設定できます。</p>
 <h3 id="metapost">MetaPost </h3>
 <p>MetaPost は TeX Live に含まれています。特にインストールの必要はありません。</p>
 <h3 id="imagemagick">ImageMagick </h3>
-<p>ImageMagick のファイル（例えば <code>ImageMagick-7.1.2-11-portable-Q16-HDRI-x64.7z</code>）を <a href="https://imagemagick.org/script/download.php">ImageMagick のページ</a> からダウンロードし、例えば <code>C:\opt\ImageMagick-7</code> の下に展開します（Windows の tar コマンドで展開できます）。<br>
-Windows の環境変数 <code>Path</code> に <code>C:\opt\ImageMagick-7</code> を追加します。bash の初期設定ファイル <code>~/.bash_profile</code> で環境変数 <code>PATH</code> に <code>/c/opt/ImageMagick-7</code> を追加しても構いません</p>
+<p>ImageMagick のファイル（例えば <code>ImageMagick-7.1.2-11-portable-Q16-HDRI-x64.7z</code>）を <a href="https://imagemagick.org/script/download.php">ImageMagick のページ</a> からダウンロードし、例えば <code>C:\opt\ImageMagick-7</code> の下に展開し（Windows の tar コマンドで展開できます）、Windows の環境変数 <code>Path</code> に <code>C:\opt\ImageMagick-7</code> を加えます。</p>
 <h2 id="macos-15">macOS 15 </h2>
 <h3 id="homebrew">Homebrew </h3>
 <p>macOS では Homebrew を用いると必要な環境の準備が簡単になります。あらかじめ macOS の Command Line Tools (CLT) をインストールします。</p>
-<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% <span class="token function">sudo</span> xcode-select <span class="token parameter variable">--install</span>
-</code></pre><p>Homebrew のインストーラ（例えば <code>Homebrew-5.0.8.pkg</code>）を <a href="https://github.com/Homebrew/brew/releases">GitHub</a> からダウンロードして実行します。以下を <code>~/.zprofile</code> に追加し、あらためてターミナルを開きます<!--（macOS ではターミナルを開くたびにログインシェルが起動されます）-->。</p>
-<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code><span class="token builtin class-name">eval</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span>/opt/homebrew/bin/brew shellenv<span class="token variable">)</span></span>"</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% sudo xcode-select --install
+</code></pre><p>Homebrew のインストーラ（例えば <code>Homebrew-5.0.8.pkg</code>）を <a href="https://github.com/Homebrew/brew/releases">GitHub</a> からダウンロードして実行します。以下を <code>~/.zprofile</code> に加え、あらためてターミナルを開きます<!--（macOS ではターミナルを開くたびにログインシェルが起動されます）-->。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">eval</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span>/opt/homebrew/bin/brew shellenv<span class="token variable">)</span></span>"</span>
 </code></pre><h3 id="vs-code-mpe-1">VS Code, MPE </h3>
 <p>Homebrew で VS Code をインストールします。</p>
-<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% brew <span class="token function">install</span> <span class="token parameter variable">--cask</span> visual-studio-code
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% brew install --cask visual-studio-code
 </code></pre><p>MPE の <code>.vsix</code> ファイル（例えば <code>markdown-preview-enhanced-0.8.20.vsix</code>）を <a href="https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases">GitHub</a> からダウンロードし、インストールします。</p>
-<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
 </code></pre><p>もちろん VS Code のマーケットプレイス経由でインストールしても構いません。</p>
 <h3 id="mactex">MacTeX </h3>
 <p>MacTeX はインストーラ（<code>MacTeX.pkg</code>）ではなく Homebrew によるインストールをお勧めします。Asymptote が依存する Ghostscript が同時にインストールされます。</p>
-<pre data-role="codeBlock" data-info="sh" class="language-bash sh"><code>% brew <span class="token function">install</span> <span class="token parameter variable">--cask</span> mactex-no-gui
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% brew install --cask mactex-no-gui
 </code></pre><p>Asymptote の設定ファイル（<code>~/.asy/config.asy</code>）で libgs を設定します。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>import settings;
-settings.libgs = "/opt/homebrew/lib/libgs.dylib";
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-import">import</span> <span class="token module">settings</span><span class="token punctuation">;</span>
+settings<span class="token punctuation">.</span>libgs <span class="token operator">=</span> <span class="token string">"/opt/homebrew/lib/libgs.dylib"</span><span class="token punctuation">;</span>
 </code></pre><h4 id="パッケージの更新-1">パッケージの更新 </h4>
 <p>MacTeX のパッケージの検証のため、あらかじめ <a href="https://gnupg.org">GnuPG</a> をインストールしておきます。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>% brew <span class="token function">install</span> gnupg
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% brew install gnupg
 </code></pre><p>MacTeX のパッケージの更新には、次のコマンドを実行します。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>% sudo tlmgr update --self --all
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% sudo tlmgr update --self --all
 </code></pre><h3 id="asymptote-1">Asymptote </h3>
 <p>Asymptote は MacTeX に含まれています。特にインストールの必要はありません。</p>
 <p>Homebrew で最新版の Asymptote (<code>/opt/homebrew/bin/asy</code>) もインストールできます。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>% brew <span class="token function">install</span> asymptote
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% brew install asymptote
 </code></pre><p><code>asyco</code> では <code>asy</code> の場所を <code>--cmd</code> で指定できます。</p>
 <ul>
 <li><code>--cmd=/Library/TeX/texbin</code> (MacTeX の <code>asy</code>)</li>
@@ -258,40 +257,48 @@ settings.libgs = "/opt/homebrew/lib/libgs.dylib";
 <p>MetaPost は MacTeX に含まれています。特にインストールの必要はありません。</p>
 <h3 id="imagemagick-1">ImageMagick </h3>
 <p>Homebrew で <a href="https://imagemagick.org/index.php">ImageMagick</a> をインストールします。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>% brew install imagemagick
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>% brew install imagemagick
 </code></pre><p>ImageMagick-7 がインストールされます。</p>
 <h2 id="linux">Linux </h2>
 <p>Linux のディストリビューションとして Ubuntu 24.04 を用います。<a href="https://www.virtualbox.org">VirtualBox</a> で実行する場合は、ある程度の資源（例えば、複数コアなど）を割り当てます。</p>
 <h3 id="ubuntu-のパッケージの更新">Ubuntu のパッケージの更新 </h3>
 <p>作業の前に Ubuntu のパッケージを更新します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> update
-$ <span class="token function">sudo</span> <span class="token function">apt</span> upgrade
-<span class="token comment">## $ sudo apt autoremove # as needed</span>
-<span class="token comment">## $ sudo systemctl reboot # as needed</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ sudo apt update
+$ sudo apt upgrade
+## $ sudo apt autoremove # as needed
+## $ sudo systemctl reboot # as needed
 </code></pre><h3 id="日本語環境のパッケージ">日本語環境のパッケージ </h3>
 <p>日本語環境の追加が必要な場合は、パッケージをインストールします。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token variable"><span class="token variable">$(</span>check-language-support <span class="token parameter variable">-l</span> ja<span class="token variable">)</span></span>
-$ <span class="token function">sudo</span> systemctl <span class="token function">reboot</span>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ sudo apt install $(check-language-support -l ja)
+$ sudo systemctl reboot
 </code></pre><h3 id="vs-code-mpe-2">VS Code, MPE </h3>
-<p>VS Code の <code>.deb</code> ファイル（例えば <code>code_1.106.3-1764110892_amd64.deb</code>）を、<a href="https://code.visualstudio.com/download">Download Visual Studio Code のページ</a>からダウンロードし、インストールします。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> ./code_1.106.3-1764110892_amd64.deb
+<p>VS Code の <code>.deb</code> ファイル（例えば <code>code_1.106.3-1764110892_amd64.deb</code>）を <a href="https://code.visualstudio.com/download">Download Visual Studio Code のページ</a>からダウンロードし、インストールします。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ sudo apt install ./code_1.106.3-1764110892_amd64.deb
 </code></pre><p><code>Add Microsoft apt repository for Visual Studio Code?</code> は矢印キーでどちらかを選び <kbd>Enter</kbd> を押します。<code>N: Download is performed unsandboxed as root ...</code> のメッセージは無視します。</p>
 <p>Markdown Preview Enhanced (MPE) の <code>.vsix</code> ファイル（例えば <code>markdown-preview-enhanced-0.8.20.vsix</code>）を <a href="https://github.com/shd101wyy/vscode-markdown-preview-enhanced/releases">GitHub</a> からダウンロードしてインストールします。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ code --install-extension ./markdown-preview-enhanced-0.8.20.vsix
 </code></pre><p>もちろん VS Code のマーケットプレイス経由でインストールしても構いません。</p>
 <h3 id="ブラウザ">ブラウザ </h3>
-<p>Ubuntu 24.04 の標準ブラウザは Snap 版の Firefox です。Snap 版の Firefox は <code>/tmp</code> の下あるファイルを開けないため、MPE の <code>Open in Browser</code> が使えません。下記の記事を参考にデフォルトブラウザを変更します。</p>
-<p><a href="https://gihyo.jp/admin/serial/01/ubuntu-recipe/0710">Snap版Firefoxを使用しないでやり過ごす (https://gihyo.jp/admin/serial/01/ubuntu-recipe/0710)</a></p>
-<p>ここでは <code>firefox-esr</code> をインストールし、デフォルトブラウザに設定します。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> add-apt-repository ppa:mozillateam/ppa
-$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> firefox-esr firefox-esr-locale-ja
-
-$ xdg-settings <span class="token builtin class-name">set</span> default-web-browser firefox-esr.desktop
-</code></pre><h3 id="tex-live-1">TeX Live </h3>
+<p>Ubuntu 24.04 の標準ブラウザは Snap 版の Firefox です。Snap 版の Firefox は <code>/tmp</code> の下あるファイルを開けないため、MPE の <code>Open in Browser</code> が使えません（<code>Export &gt; HTML</code> で作成した HTML ファイルを開くことはできます）。このため Snap 版ではないブラウザをインストールします。</p>
+<p>Firefox の<a href="https://www.firefox.com/ja/download/all">ダウンロードページ</a>でブラウザー、プラットフォーム、言語を選択し、ファイル（例えば <code>firefox-147.0.1.tar.xz</code> や <code>firefox-140.7.0esr.tar.xz</code>）をダウンロードします。</p>
+<p>インストール先（例えば <code>~/bin</code>）にファイルを展開します。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ cd ~/bin
+$ tar xf ~/Download/firefox-147.0.1.tar.xz
+</code></pre><p><code>~/.local/share/applications</code> の下に、例えば次のファイルを作成します。</p>
+<p>The content of <code>custom-firefox.desktop</code>:</p>
+<pre data-role="codeBlock" data-info="ini" class="language-ini ini"><code><span class="token section"><span class="token punctuation">[</span><span class="token section-name selector">Desktop Entry</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Type</span><span class="token punctuation">=</span><span class="token value attr-value">Application</span>
+<span class="token key attr-name">Name</span><span class="token punctuation">=</span><span class="token value attr-value">Custom Firefox</span>
+<span class="token key attr-name">Exec</span><span class="token punctuation">=</span><span class="token value attr-value">sh -c "$HOME/bin/filefox/firefox %u"</span>
+<span class="token key attr-name">Icon</span><span class="token punctuation">=</span><span class="token value attr-value">firefox</span>
+<span class="token key attr-name">Terminal</span><span class="token punctuation">=</span><span class="token value attr-value">false</span>
+<span class="token key attr-name">MimeType</span><span class="token punctuation">=</span><span class="token value attr-value">text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;</span>
+</code></pre><p>Ubuntu の Settings &gt; Apps &gt; Default Apps &gt; Web で Custom Firefox を選択し、既定のブラウザに設定します。</p>
+<h3 id="tex-live-1">TeX Live </h3>
 <p>TeX Live は、Ubuntu のパッケージによるインストールが簡単ですが、CTAN から最新の TeX Live をインストールすることもできます。</p>
 <h4 id="ubuntu-のパッケージによるインストール">Ubuntu のパッケージによるインストール </h4>
 <p>Ubuntu の <code>texlive-full</code> パッケージを用いて TeX Live をインストールします。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> texlive-full
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ sudo apt install texlive-full
 </code></pre><p>Ubuntu 24.04 では TeX Live 2023 がインストールされ、<code>asy</code> のバージョンは 2.87 になります。</p>
 <h4 id="ctan-のパッケージによるインストール">CTAN のパッケージによるインストール </h4>
 <p>あらかじめインストール先のディレクトリを作成します（例えば <code>sudo mkdir /usr/local/texlive</code>）。所有者を自分に変更（例えば <code>sudo chown $USER /usr/local/texlive</code>）してからインストールすると、<code>tlmgr</code> の実行に <code>sudo</code> が不要になります。</p>
@@ -300,34 +307,34 @@ $ xdg-settings <span class="token builtin class-name">set</span> default-web-bro
 <h5 id="iso-イメージからインストール-1">ISO イメージからインストール </h5>
 <p>CTAN の <code>systems/texlive/Images</code> (<code>http://mirror.ctan.org/systems/texlive/Images</code>) の下から、ISO イメージ（例えば <code>texlive2025-20250308.iso</code>）をダウンロードしてマウントし、<code>install-tl</code> を実行します。</p>
 <h5 id="tex-live-の設定">TeX Live の設定 </h5>
-<p>bash の 初期設定ファイル（例えば <code>~/.bash_profile</code>）で <code>PATH</code> に TeX Live のディレクトリ（例えば <code>/usr/local/texlive/2025/bin/x86_64-linux</code>）を追加します。</p>
+<p>シェルの初期設定ファイル（例えば <code>~/.bash_profile</code>）で <code>PATH</code> に TeX Live のディレクトリ（例えば <code>/usr/local/texlive/2025/bin/x86_64-linux</code>）を加えます。</p>
 <p><code>asy</code> を動かすためには、さらに以下を実行する必要があります。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>$ sudo apt install freeglut3-dev
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ sudo apt install freeglut3-dev
 $ sudo ln -s /lib/x86_64-linux-gnu/libglut.so.3{.12.0,}
 </code></pre><h5 id="パッケージの更新-2">パッケージの更新 </h5>
 <p>TeX Live のパッケージの更新には、次のコマンドを実行します。</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>$ tlmgr update --self --all
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ tlmgr update --self --all
 </code></pre><p>TeXLive 2025 の ISO イメージの <code>asy</code> のバージョンは 3.01 ですが、tlmgr でパッケージを更新すると、<code>asy</code> のバージョン 3.04 になります。</p>
 <h3 id="asymptote-2">Asymptote </h3>
 <p>Asymptote は TeX Live に含まれています。特にインストールの必要はありません。</p>
 <p>最新版の Asymptote を使いたい場合は、ソース・コードからビルドします。詳細は割愛しますが、以下を参考にしてください。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> build-essential autoconf bison flex libtool pkg-config libz-dev freeglut3-dev libtirpc-dev libglm-dev libreadline-dev libcurl4-openssl-dev libboost-filesystem-dev libgsl-dev libfftw3-dev libsigsegv-dev python3-pyqt5 qttools5-dev
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ sudo apt install build-essential autoconf bison flex libtool pkg-config libz-dev freeglut3-dev libtirpc-dev libglm-dev libreadline-dev libcurl4-openssl-dev libboost-filesystem-dev libgsl-dev libfftw3-dev libsigsegv-dev python3-pyqt5 qttools5-dev
 
-$ <span class="token builtin class-name">cd</span> ~/src
-$ <span class="token function">tar</span> xf ~/Download/asymptote-3.05.tar.gz
-$ <span class="token builtin class-name">cd</span> asymptote-3.05
+$ cd ~/src
+$ tar xf ~/Download/asymptote-3.05.tar.gz
+$ cd asymptote-3.05
 
 $ ./autogen.sh
-$ ./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span>/opt/Asymptote --disable-lsp
-$ <span class="token function">make</span>
-$ <span class="token function">make</span> check
-$ <span class="token function">make</span> <span class="token function">install</span>
+$ ./configure --prefix=/opt/Asymptote --disable-lsp
+$ make
+$ make check
+$ make install
 </code></pre><h3 id="metapost-2">MetaPost </h3>
 <p>MetaPost は TeX Live に含まれています。特にインストールの必要はありません。</p>
 <h3 id="imagemagick-2">ImageMagick </h3>
 <p>ImageMagick をインストールします。</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> imagemagick
-</code></pre><p>ImageMagick-6 がインストールされます。Asymptote 2.92 以後は ImageMagick-7 の <code>magick</code> コマンドを期待します。TeX Live 2025 の <code>asy</code> を使う場合は、<code>~/.asy/config.asy</code> に <code>settings.convert = "convert";</code> を追加します。</p>
+<pre data-role="codeBlock" data-info="console" class="language-console console"><code>$ sudo apt install imagemagick
+</code></pre><p>ImageMagick-6 がインストールされます。Asymptote 2.92 以後は ImageMagick-7 の <code>magick</code> コマンドを期待します。TeX Live 2025 の <code>asy</code> を使う場合は、<code>~/.asy/config.asy</code> に <code>settings.convert = "convert";</code> を加えます。</p>
 <hr>
 
       </div>

@@ -4,6 +4,7 @@
 <div class='asycat-block' style='break-inside:avoid-page;'>
 
 ### rgb.asy
+
 <table class='asycat-table' style='display:table;break-inside:avoid-page;'><tr>
 <td style='border:none;vertical-align:top;' class='asycat-td-code'>
 
@@ -24,17 +25,20 @@ fill(buildcycle(... p), c[0] + c[1] + c[2]);
 draw(p);
 label((0, -2), "{\sffamily 加法}混色$^1$", fontsize(16pt));
 ```
+
 </td><td style='border:none;vertical-align:top;width:30%;' class='asycat-td-fig'>
 
 ```cpp {cmd=env args=["asyco", "-A", "N", "--alt=rgb"] output=html .hide continue}
 // "Run Code Chunk" (Shift + Enter) here.
 ```
+
 </td></tr></table>
 </div>
 
 <div class='asycat-block' style='break-inside:avoid-page;'>
 
 ### cmyk.asy
+
 <table class='asycat-table' style='display:table;break-inside:avoid-page;'><tr>
 <td style='border:none;vertical-align:top;' class='asycat-td-code'>
 
@@ -55,17 +59,20 @@ fill(buildcycle(... p), c[0] + c[1] + c[2]);
 draw(p);
 label((0, -2), "{\sffamily 減法}混色$^2$", fontsize(16pt));
 ```
+
 </td><td style='border:none;vertical-align:top;width:30%;' class='asycat-td-fig'>
 
 ```cpp {cmd=env args=["asyco", "-A", "N", "--alt=cmyk"] output=html .hide continue}
 // "Run Code Chunk" (Shift + Enter) here.
 ```
+
 </td></tr></table>
 </div>
 
 <div class='asycat-block' style='break-inside:avoid-page;'>
 
 ### rgb.mp
+
 <table class='asycat-table' style='display:table;break-inside:avoid-page;'><tr>
 <td style='border:none;vertical-align:top;' class='asycat-td-code'>
 
@@ -91,17 +98,20 @@ label(btex 加法混色$^1$ etex scaled 2, (0, -2u));
 endfig;
 end;
 ```
+
 </td><td style='border:none;vertical-align:top;width:30%;' class='asycat-td-fig'>
 
 ```metafont {cmd=env args=["mepoco", "-A", "N", "-U", "--alt=rgb"] output=html .hide continue}
 % "Run Code Chunk" (Shift + Enter) here.
 ```
+
 </td></tr></table>
 </div>
 
 <div class='asycat-block' style='break-inside:avoid-page;'>
 
 ### cmyk.mp
+
 <table class='asycat-table' style='display:table;break-inside:avoid-page;'><tr>
 <td style='border:none;vertical-align:top;' class='asycat-td-code'>
 
@@ -127,17 +137,20 @@ label(btex 減法混色$^2$ etex scaled 2, (0, -2u));
 endfig;
 end;
 ```
+
 </td><td style='border:none;vertical-align:top;width:30%;' class='asycat-td-fig'>
 
 ```metafont {cmd=env args=["mepoco", "-A", "N", "-U", "--alt=cmyk"] output=html .hide continue}
 % "Run Code Chunk" (Shift + Enter) here.
 ```
+
 </td></tr></table>
 </div>
 
 <div class='asycat-block' style='break-inside:avoid-page;'>
 
 ### rgb+cmyk.mp
+
 <table class='asycat-table' style='display:table;break-inside:avoid-page;'><tr>
 <td style='border:none;vertical-align:top;' class='asycat-td-code'>
 
@@ -182,11 +195,13 @@ endfig;
 
 end;
 ```
+
 </td><td style='border:none;vertical-align:top;width:30%;' class='asycat-td-fig'>
 
 ```metafont {cmd=env args=["mepoco", "-A", "N", "-U", "--alt=rgb+cmyk"] output=html .hide continue}
 % "Run Code Chunk" (Shift + Enter) here.
 ```
+
 </td></tr></table>
 </div>
 

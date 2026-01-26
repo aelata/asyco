@@ -1,4 +1,5 @@
 # asyco と mepoco
+
 <style>code { white-space: pre-wrap !important; } </style>
 
 `asyco` を使うと [Asymptote](https://asymptote.sourceforge.io) 言語で書かれた図をマークダウン文書に容易に埋め込めます。図の埋め込みには [Visual Studio Code (VS Code)](https://code.visualstudio.com) の拡張機能である [Markdown Preview Enhanced (MPE)](https://shd101wyy.github.io/markdown-preview-enhanced/#/ja-jp/) の[コードチャンク](https://shd101wyy.github.io/markdown-preview-enhanced/#/ja-jp/code-chunk)を用います。[MetaPost](https://tug.org/metapost.html) 言語で書かれた図には `mepoco` を使います。
@@ -10,63 +11,70 @@
 ![asyco のフロー図](asyco_flow.png "asyco のフロー図"){width=53% style="display:block;margin:auto;"}
 
 ## 必要な環境とインストール
+
 [INSTALL.md](./INSTALL.md) を参照してください。
 
 ## 使用法
+
 VS Code でマークダウン文書を開き、`asyco` または `mepoco` を呼び出すコードチャンクを書いて実行します。
 
 ### コードチャンクの記述
+
 コードチャンクのオプションで：
 
+* 必要に応じて構文強調表示の言語に `cpp`（構文が Asymptote に類似）または `metafont`（構文が MetaPost に類似）を設定
 * `cmd` に `env` を設定
 * `args` の最初の引数に `asyco` または `mepoco` を設定し、そのオプションを `args` に追加
 * `output` に `html` を設定
 
 次の例では `args` に `asyco` のオプション `-M 1mm`（図に 1mm の余白を設定）を追加しています。
 
-````cpp
-```asy {cmd=env args=[asyco -M 1mm] output=html}
+````markdown
+```cpp {cmd=env args=[asyco -M 1mm] output=html}
 draw(scale(1cm) * unitcircle); // Asymptote code here
 ```
 ````
 
-MetaPost で書かれた図では `args` の `asyco` を `mepoco` に置き換えます。次の例では `mepoco` の `-F` オプション（コードの前後に `beginfig(0);` と `endfig;` を付加）も指定しています。
+MetaPost で書かれた図では `args` の `asyco` を `mepoco` に置き換えます。必要に応じて構文強調表示の言語には `metafont` を設定します。次の例では `mepoco` の `-F` オプション（コードの前後に `beginfig(0);` と `endfig;` を付加）も指定しています。
 
-````metafont
-```mp {cmd=env args=[mepoco -F -M 1mm] output=html}
+````markdown
+```metafont {cmd=env args=[mepoco -F -M 1mm] output=html}
 draw fullcircle scaled 3cm; % MetaPost code here
 ```
 ````
 
 ### コードチャンクの実行
+
 VS Code の `Open Preview to the Side` でプレビューを表示し、`Run Code Chunk`（ <kbd>▶︎</kbd> ボタン）または `Run All Code Chunks`（ <kbd>ALL</kbd> ボタン）でコードチャンクを実行します。
 
 ### PDF ファイルの作成
+
 プレビューのショートカットメニュー（コンテキストメニュー）で `Open in Browser` を実行します。ブラウザで文書を印刷することで PDF ファイルを作成できます。ショートカットメニューの `Export > HTML` で HTML ファイルを作成し、`pandoc` コマンドで HTML ファイルを PDF ファイルに変換することもできます。
 
 ## コードチャンクのオプション
+
 MPE のコードチャンクの最初の行は次のような形式です。
 
-````cpp
+````markdown
 ```lang {cmd=command args=[arg1 arg2 ...] output=format ...}
 ````
 
 例えば次のようになります。
 
-````cpp
-```asy {cmd=env args=[asyco -f png -render 4] output=html}
+````markdown
+```cpp {cmd=env args=[asyco -f png -render 4] output=html}
 ````
 
 `args` オプションは次のように設定することもできます
 
-````cpp
-```asy {cmd=env args=["asyco", "-f", "png", "-render", "4"] output=html}
+````markdown
+```cpp {cmd=env args=["asyco", "-f", "png", "-render", "4"] output=html}
 ````
 
 コードチャンクの主なオプションを以下に示します：
 
 `lang`
-: 構文強調表示の言語を設定します。構文強調表示しなければ *`lang`* は省略できます。VS Code と MPE は、Asymptote (`asy`) と MetaPost (`mp`) の構文強調表示に対応していませんが、代わりに文法が似た言語を設定できます。Asymptote では `cpp`、MetaPost では `metafont` を設定します。詳細は [ISSUES.md](ISSUES.md) を参照してください。
+: 構文強調表示の言語を設定します。VS Code と MPE は、Asymptote (`asy`) と MetaPost (`mp`) の構文強調表示に対応していませんが、代わりに構文が似た言語を設定できます。Asymptote では `cpp`、MetaPost では `metafont` を設定します。詳細は [ISSUES.md](ISSUES.md) を参照してください。
 
 `cmd`
 : 実行するコマンドを設定します。`env` コマンドを設定します。macOS や Linux では `asyco` や `mepoco` を設定する方法もありますが、Windows との文書の互換性を考慮して `env` を設定することをお勧めします。
@@ -87,6 +95,7 @@ MPE のコードチャンクの最初の行は次のような形式です。
 : 別の（参照先の）コードチャンクと参照元のコードチャンクのコードを結合し、参照元のコードチャンクのオプションで実行します。例えば `continue=Fig-1` は識別子が `Fig-1` のコードチャンクを参照し、単に `continue` は直前のコードチャンクを参照します。
 
 ## オプション
+
 ### asyco と mepoco で共通のオプション
 
 `-f {svg|png}`
@@ -131,6 +140,7 @@ MPE のコードチャンクの最初の行は次のような形式です。
 他に、最初の引数でだけ有効な次のオプションがあります：`-h`, `--help`（使用法を表示して終了）、`--version`（バージョンを表示して終了）、`-n`（すぐにコマンドを終了）。
 
 ### asyco だけで有効なオプション
+
 `--remote`
 : ローカルの `asy` コマンドの代わりに Asymptote http server を使います。
 
@@ -138,6 +148,7 @@ MPE のコードチャンクの最初の行は次のような形式です。
 : Asymptote http server を *`SERVER`* に設定します。省略時値は `asymptote.ualberta.ca:10007` です。
 
 ### mepoco だけで有効なオプション
+
 `-F`
 : MetaPost のコードの前後に `beginfig(0);` と `endfig;` を付加します。
 
@@ -145,13 +156,16 @@ MPE のコードチャンクの最初の行は次のような形式です。
 : Unicode ラベルのため `upmpost` と `uplatex` を使用します。
 
 ### その他のオプション
+
 その他のオプションは `asy` または `mpost` コマンドに渡されます。このため、短いオプションは結合できません（例えば `-KA N` ではなく `-K -A N`）。また、短いオプションとその引数は結合できません（例えば `-AN` ではなく `-A N`）。
 
 ## 環境変数
-環境変数はシェルの初期設定ファイル（例えば `~/.bash_profile`）で設定します。
+
+以下の環境変数はログインシェルの初期設定ファイル（例えば `~/.bash_profile`）で設定します。Windows では「Windows の環境変数」で環境変数を設定する必要があります。
 
 ### 初期オプション
-以下の環境変数で `asyco` や `mepoco` の初期オプションを指定できます。
+
+次の環境変数で `asyco` や `mepoco` の初期オプションを指定できます。
 
 `ASYCO_OPTS`
 : `asyco` の初期オプションを指定します。
@@ -159,10 +173,11 @@ MPE のコードチャンクの最初の行は次のような形式です。
 `MEPOCO_OPTS`
 : `mepoco` の初期オプションを指定します。
 
-コマンド行で指定したオプションは、初期オプションよりも優先されます。環境変数から読み込んだ初期オプションは、使用法の表示（`asyco` または `mepoco` の `--help` オプション）の最後の行で確認できます。
+環境変数から読み込んだ初期オプションは、使用法の表示（`asyco` または `mepoco` の `--help` オプション）の最後の行で確認できます。コマンド行で指定したオプションは、初期オプションよりも優先されます。
 
 <!--
 ### PNG 形式での表示倍率
+
 以下の環境変数で、`--img-zoom` オプション（PNG 出力での表示倍率）の省略時値を変更できます。
 
 `ASYCO_ZOOM`
@@ -173,7 +188,8 @@ MPE のコードチャンクの最初の行は次のような形式です。
 -->
 
 ### テキストの背景色
-以下の環境変数は `ASYCO_` で始まりますが、`asyco` と `mepoco` で共通に用いられます。
+
+次の環境変数で `asyco` や `mepoco` から出力されるテキストの背景色を設定できます。変数名は `ASYCO_` で始まりますが、`asyco` と `mepoco` で共通に用いられます。
 
 `ASYCO_OUT_BG_COL`
 : 標準出力（`asy` や `mpost` のテキスト出力）の背景色を設定します。
@@ -183,13 +199,15 @@ MPE のコードチャンクの最初の行は次のような形式です。
 
 <!--
 ### Asymptote http server
-以下の環境変数で、`--server` オプションの省略時値を変更できます。
+
+次の環境変数で、`--server` オプションの省略時値を変更できます。
 
 `ASYCO_ASY_SERVER`
 : `asyco` の `--server` オプションの省略時値（`asymptote.ualberta.ca:10007`）を変更します。
 -->
 
 ## クラス
+
 クラスを用いた CSS プロパティの設定はマークダウン文書の全体に適用され、後の設定が優先されます。
 
 以下のクラスは `asyco-` で始まりますが、`asyco` と `mepoco` で共通に用いられます。
@@ -204,29 +222,33 @@ MPE のコードチャンクの最初の行は次のような形式です。
 : 標準エラー出力（`asy` や `mpost` の警告メッセージやエラーメッセージ）の領域に設定されます。
 
 ## 使用例
-### Asymptote http server
-Asymptote http sever を使えば、ローカルの `asy` コマンドを使えなくても、Asymptote で書かれた図をマークダウン文書に埋め込めます。Asymptote http sever を使うには `asyco` の `--remote` オプションを指定します。サーバを `--server` オプションで設定しなければ、省略時値の `asymptote.ualberta.ca:10007` が使われます。
 
-````cpp
-```asy {cmd=env args=[asyco --remote] output=html}
+### Asymptote http server
+
+Asymptote http sever を使えば、ローカルの `asy` コマンドを使えなくても、Asymptote で書かれた図をマークダウン文書に埋め込めます。Asymptote http sever を使うには `asyco` の `--remote` オプションを指定します。サーバを `--server` オプションで設定しなければ、`asymptote.ualberta.ca:10007` がサーバに用いられます。
+
+````markdown
+```cpp {cmd=env args=[asyco --remote] output=html}
 draw(scale(1cm) * unitcircle); // Asymptote code here
 ```
 ````
 
 ### PNG 画像
+
 図を PNG 画像として出力するには `asyco` のオプションに `-f png` を指定します。コードチャンクの `output` オプションには `html` を設定します（`png` ではありません）。次の例では、図の解像度と表示倍率を変更し（`-render 4 --img-zoom=0.25x`）、画像を `fig.png` に保存します（`-o fig`）。
 
-````cpp
-```asy {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}
+````markdown
+```cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}
 draw(scale(1cm) * unitcircle); // Asymptote code here
 ```
 ````
 
 ### 警告メッセージ
+
 ローカルの `asy` コマンドを用いる場合、警告メッセージやエラーメッセージが表示されることがあります。
 
-````cpp
-```asy {cmd=env args=[asyco --silent] output=html}
+````markdown
+```cpp {cmd=env args=[asyco --silent] output=html}
 size(1cm);
 dot("$O$", (0, 0));
 ```
@@ -234,7 +256,7 @@ dot("$O$", (0, 0));
 
 上の例では、次のメッセージが表示されます。
 
-```
+```console
 : warning [unbounded]: x scaling in picture unbounded
 : warning [unbounded]: y scaling in picture unbounded
 ```
@@ -244,10 +266,11 @@ dot("$O$", (0, 0));
 Asymptote http server を用いる場合、エラーメッセージは表示されますが警告メッセージは表示されません。
 
 ### テキスト出力
+
 コマンドの実行結果がテキストだけの場合も、コードチャンクの `output` オプションには `html` を設定します（`text` ではありません）。
 
-````metafont
-```mp {cmd=env args=[mepoco] output=html}
+````markdown
+```metafont {cmd=env args=[mepoco] output=html}
 x + y = 8;
 2x + 4y = 26;
 show (x, y); % You will get ">> (3,5)".
@@ -256,17 +279,18 @@ show (x, y); % You will get ">> (3,5)".
 
 `asy` コマンドの出力がテキストだけであれば `asyco` を経由する必要はありません。
 
-````cpp
-```asy {cmd=asy}
+````markdown
+```cpp {cmd=asy}
 write(inverse((0, 0, 1, 1, 2, 4)) * (8, 26)); // You will get "(3,5)".
 ```
 ````
 
 ### MetaPost での複数の図
+
 MetaPost で複数の図を 1 つのコードチャンクに含める場合、図は `beginfig` の番号順に出力され、テキストはコード中の出現順に出力されます。複数の図の位置揃えについては [ISSUES.md](ISSUES.md) を参照してください。
 
-````metafont
-```mp {cmd=env args=[mepoco] output=html}
+````markdown
+```metafont {cmd=env args=[mepoco] output=html}
 u := 2cm;
 beginfig(2);
 draw fullcircle xscaled 1u yscaled 2u; % figure shown later
@@ -282,9 +306,11 @@ endfig;
 ````
 
 ### 環境変数を用いた設定
-シェルの初期設定ファイル（例えば `~/.bash_profile`）で環境変数を設定することで `asyco` の設定を行えます。
+
+ログインシェルの初期設定ファイル（例えば `~/.bash_profile`）で環境変数を設定することで `asyco` の設定を行えます。Windows では「Windows の環境変数」で環境変数を設定する必要があります。
 
 ```bash
+# ~/.bash_profile
 export ASYCO_OPTS="--cmd=/Library/TeX/texbin"
 export ASYCO_OUT_BG_COL="#EEF"
 ```
@@ -292,6 +318,7 @@ export ASYCO_OUT_BG_COL="#EEF"
 1 行目で `asy` コマンドの場所を設定します。例えばコマンド検索パス（`PATH`）で `/opt/homebrew/bin/asy` が最初に見つかる環境でも `/Library/TeX/texbin/asy` を実行します。2 行目で標準出力の領域の背景色を薄い青色（`#EEF`）に設定します。
 
 ### クラスを用いた設定
+
 次の例では、`asyco` が呼び出す `asy` コマンドのバージョンと環境設定を表示する際に、asyco-err クラス（`.asyco-err`）を用いて出力（標準エラー出力）の背景色を透明（`transparent`）に設定します。`asyco` の設定する薄い赤色（`#FDD`）に優先させるため `!important` を用います。
 
 ````markdown
@@ -300,30 +327,36 @@ export ASYCO_OUT_BG_COL="#EEF"
 ```cpp {cmd=env args=[asyco -version] output=html}
 // args=[asyco -version]
 ```
+
 ```cpp {cmd=env args=[asyco -environment] output=html}
 // args=[asyco -environment]
 ```
 ````
 
 ### ファイルの取り込み
+
 MPE の `@import` で Asymptote や MetaPost のファイルを取り込んで実行できます。
 
 ```markdown
 ### Asymptote
+
 @import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
 
 ### MetaPost
+
 @import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
 ```
 
 ## 関連項目
+
 * `asycat` を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は [asycat.md](asycat.md) を参照してください。
-* 起こりうる問題と対処法については [ISSUES.md](ISSUES.md) を参照してください。
+* よくある問題と対処法については [ISSUES.md](ISSUES.md) を参照してください。
 
 ## 著作権と利用許諾
+
 (c) 2025-2026 aelata
 
-このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。
+このソフトウェアは MIT No Attribution (MIT-0) で利用許諾されます。ただし、本許諾は拡張子が .html または .js のファイルには適用されないものとします。
 [https://opensource.org/license/mit-0](https://opensource.org/license/mit-0)
 
 ---
