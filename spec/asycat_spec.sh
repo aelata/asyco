@@ -149,5 +149,12 @@ END
     The output should include '### test.mp'
   End
 
+  It "turns off inline expansions of files with '--no-inline'."
+    When run $CMD --no-inline test.asy
+
+    The status should be success
+    The output should include "![](test.asy)"
+  End
+
   rm test.asy test.mp
 End

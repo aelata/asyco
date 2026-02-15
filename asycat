@@ -2,7 +2,7 @@
 
 # asycat - generate Markdown with Asymptote/MetaPost code and figures
 VERSION="\
-asycat version 0.9.0
+asycat version 0.9.1
 
 (c) 2025-2026 aelata
 This script is licensed under the MIT No Attribution (MIT-0) License.
@@ -71,6 +71,7 @@ set_ini_opts() {
   arg_id_prefix="fig-" # --id-prefix=PREFIX
   flg_no_alt=false     # --no-alt
   flg_no_cd=false      # --no-cd
+  flg_no_inline=false  # --no-inline
 }
 
 set_ini_opts
@@ -94,6 +95,7 @@ Options:
   --lang-mp-as=LANG  Set the syntax highlighting language for *.mp [\"metafont\"]
   --no-alt           Do not set filenames as alternative text
   --no-cd            Do not change directory for each file
+  --no-inline        Do not expand files inline
   --version          Show version information and exit
   --                 Option-end delimiter
 
@@ -159,6 +161,7 @@ parse_opts() {
       --lang-mp-as=*) [[ $CMD == mepoco ]] && AS=${v#*=} ;;
       --no-alt) flg_no_alt=true ;;
       --no-cd) flg_no_cd=true ;;
+      --no-inline) flg_no_inline=true ;;
       *) opts+=("$v")
       esac
     else
@@ -201,17 +204,28 @@ parse_opts() {
 
 # put_code_fig - put code, and then put a figure to the south or north of code
 put_code_fig() { # $1: file, $2: code chunk option
-  echo '```'"$AS {cmd=env args=[\"$CMD\"$args] $lnum output=html $2}"
-  ncat "$1"
-  echo '```'$'\n'
+  if [[ $flg_no_inline != true ]]; then
+    echo '```'"$AS {cmd=env args=[\"$CMD\"$args] $lnum output=html $2}"
+    ncat "$1"
+    echo '```'
+  else
+    echo "![]($1){as=$AS cmd=env args=[\"$CMD\"$args] $lnum output=html $2}"
+  fi
+  echo ""
 }
 
 # put_code - put code (figure to east or west)
 put_code() { # $1: file, $2: id
-  echo \
+  if [[ $flg_no_inline != true ]]; then
+    echo \
 '```'"$AS {cmd=env args=[\"$CMD\", \"-n\"] $lnum output=none ${2+id=$2}}"
-  ncat "$1"
-  echo '```'$'\n'
+    ncat "$1"
+    echo '```'
+  else
+    echo \
+"![]($1){as=$AS cmd=env args=[\"$CMD\", \"-n\"] $lnum output=none ${2+id=$2}}"
+  fi
+  echo ""
 }
 
 # put_fig - put a figure to the east or west of code

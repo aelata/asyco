@@ -71,6 +71,9 @@ Choose `Open in Browser` from the shortcut (contextual) menu in the preview. Cre
 `--no-cd`
 : Do not change directory for each file.
 
+`--no-inline`
+: Do not expand files inline within Markdown.
+
 `--`
 : Option-end delimiter. Arguments after `--` are treated as filenames or directory names.
 
