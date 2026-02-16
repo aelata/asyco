@@ -222,6 +222,20 @@ draw(scale(1cm) * unitcircle); // Asymptote code here
 ```
 ````
 
+### File importing
+
+You can include and execute files of Asymptote or MetaPost with `@import` of MPE.
+
+```markdown
+### Asymptote
+
+@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
+
+### MetaPost
+
+@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
+```
+
 ### Warning message
 
 With the local `asy` command, warning messages or error messages may appear.
@@ -311,20 +325,6 @@ In the following example, the background color of the output (the standard error
 // args=[asyco -environment]
 ```
 ````
-
-### File importing
-
-You can include and execute the file of Asymptote or MetaPost with `@import` of MPE.
-
-```markdown
-### Asymptote
-
-@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
-
-### MetaPost
-
-@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
-```
 
 ## See also
 

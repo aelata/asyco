@@ -247,6 +247,15 @@
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
+</code></pre><h3 id="file-importing">File importing </h3>
+<p>You can include and execute files of Asymptote or MetaPost with <code>@import</code> of MPE.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">###</span> Asymptote</span>
+
+@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
+
+<span class="token title important"><span class="token punctuation">###</span> MetaPost</span>
+
+@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
 </code></pre><h3 id="warning-message">Warning message </h3>
 <p>With the local <code>asy</code> command, warning messages or error messages may appear.</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco] output=html}</span>
@@ -301,15 +310,6 @@ endfig<span class="token punctuation">;</span></span>
 <span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -environment] output=html}</span>
 <span class="token code-block language-cpp"><span class="token comment">// args=[asyco -environment]</span></span>
 <span class="token punctuation">```</span></span>
-</code></pre><h3 id="file-importing">File importing </h3>
-<p>You can include and execute the file of Asymptote or MetaPost with <code>@import</code> of MPE.</p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">###</span> Asymptote</span>
-
-@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
-
-<span class="token title important"><span class="token punctuation">###</span> MetaPost</span>
-
-@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
 </code></pre><h2 id="see-also">See also </h2>
 <ul>
 <li>With <code>asycat</code>, you can generate Markdown with code and figures side by side from Asymptote or MetaPost files. See <a href="asycat.html">asycat.md</a> for details.</li>
@@ -420,6 +420,10 @@ endfig<span class="token punctuation">;</span></span>
             <p>PNG image</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#file-importing" class="md-toc-link">
+            <p>File importing</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
           <a href="#warning-message" class="md-toc-link">
             <p>Warning message</p>
 
@@ -438,10 +442,6 @@ endfig<span class="token punctuation">;</span></span>
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
           <a href="#settings-by-classes" class="md-toc-link">
             <p>Settings by classes</p>
-
-          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#file-importing" class="md-toc-link">
-            <p>File importing</p>
 
           </a></div>
         </div>

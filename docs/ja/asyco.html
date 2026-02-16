@@ -247,6 +247,15 @@
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
+</code></pre><h3 id="ファイルの取り込み">ファイルの取り込み </h3>
+<p>MPE の <code>@import</code> で Asymptote や MetaPost のファイルを取り込んで実行できます。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">###</span> Asymptote</span>
+
+@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
+
+<span class="token title important"><span class="token punctuation">###</span> MetaPost</span>
+
+@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
 </code></pre><h3 id="警告メッセージ">警告メッセージ </h3>
 <p>ローカルの <code>asy</code> コマンドを用いる場合、警告メッセージやエラーメッセージが表示されることがあります。</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --silent] output=html}</span>
@@ -301,15 +310,6 @@ endfig<span class="token punctuation">;</span></span>
 <span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -environment] output=html}</span>
 <span class="token code-block language-cpp"><span class="token comment">// args=[asyco -environment]</span></span>
 <span class="token punctuation">```</span></span>
-</code></pre><h3 id="ファイルの取り込み">ファイルの取り込み </h3>
-<p>MPE の <code>@import</code> で Asymptote や MetaPost のファイルを取り込んで実行できます。</p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">###</span> Asymptote</span>
-
-@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
-
-<span class="token title important"><span class="token punctuation">###</span> MetaPost</span>
-
-@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
 </code></pre><h2 id="関連項目">関連項目 </h2>
 <ul>
 <li><code>asycat</code> を使うと、Asymptote または MetaPost のファイルから、コードと図を横に並べたマークダウンを生成できます。詳細は <a href="asycat.html">asycat.md</a> を参照してください。</li>
@@ -420,6 +420,10 @@ endfig<span class="token punctuation">;</span></span>
             <p>PNG 画像</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#ファイルの取り込み" class="md-toc-link">
+            <p>ファイルの取り込み</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
           <a href="#警告メッセージ" class="md-toc-link">
             <p>警告メッセージ</p>
 
@@ -438,10 +442,6 @@ endfig<span class="token punctuation">;</span></span>
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
           <a href="#クラスを用いた設定" class="md-toc-link">
             <p>クラスを用いた設定</p>
-
-          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#ファイルの取り込み" class="md-toc-link">
-            <p>ファイルの取り込み</p>
 
           </a></div>
         </div>

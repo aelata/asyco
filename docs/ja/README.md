@@ -93,27 +93,13 @@ draw(scale(1cm) * unitcircle); // Asymptote code here
 ```
 ````
 
-### 警告メッセージ
+### ファイルの取り込み
 
-ローカルの `asy` コマンドを用いる場合、警告メッセージやエラーメッセージが表示されることがあります。
+MPE の `@import` で Asymptote のファイルを取り込んで実行できます。
 
-````markdown
-```cpp {cmd=env args=[asyco --silent] output=html}
-size(1cm);
-dot("$O$", (0, 0));
+```markdown
+@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
 ```
-````
-
-上の例では、次のメッセージが表示されます。
-
-```console
-: warning [unbounded]: x scaling in picture unbounded
-: warning [unbounded]: y scaling in picture unbounded
-```
-
-警告メッセージは `asyco` の `--silent` オプションで抑制できます。警告メッセージは `asy` の `-nowarn` オプションでも個別に抑制でき、上のメッセージは `-nowarn unbounded` で抑制できます。
-
-Asymptote http server を用いる場合、エラーメッセージは表示されますが警告メッセージは表示されません。
 
 ## オプション
 

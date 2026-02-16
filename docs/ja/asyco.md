@@ -243,6 +243,20 @@ draw(scale(1cm) * unitcircle); // Asymptote code here
 ```
 ````
 
+### ファイルの取り込み
+
+MPE の `@import` で Asymptote や MetaPost のファイルを取り込んで実行できます。
+
+```markdown
+### Asymptote
+
+@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
+
+### MetaPost
+
+@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
+```
+
 ### 警告メッセージ
 
 ローカルの `asy` コマンドを用いる場合、警告メッセージやエラーメッセージが表示されることがあります。
@@ -332,20 +346,6 @@ export ASYCO_OUT_BG_COL="#EEF"
 // args=[asyco -environment]
 ```
 ````
-
-### ファイルの取り込み
-
-MPE の `@import` で Asymptote や MetaPost のファイルを取り込んで実行できます。
-
-```markdown
-### Asymptote
-
-@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
-
-### MetaPost
-
-@import "rgb.mp" {as=metafont cmd=env args=[mepoco] output=html}
-```
 
 ## 関連項目
 

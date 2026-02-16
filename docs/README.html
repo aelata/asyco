@@ -169,18 +169,10 @@ $ chmod +x ~/bin/asyco
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
-</code></pre><h3 id="warning-message">Warning message </h3>
-<p>With the local <code>asy</code> command, warning messages or error messages may appear.</p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco] output=html}</span>
-<span class="token code-block language-cpp"><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
-<span class="token punctuation">```</span></span>
-</code></pre><p>In the above example, the following waning messages appear.</p>
-<pre data-role="codeBlock" data-info="console" class="language-console console"><code>: warning [unbounded]: x scaling in picture unbounded
-: warning [unbounded]: y scaling in picture unbounded
-</code></pre><p>The warning messages can be suppressed with the <code>--silent</code> option of <code>asyco</code>. The warning messages can also be suppressed individually with the <code>-nowarn</code> option of <code>asy</code>; use <code>-nowarn unbounded</code> for the above example.</p>
-<p>With the Asymptote http server, error messages may appear but warning messages will not.</p>
-<h2 id="options">Options </h2>
+</code></pre><h3 id="file-importing">File importing </h3>
+<p>You can include and execute Asymptote files with <code>@import</code> of MPE.</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
+</code></pre><h2 id="options">Options </h2>
 <dl>
 <dt><code>-f {svg|png}</code></dt>
 <dd>Set the output format of a figure. You can only use <code>svg</code> for SVG format and <code>png</code> for PNG format. The default value is <code>svg</code>.</dd>
@@ -292,8 +284,8 @@ $ chmod +x ~/bin/asyco
             <p>PNG image</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#warning-message" class="md-toc-link">
-            <p>Warning message</p>
+          <a href="#file-importing" class="md-toc-link">
+            <p>File importing</p>
 
           </a></div>
         </div>

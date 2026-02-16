@@ -170,18 +170,10 @@ $ chmod +x ~/bin/asyco
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -f png -render 4 --img-zoom=0.25x -o fig] output=html}</span>
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
-</code></pre><h3 id="警告メッセージ">警告メッセージ </h3>
-<p>ローカルの <code>asy</code> コマンドを用いる場合、警告メッセージやエラーメッセージが表示されることがあります。</p>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco --silent] output=html}</span>
-<span class="token code-block language-cpp"><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">dot</span><span class="token punctuation">(</span><span class="token string">"$O$"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
-<span class="token punctuation">```</span></span>
-</code></pre><p>上の例では、次のメッセージが表示されます。</p>
-<pre data-role="codeBlock" data-info="console" class="language-console console"><code>: warning [unbounded]: x scaling in picture unbounded
-: warning [unbounded]: y scaling in picture unbounded
-</code></pre><p>警告メッセージは <code>asyco</code> の <code>--silent</code> オプションで抑制できます。警告メッセージは <code>asy</code> の <code>-nowarn</code> オプションでも個別に抑制でき、上のメッセージは <code>-nowarn unbounded</code> で抑制できます。</p>
-<p>Asymptote http server を用いる場合、エラーメッセージは表示されますが警告メッセージは表示されません。</p>
-<h2 id="オプション">オプション </h2>
+</code></pre><h3 id="ファイルの取り込み">ファイルの取り込み </h3>
+<p>MPE の <code>@import</code> で Asymptote のファイルを取り込んで実行できます。</p>
+<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
+</code></pre><h2 id="オプション">オプション </h2>
 <dl>
 <dt><code>-f {svg|png}</code></dt>
 <dd>図の出力形式を設定します。対応する形式は SVG（<code>svg</code>）と PNG（<code>png</code>）だけです。省略時値は <code>svg</code> です。</dd>
@@ -282,8 +274,8 @@ $ chmod +x ~/bin/asyco
             <p>PNG 画像</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#警告メッセージ" class="md-toc-link">
-            <p>警告メッセージ</p>
+          <a href="#ファイルの取り込み" class="md-toc-link">
+            <p>ファイルの取り込み</p>
 
           </a></div>
         </div>
