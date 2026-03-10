@@ -224,7 +224,7 @@ draw(scale(1cm) * unitcircle); // Asymptote code here
 
 ### File importing
 
-You can include and execute files of Asymptote or MetaPost with `@import` of MPE.
+You can include and execute a file written in Asymptote or MetaPost with `@import` of MPE.
 
 ```markdown
 ### Asymptote

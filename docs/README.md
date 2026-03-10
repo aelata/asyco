@@ -93,7 +93,7 @@ draw(scale(1cm) * unitcircle); // Asymptote code here
 
 ### File importing
 
-You can include and execute Asymptote files with `@import` of MPE.
+You can include and execute a file written in Asymptote with `@import` of MPE.
 
 ```markdown
 @import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
