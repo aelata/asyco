@@ -198,7 +198,7 @@ parse_args() { # parse script arguments ($@)
     else
       case $arg_prev in
       -f) arg_fmt=$v ;;
-      -o) arg_prefix=$v ;;
+      -o) arg_prefix=$v flg_prefix=true ;;
       -A) arg_align=$v ;;
       -M) arg_margin=$v ;;
       -cd) arg_cd=$v ;;
