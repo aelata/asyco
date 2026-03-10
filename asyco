@@ -16,8 +16,8 @@ v0=${BASH_VERSINFO[0]} v1=${BASH_VERSINFO[1]}
 [[ $OSTYPE =~ ^(msys|cygwin) ]] && flg_windows=true || flg_windows=false
 [[ $flg_windows == true ]] && export PATH="/usr/bin:$PATH" # for "sort"
 
-# quit - write a message $1 to the standard error and exit with the status $2
-quit() { echo "$1" >&2; exit "${2:-1}"; }
+# quit - echo lines ($@) to the standard error and quit
+quit() { printf "%s\n" "$@" >&2; exit 1; }
 
 # ncat - print files that may not have '\n' at the end of file
 ncat() { # $@: filenames
@@ -31,38 +31,51 @@ ncat() { # $@: filenames
 # array_append_file - append each line in a text file to an array
 array_append_file() { # $1: array name (global), $2: filename
   [[ -s "$2" ]] || return # skip if the file is empty or not found
-  while IFS= read -r || [[ -n $REPLY ]];
-    do eval "$1"'+=("$REPLY")'
+  [[ $1 =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || # validate variable name
+    quit "Internal error: invalid variable name: $1"
+  while IFS= read -r || [[ -n "$REPLY" ]]; do
+    eval "$1"'+=("$REPLY")'
   done <"$2"
 }
 
 # array_append_str - append each word in a string to an array
 array_append_str() { # $1: array name (global), $2: string
   [[ -n "$2" ]] || return # skip if the string is empty
+  [[ $1 =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || # validate variable name
+    quit "Internal error: invalid variable name: $1"
   while IFS= read -r; do
     eval "$1"'+=("$REPLY")'
   done < <(xargs printf "%s\n" <<<"$2") # use xargs to handle quote
 }
 
-# array_append_glob - append filenames that match patterns to an array
-#   spaces in patterns must be quoted in advance, such as "'a 1'_*.*"
-array_append_glob() { # $1: array name (global), ${*:2}: glob patterns
-  [[ -n "${*:2}" ]] || return # skip if the pattern is empty
-  while IFS= read -r; do
-    [[ -f $REPLY ]] && eval "$1"'+=("$REPLY")'
-  done < <(eval 'printf "%s\n"' "${*:2}" | sort -uV) # unique and version sort
+# _glob - expand glob patterns
+#   tilde and brace expansions are not supported
+_glob() {
+  # shellcheck disable=SC2068 # permit globbing
+  ( shopt -s nullglob; IFS=''; set -- $@; (( $# )) && printf "%s\0" "$@"; )
 }
 
-# html_echo - echo one line ($*) with HTML escaping
+# array_append_glob - append filenames that match patterns to an array
+array_append_glob() { # $1: array name (global), ${*:2}: glob patterns
+  [[ -n "$1" ]] || return # skip if array name is empty
+  [[ $1 =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || # validate variable name
+    quit "Internal error: invalid variable name: $1"
+  while IFS= read -r -d '' || [[ -n $REPLY ]]; do
+    [[ -f "$REPLY" ]] && eval "$1"'+=("$REPLY")'
+  done < <(_glob "${@:2}" | sort -zuV) # use "sort -z" to sort
+  return 0
+}
+
+# html_echo - echo lines ($@) with HTML escaping
 #   assume "shopt -u patsub_replacement" in bash 5.2 or later
 html_echo() {
   local s
-  s=${*//&/'&amp;'} s=${s//$'\x22'/'&quot;'} s=${s//</'&lt;'} s=${s//>/'&gt;'}
-  echo "$s"
+  while (( $# )); do
+    s=${1//&/'&amp;'} s=${s//'"'/'&quot;'} s=${s//</'&lt;'} s=${s//>/'&gt;'}
+    echo "$s"
+    shift
+  done
 }
-
-# html_echoln - echo lines ($@) with HTML escaping
-html_echoln() { while (( $# )); do html_echo "$1"; shift; done }
 
 SCRIPT0=${BASH_SOURCE:-$0}
 SCRIPT=$(basename "$SCRIPT0")
@@ -155,7 +168,10 @@ parse_args() { # parse script arguments ($@)
 
   # Unusual options (valid only as the first argument)
   [[ $1 == "-h" || $1 == "--help" || $# == 0 ]] && usage
-  [[ $1 == "--version" ]] && quit "$VERSION" 0 # "-v" is reserved for "asy"
+  [[ $1 == "--version" ]] && { # "-v" is reserved for "asy"
+    echo "$VERSION"
+    exit 0
+  }
   [[ $1 == "-n" ]] && exit 0
     # quit "\"$0\"$(printf " \"%s\"" "${args[@]}") \"${!#}\"" 0
 
@@ -379,7 +395,7 @@ echo_pre_a() { # $1: bg color, $2: class name
   cl=$(html_echo "${2:-asyco-out}")
   bg=$(html_echo "${1:+background-color:$1;}")
   echo "<pre class='$cl' style='white-space:pre-wrap;$bg'>"
-  html_echoln "${a[@]}"
+  html_echo "${a[@]}"
   echo "</pre>"
 }
 
@@ -426,22 +442,22 @@ _asyco() { # print the Asymptote output to the character output
       ncat "$arg_file"
       echo "add(bbox($arg_margin, nullpen));"
     } >"$arg_file_"
-    [[ $flg_keep == false ]] && dels+=("'$arg_file_'")
+    [[ $flg_keep == false ]] && dels+=("$arg_file_")
   else
     arg_file_=$arg_file
   fi
   prefix=$(basename "$arg_file_" ".$EXT")
 
   if [[ $flg_keep == false ]]; then
-    [[ $flg_prefix == false ]] && dels+=("'$arg_prefix'.$arg_fmt")
-    dels+=("'$prefix'.{cout,cerr}")
+    [[ $flg_prefix == false ]] && dels+=("$arg_prefix.$arg_fmt")
+    dels+=("$prefix.cout" "$prefix.cerr")
   fi
 
   if [[ $flg_remote == false ]]; then # local
     if [[ $flg_keep == false ]]; then
-      dels+=("'$arg_prefix'_.*" "'$arg_prefix'__.*")
-      dels+=("'$arg_prefix'+[0-9]*-eps-converted-to.pdf") # for multiple views
-      [[ $flg_windows == true ]] && dels+=("texput.{log,aux}")
+      dels+=("${arg_prefix}_.*" "${arg_prefix}__.*")
+      dels+=("$arg_prefix+[0-9]*-eps-converted-to.pdf") # for multiple views
+      [[ $flg_windows == true ]] && dels+=("texput.log" "texput.aux")
     fi
     [[ $arg_cd != "." ]] && opts+=(-cd "$arg_cd") # may override earlier options
     opts+=(-noV -f "$arg_fmt" -o "$arg_prefix") # may override earlier options
@@ -484,7 +500,8 @@ _mepoco() { # print the MetaPost output to the character output
   prefix=$(basename "$arg_file_" ".$EXT")
 
   [[ $flg_keep == false ]] &&
-    dels+=("'$prefix'.{$EXT,log,mpx,cout,cerr}")
+    dels+=("$prefix.$EXT" "$prefix.log" "$prefix.mpx" \
+"$prefix.cout" "$prefix.cerr")
   {
     cat <<END
 prologues := 3;
@@ -511,9 +528,9 @@ END
     </dev/null 1>"$prefix.cout" 2>"$prefix.cerr"
   result=$?
 
-  figs=() && array_append_glob figs "'$arg_prefix'.[0-9]*.$arg_fmt"
+  figs=() && array_append_glob figs "$arg_prefix.[0-9]*.$arg_fmt"
   [[ $flg_keep == false && $flg_prefix == false ]] &&
-    for i in "${figs[@]}"; do dels+=("'$i'"); done
+    for i in "${figs[@]}"; do dels+=("$i"); done
 
   put_origin
   if [[ $result != 0 ]]; then

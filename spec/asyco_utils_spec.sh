@@ -2,18 +2,19 @@ Describe 'utils'
   Include ../asyco
 
   Describe 'quit'
-    It 'writes a message and exits.'
+    It 'echoes lines to the standard error and quits.'
       When run quit "quit"
 
       The status should not be success
       The stderr should equal "quit"
     End
 
-    It 'can exit successfully with a message and a exits status.'
-      When run quit "quit" 0
+    It 'echoes multiple lines to the standard error and quits.'
+      When run quit "first line" "second line"
 
-      The status should be success
-      The stderr should equal "quit"
+      The status should not be success
+      The line 1 of stderr should equal "first line"
+      The line 2 of stderr should equal "second line"
     End
 
   End
@@ -94,7 +95,7 @@ Describe 'utils'
       FILES="d.{1,2,10} b.{1,2,10} c.{1..3} 'a 1.txt'"
       eval touch $FILES
       a=()
-      p=("b.1*" "c.{2,4}" "d.[12]" "'a 1'.*" "b*")
+      p=("b.1*" "c.2" "c.4" "d.[12]" "a 1.*" "b*")
       array_append_glob a "${p[@]}"
 
       The variable a[*] should equal "a 1.txt b.1 b.2 b.10 c.2 d.1 d.2"
@@ -137,7 +138,7 @@ Describe 'utils'
     It "appends files with brace expansion."
       FILES="a.2 b.{1..9} c.3"
       eval touch $FILES
-      p=("b.{7,9}" "b.{2..4}")
+      p=("b.7" "b.9" "b.2" "b.3" "b.4")
       a=()
       array_append_glob a "${p[@]}"
 
@@ -152,7 +153,7 @@ Describe 'utils'
     It "appends files with spaces in their names."
       FILES="'a b'.{11,1,2,3} 'b c'.{11,1,2,3}"
       eval touch $FILES
-      p=("'a b'.?" "*.3")
+      p=("a b.?" "*.3")
       a=()
       array_append_glob a "${p[@]}"
 
@@ -170,7 +171,7 @@ Describe 'utils'
       FILES="'$TMP_DIR'/a.{2,9,11..13}"
 
       eval touch $FILES
-      p=("'$TMP_DIR'/*.?")
+      p=("$TMP_DIR/*.?")
       a=()
       array_append_glob a "${p[@]}"
 
@@ -210,17 +211,6 @@ Describe 'utils'
     It "escapes HTML special characters in arguments."
       When run html_echo \
 '<SCRIPT>' 'document.write("v=" + (1 & 2));' '</SCRIPT>'
-
-      The status should be success
-      The output should equal \
-"&lt;SCRIPT&gt; document.write(&quot;v=&quot; + (1 &amp; 2)); &lt;/SCRIPT&gt;"
-    End
-  End
-
-  Describe 'html_echoln'
-    It "escapes HTML special characters in an array."
-      a=('<SCRIPT>' 'document.write("v=" + (1 & 2));' '</SCRIPT>')
-      When run html_echoln "${a[@]}"
 
       The status should be success
       The line 1 of output should equal "&lt;SCRIPT&gt;"

@@ -23,7 +23,7 @@ END
     When run $CMD --version
 
     The status should be success
-    The error should include "version"
+    The output should include "version"
   End
 
   It "does nothing and exits immediately with '-n' as the first argument."

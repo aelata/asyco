@@ -16,21 +16,21 @@ END
     When run $CMD
 
     The status should be success
-    The error should include "Usage:"
+    The output should include "Usage:"
   End
 
   It "shows usage with '--help' as the first argument."
     When run $CMD --help
 
     The status should be success
-    The error should include "Usage:"
+    The output should include "Usage:"
   End
 
   It "shows version information with '--version' as the first argument."
     When run $CMD --version
 
     The status should be success
-    The error should include "version"
+    The output should include "version"
   End
 
   It "draws figures to the east of code by default."
