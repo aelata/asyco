@@ -53,7 +53,7 @@ array_append_glob() { # $1: array name (global), ${*:2}: glob patterns
   [[ -n "$1" ]] || return # skip if array name is empty
   [[ $1 =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || # validate variable name
     quit "Internal error: invalid variable name: $1"
-  while IFS= read -r -d '' || [[ -n $REPLY ]]; do
+  while IFS= read -r -d ''; do
     [[ -f "$REPLY" ]] && eval "$1"'+=("$REPLY")'
   done < <(_glob "${@:2}" | sort -zuV) # use "sort -z" to sort
   return 0
@@ -140,7 +140,7 @@ parse_args() { # parse script arguments ($@)
     if   [[ -f $v ]]; then
       files+=("$v")
     elif [[ -d $v ]]; then
-      array_append_glob files "'$v'/*.{asy,mp}"
+      array_append_glob files "$v/*.asy" "$v/*.mp"
     else
       quit "$SCRIPT: not found: $v"
     fi

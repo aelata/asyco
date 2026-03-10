@@ -60,7 +60,7 @@ array_append_glob() { # $1: array name (global), ${*:2}: glob patterns
   [[ -n "$1" ]] || return # skip if array name is empty
   [[ $1 =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || # validate variable name
     quit "Internal error: invalid variable name: $1"
-  while IFS= read -r -d '' || [[ -n $REPLY ]]; do
+  while IFS= read -r -d ''; do
     [[ -f "$REPLY" ]] && eval "$1"'+=("$REPLY")'
   done < <(_glob "${@:2}" | sort -zuV) # use "sort -z" to sort
   return 0
@@ -69,7 +69,7 @@ array_append_glob() { # $1: array name (global), ${*:2}: glob patterns
 # delete_glob - delete files from glob patterns
 delete_glob() { # $@: glob patterns
   a=() && array_append_glob a "$@"
-  (( ${#a[@]} )) && rm -f "${a[@]}" 2>/dev/null
+  (( ${#a[@]} )) && rm -f -- "${a[@]}" 2>/dev/null
 }
 
 # html_echo - echo lines ($@) with HTML escaping
