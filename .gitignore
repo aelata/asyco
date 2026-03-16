@@ -3,3 +3,5 @@
 /asyco.sh
 /asycat.sh
 /*.md
+/docs/**/*.html
+/README.txt

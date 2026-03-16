@@ -10,14 +10,6 @@
   },
 
   onDidParseMarkdown: async function(html) {
-    // for CVE-2025-65716
-    const re = new RegExp(
-      '<iframe\\b[^>]*(?:"[^"]*")*[^>]*\\bsandbox\ *=\ *"' +
-        '(?=[^"]*\\ballow-scripts\\b)' +
-        '(?=[^"]*\\ballow-same-origin\\b)' +
-        '.*?".*?>.*?</iframe>',
-      "gis"); // Global, IgnoreCase, DotAll
-    html = html.replace(re, " !!! IFRAME REMOVED !!! ");
     return html;
   },
 })

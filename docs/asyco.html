@@ -123,7 +123,7 @@
 <li>Set the first argument of <code>args</code> to <code>asyco</code> or <code>mepoco</code> and add their options, if any, to <code>args</code></li>
 <li>Set <code>output</code> to <code>html</code></li>
 </ul>
-<p>In the following example, the option <code>-M 1mm</code> for <code>asyco</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
+<p>In the following example, the option <code>-M 1mm</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -M 1mm] output=html}</span>
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
@@ -248,7 +248,7 @@
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
 </code></pre><h3 id="file-importing">File importing </h3>
-<p>You can include and execute files of Asymptote or MetaPost with <code>@import</code> of MPE.</p>
+<p>You can include and execute a file written in Asymptote or MetaPost with <code>@import</code> of MPE.</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">###</span> Asymptote</span>
 
 @import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}

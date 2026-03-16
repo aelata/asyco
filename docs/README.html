@@ -130,7 +130,7 @@
 </li>
 </ul>
 <h2 id="installation">Installation </h2>
-<p>The installation directory of <code>asyco</code>, such as <code>$HOME/bin</code> or <code>/usr/local/bin</code>, must be included in the shell command search path (<code>PATH</code>). On Windows, add the installation directory, such as <code>%USERPROFILE%\bin</code> or <code>C:\opt\PortableGit\usr\local\bin</code>, to the Windows command search path (<code>Path</code>). Tha value of <code>Path</code> will then be included in the shell command search path (<code>PATH</code>).</p>
+<p>The installation directory of <code>asyco</code>, such as <code>$HOME/bin</code> or <code>/usr/local/bin</code>, must be included in the shell command search path (<code>PATH</code>). On Windows, add the installation directory, such as <code>%USERPROFILE%\bin</code> or <code>C:\opt\PortableGit\usr\local\bin</code>, to the Windows command search path (<code>Path</code>). The value of <code>Path</code> will then be included in the shell command search path (<code>PATH</code>).</p>
 <p>Install <code>asyco</code> with the following steps.</p>
 <ol>
 <li>Copy <code>asyco</code> to the installation directory.</li>
@@ -147,10 +147,10 @@ $ chmod +x ~/bin/asyco
 <ul>
 <li>Set the syntax highlighting language to <code>cpp</code> (which has syntax similar to Asymptote) as needed</li>
 <li>Set <code>cmd</code> to <code>env</code></li>
-<li>Set <code>asyco</code> and its options to <code>args</code></li>
+<li>Set <code>args</code> to <code>asyco</code> and its options</li>
 <li>Set <code>output</code> to <code>html</code></li>
 </ul>
-<p>In the following example, the option <code>-M 1mm</code> for <code>asyco</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
+<p>In the following example, the option <code>-M 1mm</code> is added to <code>args</code> to set a 1mm margin around a figure.</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token code"><span class="token punctuation">```</span><span class="token code-language">cpp {cmd=env args=[asyco -M 1mm] output=html}</span>
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
@@ -170,7 +170,7 @@ $ chmod +x ~/bin/asyco
 <span class="token code-block language-cpp"><span class="token function">draw</span><span class="token punctuation">(</span><span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">1</span>cm<span class="token punctuation">)</span> <span class="token operator">*</span> unitcircle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Asymptote code here</span></span>
 <span class="token punctuation">```</span></span>
 </code></pre><h3 id="file-importing">File importing </h3>
-<p>You can include and execute Asymptote files with <code>@import</code> of MPE.</p>
+<p>You can include and execute a file written in Asymptote with <code>@import</code> of MPE.</p>
 <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code>@import "rgb.asy" {as=cpp cmd=env args=[asyco] output=html}
 </code></pre><h2 id="options">Options </h2>
 <dl>

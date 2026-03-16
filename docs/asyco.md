@@ -27,7 +27,7 @@ In the options of a code chunk:
 * Set the first argument of `args` to `asyco` or `mepoco` and add their options, if any, to `args`
 * Set `output` to `html`
 
-In the following example, the option `-M 1mm` for `asyco` is added to `args` to set a 1mm margin around a figure.
+In the following example, the option `-M 1mm` is added to `args` to set a 1mm margin around a figure.
 
 ````markdown
 ```cpp {cmd=env args=[asyco -M 1mm] output=html}

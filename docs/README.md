@@ -24,7 +24,7 @@ You also need an environment where you can do at least one of the following:
 
 ## Installation
 
-The installation directory of `asyco`, such as `$HOME/bin` or `/usr/local/bin`, must be included in the shell command search path (`PATH`). On Windows, add the installation directory, such as `%USERPROFILE%\bin` or `C:\opt\PortableGit\usr\local\bin`, to the Windows command search path (`Path`). Tha value of `Path` will then be included in the shell command search path (`PATH`).
+The installation directory of `asyco`, such as `$HOME/bin` or `/usr/local/bin`, must be included in the shell command search path (`PATH`). On Windows, add the installation directory, such as `%USERPROFILE%\bin` or `C:\opt\PortableGit\usr\local\bin`, to the Windows command search path (`Path`). The value of `Path` will then be included in the shell command search path (`PATH`).
 
 Install `asyco` with the following steps.
 
@@ -50,10 +50,10 @@ In the options of a code chunk:
 
 * Set the syntax highlighting language to `cpp` (which has syntax similar to Asymptote) as needed
 * Set `cmd` to `env`
-* Set `asyco` and its options to `args`
+* Set `args` to `asyco` and its options
 * Set `output` to `html`
 
-In the following example, the option `-M 1mm` for `asyco` is added to `args` to set a 1mm margin around a figure.
+In the following example, the option `-M 1mm` is added to `args` to set a 1mm margin around a figure.
 
 ````markdown
 ```cpp {cmd=env args=[asyco -M 1mm] output=html}
